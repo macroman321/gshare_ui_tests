@@ -1,0 +1,15 @@
+{
+  "name": "cmapp_cucumber_tests",
+  "version": "0.0.1",
+  "description": "Acceptance tests for Client Miner Application - CMAPP",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/cucumber-js -r ./steps -r ./support"
+  },
+  "author": "dragan.nikolic@gamecredits.com",
+  "license": "ISC",
+  "devDependencies": {
+    "cucumber": "^3.2.1",
+    "spectron": "^3.7.2"
+  }
+}
