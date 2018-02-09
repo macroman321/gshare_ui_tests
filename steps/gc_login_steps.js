@@ -2,7 +2,12 @@ const defineSupportCode = require('cucumber').defineSupportCode;
 const Application = require('spectron').Application;
 const assert = require('assert');
 
-defineSupportCode(function({ Given, Then, When }) {
+//on login page elements 
+const emailField = '[name="email"]';
+const passwordField = '[name="password"]';
+const loginButton = 'button=Log In';
+
+defineSupportCode(function ({ Given, Then, When }) {
   When('I start GameClient', async function () {
     console.log('***** start app');
     this.app = new Application({
@@ -17,9 +22,6 @@ defineSupportCode(function({ Given, Then, When }) {
   });
 
   When('I enter email {string} and password {string}', async function (email, password) {
-    const emailField = '[name="email"]';
-    const passwordField = '[name="password"]';
-    const loginButton = 'button=Log In';
 
     await this.app.client
       .waitUntilTextExists('h3', 'Sign in')
