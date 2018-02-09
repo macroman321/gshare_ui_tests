@@ -5,5 +5,5 @@ Feature: GameClient Login
 
   Scenario: Login
     When I start GameClient
-    And I enter email "milan.subarevic@gamecredits.com" and password "subarevic283"
+    And I enter email "gc.qa.cmapp@gmail.com" and password "QAuser2017&&&"
     Then I should see the user is logged in
