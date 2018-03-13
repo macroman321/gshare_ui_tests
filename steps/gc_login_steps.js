@@ -7,7 +7,7 @@ const emailField = '[name="email"]';
 const passwordField = '[name="password"]';
 const loginButton = 'button=Log In';
 
-defineSupportCode(function ({ Given, Then, When }) {
+defineSupportCode(function ({Given, Then, When}) {
     When("I start GameClient", async function () {
         console.log('***** start app');
         this.app = new Application({
