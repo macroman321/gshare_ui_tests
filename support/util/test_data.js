@@ -1,5 +1,18 @@
+const path = require('path');
+
+const config_path = path.join(
+  path.dirname(
+    path.dirname(__dirname)),
+  'config');
+
 class TestData {
-  static load(client_config_file, environment_config_file, test_data_file) {
+  // platform - windows, linux, osx
+  // environment - stage, prod
+  // 
+  // Files: 
+  //   <platform>_<environment>.yml
+  //   td_<stage>.yml
+  static load(platform, environment) {
     try {
       const client = yaml.safeLoad(fs.readFileSync(client_config_file, 'utf8'));
       const environment = yaml.safeLoad(fs.readFileSync(environment_config_file, 'utf8'));
