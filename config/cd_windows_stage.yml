@@ -1,0 +1,9 @@
+###
+#
+# cd_windows_stage.yml
+#
+# Config data for windows client connecting to the Staging environment
+#
+###
+
+client: 'C:\\Program Files\\GameCredits\\Client\\0.7\\gc-client.exe'

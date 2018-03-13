@@ -1,0 +1,9 @@
+###
+#
+# cd_windows_prod.yml
+#
+# Config data for windows client connecting to the Production environment
+#
+###
+
+client: 'C:\\Program Files\\GameCredits\\Client\\0.7\\gc-client.exe'

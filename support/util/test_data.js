@@ -10,8 +10,8 @@ class TestData {
   // environment - stage, prod
   // 
   // Files: 
-  //   <platform>_<environment>.yml
-  //   td_<stage>.yml
+  //   pe_<platform>_<environment>.yml
+  //   td_<environment>.yml
   static load(platform, environment) {
     try {
       const client = yaml.safeLoad(fs.readFileSync(client_config_file, 'utf8'));

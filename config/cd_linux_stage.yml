@@ -1,0 +1,9 @@
+###
+#
+# cd_linux_stage.yml
+#
+# Config data for linux client connecting to the Staging environment
+#
+###
+
+client: '/opt/GShareForEspritGames/gshare-for-esprit'
