@@ -1,6 +1,6 @@
 # README #
 
-Acceptance tests for the [Clent Miner Application](https://gamecredits.atlassian.net/wiki/spaces/MIN/overview).
+Acceptance tests for the [Clent Miner Application](https://gamecredits.atlassian.net/wiki/spaces/MIN/overview) (aka GShare).
 
 ### Prerequisites ###
 1. [Node.js](https://nodejs.org/) version 8.9.4 or newer with NPM version 5.6.0 or newer
