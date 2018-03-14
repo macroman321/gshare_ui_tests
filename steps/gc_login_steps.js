@@ -10,7 +10,6 @@ const loginButton = 'button=Log In';
 defineSupportCode(function ({ Given, Then, When }) {
   When("I start GameClient", async function () {
     this.logger.debug('***** start app');
-    this.x = 5;
     this.app = new Application({
       path: 'C:\\Program Files\\GameCredits\\Client\\0.7\\gc-client.exe',
     });
@@ -18,8 +17,7 @@ defineSupportCode(function ({ Given, Then, When }) {
   });
 
   Then("I should see GameClient app open", async function () {
-    console.log('***** check if app is open');
-    this.logger.debug(`x=${this.x}`)
+    this.logger.debug('***** check if app is open');
     assert.notEqual(this.app, undefined, 'app is undfined!');
   });
 
