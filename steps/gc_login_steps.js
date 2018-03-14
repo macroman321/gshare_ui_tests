@@ -2,6 +2,8 @@ const defineSupportCode = require('cucumber').defineSupportCode;
 const Application = require('spectron').Application;
 const assert = require('assert');
 
+const TestData = require('../support/util/test_data')
+
 //on login page elements
 const emailField = '[name="email"]';
 const passwordField = '[name="password"]';
@@ -9,9 +11,9 @@ const loginButton = 'button=Log In';
 
 defineSupportCode(function ({ Given, Then, When }) {
   When("I start GameClient", async function () {
-    this.logger.debug('***** start app');
+    this.logger.debug(`***** start app *${this.client}*`);
     this.app = new Application({
-      path: 'C:\\Program Files\\GameCredits\\Client\\0.7\\gc-client.exe',
+      path: this.client,
     });
     await this.app.start();
   });
@@ -21,13 +23,15 @@ defineSupportCode(function ({ Given, Then, When }) {
     assert.notEqual(this.app, undefined, 'app is undfined!');
   });
 
-  When("I enter email {string} and password {string}", async function (email, password) {
+  When('I enter credentials for the user {string}', async function (user_id) {
+    const user = TestData.get_user(user_id);
+    this.logger.debug(`user = ${JSON.stringify(user)}`);
     await this.app.client
       .waitUntilTextExists('h3', 'Sign in')
       .element(emailField).hasFocus()
-      .setValue(emailField, email)
+      .setValue(emailField, user.email)
       .element(passwordField).hasFocus()
-      .setValue(passwordField, password)
+      .setValue(passwordField, user.password)
       .element(loginButton).click();
   });
 

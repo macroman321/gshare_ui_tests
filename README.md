@@ -10,9 +10,9 @@ Acceptance tests for the [Clent Miner Application](https://gamecredits.atlassian
 1. Run: ```> npm install```
 2. After the npm completes installation you can run the tests using cucumber:
 
-Running tests on the Staging environment:
+Running tests using Linux Gamecredits variant on the Staging environment:
 
-    > npm test path/to/<test_file>.feature --format pretty
+    > ./node_modules/.bin/cucumber-js path/to/<test_file>.feature --world-parameters '{"environment": "stage", "variant": "gamecredits", "platform": "linux}'
 
 ### Who do I talk to about this framework ###
 
