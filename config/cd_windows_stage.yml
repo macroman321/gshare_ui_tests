@@ -1,0 +1,10 @@
+###
+#
+# cd_windows_stage.yml
+#
+# Config data for windows client connecting to the Staging environment
+#
+###
+
+esprit_client: 'C:\\Users\\Dragan\\AppData\\Local\\Programs\\gshare-for-esprit\\GShareForEspritGames.exe'
+gamecredits_client: 'C:\\Program Files\\GameCredits\\Client\\0.7\\gc-client.exe'
