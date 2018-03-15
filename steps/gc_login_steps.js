@@ -2,7 +2,7 @@ const defineSupportCode = require('cucumber').defineSupportCode;
 const Application = require('spectron').Application;
 const assert = require('assert');
 
-const TestData = require('../support/util/test_data')
+const TestData = require('../support/util/test_data');
 
 //on login page elements
 const emailField = '[name="email"]';
