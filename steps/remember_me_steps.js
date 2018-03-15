@@ -19,7 +19,7 @@ const logoutButton = '[class="gc-profile-settings__link gc-profile-settings__lin
 defineSupportCode(function ({Given, Then, When}) {
     Given('I open the application', async function () {
         this.app = new Application({
-            path: 'C:\\Users\\milan\\AppData\\Local\\Programs\\gshare-for-esprit\\GShareForEspritGames.exe',
+            path: 'C:\\Program Files\\GameCredits\\GShareForEspritGames\\0.8\\GShareForEspritGames.exe',
         });
         await this.app.start();
     });
@@ -60,11 +60,24 @@ defineSupportCode(function ({Given, Then, When}) {
 
     Then('I should see that I have been successfully logged in', async function () {
         await this.app.client
-            .waitForVisible(mainHeader, 50000);
+            .waitForVisible(mainHeader, 50000)
     });
 
     When('I press the Quit button', async function () {
         await this.app.client
             .element(closeButton).click();
+    });
+
+    When('I log out of the application', async function () {
+        await this.app.client
+            .element(accountMenu).click()
+            .waitForVisible(logoutButton, 50000)
+            .element(logoutButton).click();
+        if (await this.app.client.isExisting(logoutButton) === true) {
+            await this.app.client
+                .element(logoutButton).click();
+        }
+        await this.app.client
+            .waitForExist(emailField, 50000);
     });
 });
