@@ -7,7 +7,7 @@ const TestData = require('../support/util/test_data');
 //on login page elements
 const emailField = '[name="email"]';
 const passwordField = '[name="password"]';
-const loginButton = 'button=Log In';
+const loginButton = '[type="submit"]';
 
 defineSupportCode(function ({ Given, Then, When }) {
   When("I start GameClient", async function () {
@@ -27,8 +27,8 @@ defineSupportCode(function ({ Given, Then, When }) {
     const user = TestData.get_user(user_id);
     this.logger.debug(`user = ${JSON.stringify(user)}`);
     await this.app.client
-      .waitUntilTextExists('h3', 'Sign in')
-      .element(emailField).hasFocus()
+      .waitForExist(emailField)
+      .hasFocus(emailField)
       .setValue(emailField, user.email)
       .element(passwordField).hasFocus()
       .setValue(passwordField, user.password)
@@ -36,6 +36,6 @@ defineSupportCode(function ({ Given, Then, When }) {
   });
 
   Then("I should see the user is logged in", async function () {
-    await this.app.client.waitUntilTextExists('button', 'Buy Games', 30000);
+    await this.app.client.waitForExist('[id="portalTabs-tab-1"]', 30000);
   });
 });

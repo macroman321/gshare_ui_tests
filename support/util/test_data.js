@@ -9,14 +9,24 @@ const config_path = path.join(
   'config');
 
 class TestData {
-  // platform - windows, linux, osx
-  // variant - gamecredits, esprit, ...
-  // environment - stage, prod
-  // 
-  // Files: 
+  // Loads the config and test data from the following files: 
   //   cd_<platform>_<environment>.yml
   //   td_<environment>.yml
-  static load(platform, variant, environment) {
+  //
+  // Parameters:
+  // platform - windows, linux, osx (default: windows)
+  // variant - gamecredits, esprit, ... (default: gamecredits)
+  // environment - stage, prod (default: stage)
+  // 
+  static load(
+      platform, 
+      variant, 
+      environment) {
+
+    platform = platform || 'windows';
+    variant = variant || 'gamecredits';
+    environment = environment || 'stage';
+    
     let config_data = undefined;
     let test_data = undefined;
 
