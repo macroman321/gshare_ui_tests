@@ -8,12 +8,10 @@
   },
   "author": "dragan.nikolic@gamecredits.com",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "cucumber": "^3.2.1",
     "spectron": "^3.7.2",
     "logplease": "^1.2.14",
     "js-yaml": "^3.11.0"
-  },
-  "dependencies": {
   }
 }
