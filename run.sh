@@ -10,5 +10,5 @@
 # $ ./run.sh windows gamecredits stage
 # $ ./run.sh linux esprit prod
 ./node_modules/.bin/cucumber-js \
-    --world-parameters "{\"platform\": \"${platform}\", \"variant\": \"${variant}\", \"environment\": \"$3\"}" \
+    --world-parameters "{\"platform\": \"$1\", \"variant\": \"$2\", \"environment\": \"$3\"}" \
     ${@:4}

@@ -9,13 +9,13 @@
 Feature: Remember Me feature
 
   Background:
-    Given I open the application
+    Given I start GameClient
 
   Scenario: Remember Me feature test
     When I click on the Remember me checkbox
-    And I enter my email, password and press the Log In button
+    And I enter credentials for the user "qa_user_5"
     Then I should see that I have been successfully logged in
     When I press the Quit button
-    And I open the application
+    And I start GameClient
     Then I should see that I have been successfully logged in
     And I log out of the application
