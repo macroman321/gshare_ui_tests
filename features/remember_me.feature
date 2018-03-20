@@ -14,8 +14,8 @@ Feature: Remember Me feature
   Scenario: Remember Me feature test
     When I click on the Remember me checkbox
     And I enter credentials for the user "qa_user_5"
-    Then I should see that I have been successfully logged in
+    Then I should see the user is logged in
     When I press the Quit button
     And I start GameClient
-    Then I should see that I have been successfully logged in
+    Then I should see the user is logged in
     And I log out of the application

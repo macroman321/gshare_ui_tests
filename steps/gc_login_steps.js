@@ -37,5 +37,6 @@ defineSupportCode(function ({ Given, Then, When }) {
 
   Then("I should see the user is logged in", async function () {
     await this.app.client.waitForExist('[id="portalTabs-tab-1"]', 30000);
+    await this.app.client.waitForExist('[class="gc-header"]', 30000);
   });
 });

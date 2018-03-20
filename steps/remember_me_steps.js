@@ -40,11 +40,6 @@ defineSupportCode(function ({Given, Then, When}) {
         }
     });
 
-    Then('I should see that I have been successfully logged in', async function () {
-        await this.app.client
-            .waitForVisible(mainHeader, 50000)
-    });
-
     When('I press the Quit button', async function () {
         await this.app.client
             .element(closeButton).click();
