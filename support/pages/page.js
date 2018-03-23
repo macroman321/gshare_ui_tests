@@ -1,12 +1,14 @@
-export default class Page {
-  constructor(client) {
-    this.title = 'GShare';
-    this.app = new Application({
-      path: client,
-    });
-  }
-
-  startClient() {
-    this.app.start();
-  }
+function Page(app) {
+  this.title = 'GShare';
+  this.app = app
 }
+
+Page.prototype.startClient = function() {
+  this.app.start();
+}
+
+Page.prototype.stopClient = function() {
+  this.app.stop();
+}
+
+module.exports = Page;

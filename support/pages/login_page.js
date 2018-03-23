@@ -1,25 +1,32 @@
 // login_page.js
 const Page = require('./page');
 
-class LoginPage extends Page {
+function LoginPage(client) {
+  Page.call(this, client);
 
-    get emailInput() { return this.app.client.element('[name="email"]'); }
-    get passwordInput() { return this.app.client.element('[name="password"]'); }
-    get loginButton() { return this.app.client.element('[type="submit"]'); }
+  this.emailInputSelector = '[name="email"]';
+  this.passwordInputSelector = '[name="password"]';
+  this.loginButtonSelector = '[type="submit"]';
 
-    login(user) {
-      this.emailInput
-      .waitForExist()
-      .hasFocus()
-      .setValue(user.email);
-
-    this.passwordInput
-      .hasFocus()
-      .setValue(user.password);
-
-    this.loginButton.click();
-    }
-
+  this.emailInput = this.app.client.element(this.emailInputSelector);
+  this.passwordInput = this.app.client.element(this.passwordInputSelector);
+  this.loginButton = this.app.client.element(this.loginButtonSelector);
 }
 
-export default new LoginPage();
+// inherit everything from Page
+LoginPage.prototype = Object.create(Page.prototype);
+
+Loggin.prototype.login = function(user) {
+  this.emailInput
+    .waitForExist()
+    .hasFocus()
+    .setValue(user.email);
+
+  this.passwordInput
+    .hasFocus()
+    .setValue(user.password);
+
+  this.loginButton.click();
+}
+
+module.exports = LoginPage;
