@@ -1,16 +1,12 @@
 // login_steps.js
 const defineSupportCode = require('cucumber').defineSupportCode;
-const Application = require('spectron').Application;
 const assert = require('assert');
-
 const TestData = require('../support/util/test_data');
-const LoginPage = require('../support/pages/login_page');
 
 defineSupportCode(function ({ Given, Then, When }) {
   When("I start GameClient", async function () {
     this.logger.debug(`***** start app *${this.client}*`);
-    this.loginPage = new LoginPage(this.client);
-    await loginPage.startClient();
+    await this.loginPage.startClient();
   });
 
   Then("I should see GameClient app open", async function () {

@@ -1,6 +1,6 @@
 # Convenience script for running CMAPP tests.
 #
-# Parameters:
+# Parameters (for description see TestData.load function):
 # $1 platform
 # $2 variant
 # $3 environment

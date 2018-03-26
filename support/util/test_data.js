@@ -55,7 +55,7 @@ class TestData {
     try {
       TestData.data = _.merge(config_data, test_data)
       TestData.clientPathname = TestData.data[`${variant}_client`]
-      console.log('Test data successfully loaded.');
+      console.log(`Test data successfully loaded. (${TestData.clientPathname})`);
     } catch (e) {
       console.log('Unable to load test data!');
       console.log(e);

@@ -1,8 +1,9 @@
 // login_page.js
 const Page = require('./page');
 
-function LoginPage(client) {
-  Page.call(this, client);
+function LoginPage(app) {
+  console.log('LoginPage constructor');
+  Page.call(this, app);
 
   this.emailInputSelector = '[name="email"]';
   this.passwordInputSelector = '[name="password"]';
@@ -16,17 +17,22 @@ function LoginPage(client) {
 // inherit everything from Page
 LoginPage.prototype = Object.create(Page.prototype);
 
-Loggin.prototype.login = function(user) {
-  this.emailInput
-    .waitForExist()
-    .hasFocus()
-    .setValue(user.email);
+LoginPage.prototype.login = async function(user) {
+  console.log('***** login *****');
+  const emailInput = this.app.client.element(this.emailInputSelector);
+  console.log(emailInput);
+  let x = await this.app.client.waitForExist(this.emailInputSelector);
+  console.log(x);
+  //x = await this.app.client.hasFocus(this.emailInputSelector);
+  //console.log(x);
+  x = await this.app.client.setValue(this.emailInputSelector, user.email);
+  console.log(x);
 
-  this.passwordInput
-    .hasFocus()
-    .setValue(user.password);
+  passwordInput = this.app.client.element(this.passwordInputSelector);
+  await passwordInput.setValue(user.password);
 
-  this.loginButton.click();
+  const loginButton = this.app.client.element(this.loginButtonSelector);
+  await loginButton.click();
 }
 
 module.exports = LoginPage;

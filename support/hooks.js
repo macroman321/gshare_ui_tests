@@ -1,9 +1,11 @@
+const Application = require('spectron').Application;
 const {BeforeAll, Before, After} = require('cucumber');
 const Logger = require('logplease');
 const TestData = require('./util/test_data')
+const LoginPage = require('../support/pages/login_page');
 
 let test_data = undefined;
-let client = undefined;
+let loginPage = undefined;
 
 const logger = Logger.create(
   'cmatest',  
@@ -25,14 +27,16 @@ Before(async function (scenario) {
 
     // Start the client
     this.app = new Application({
-      path: TestData.client
+      path: TestData.clientPathname
     });
-    this.app.start();
+    await this.app.start();
+    loginPage = new LoginPage(this.app);
   } else {
     logger.debug('test data already initialized!')
   }
 
   this.test_data = test_data;
+  this.loginPage = loginPage;
   this.logger = logger;
   this.logger.info(`parameters: ${JSON.stringify(this.parameters)}`);
   this.logger.info(`Start test: ${scenario.pickle.name}`);

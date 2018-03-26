@@ -1,4 +1,5 @@
 function Page(app) {
+  console.log('Page constructor');
   this.title = 'GShare';
   this.app = app
 }
