@@ -2,37 +2,42 @@
 const Page = require('./page');
 
 function LoginPage(app) {
-  console.log('LoginPage constructor');
   Page.call(this, app);
 
-  this.emailInputSelector = '[name="email"]';
-  this.passwordInputSelector = '[name="password"]';
-  this.loginButtonSelector = '[type="submit"]';
-
-  this.emailInput = this.app.client.element(this.emailInputSelector);
-  this.passwordInput = this.app.client.element(this.passwordInputSelector);
-  this.loginButton = this.app.client.element(this.loginButtonSelector);
+  this.emailInput = '[name="email"]';
+  this.passwordInput = '[name="password"]';
+  this.rememberMeCheckbox = '[name="remember_me"]';
+  this.loginButton = '[type="submit"]';
 }
 
 // inherit everything from Page
 LoginPage.prototype = Object.create(Page.prototype);
 
+// Logon the given user
 LoginPage.prototype.login = async function(user) {
-  console.log('***** login *****');
-  const emailInput = this.app.client.element(this.emailInputSelector);
-  console.log(emailInput);
-  let x = await this.app.client.waitForExist(this.emailInputSelector);
-  console.log(x);
-  //x = await this.app.client.hasFocus(this.emailInputSelector);
-  //console.log(x);
-  x = await this.app.client.setValue(this.emailInputSelector, user.email);
-  console.log(x);
+  await this.enterEmail(user.email);
+  await this.enterPassword(user.password);
+  await this.clickLogin();
+}
 
-  passwordInput = this.app.client.element(this.passwordInputSelector);
-  await passwordInput.setValue(user.password);
+LoginPage.prototype.enterEmail = async function(email) {
+  const client = this.app.client;
 
-  const loginButton = this.app.client.element(this.loginButtonSelector);
-  await loginButton.click();
+  await client.waitForExist(this.emailInput);
+  await client.setValue(this.emailInput, email);
+}
+
+LoginPage.prototype.enterPassword = async function(password) {
+  const client = this.app.client;
+
+  await client.waitForExist(this.passwordInput);
+  await client.setValue(this.passwordInput, password);
+}
+
+LoginPage.prototype.clickLogin = async function() {
+  const client = this.app.client;
+
+  await client.click(this.loginButton);
 }
 
 module.exports = LoginPage;

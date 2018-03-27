@@ -2,6 +2,9 @@ const defineSupportCode = require('cucumber').defineSupportCode;
 const Application = require('spectron').Application;
 const assert = require('assert');
 
+const LoginPage = require('../support/pages/login_page');
+const mainPage = require('../support/pages/main_page');
+
 // increased timeout
 const {setDefaultTimeout} = require('cucumber');
 setDefaultTimeout(60 * 1000);
@@ -18,8 +21,14 @@ const logoutButton = '[class="gc-profile-settings__link gc-profile-settings__lin
 
 defineSupportCode(function ({Given, Then, When}) {
     When('I click on the Remember me checkbox', async function () {
-        const rememberMeCheckboxBoolean = await this.app.client.isExisting(rememberMeCheckbox);
-
+        // if main screen is open, log out
+        // click on remember me checkbox
+        if (mainPage.isOpen()) {
+            
+        }
+        const rememberMeCheckboxBoolean = 
+            await this.app.client.waitForExist(rememberMeCheckbox);
+        this.logger.debug(`remember checkbox: ${rememberMeCheckboxBoolean}`);
         if (rememberMeCheckboxBoolean === false) {
             await this.app.client
                 .waitForExist('[id=portalTabs-tab-1]', 50000)
