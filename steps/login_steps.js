@@ -5,8 +5,7 @@ const TestData = require('../support/util/test_data');
 
 defineSupportCode(function ({ Given, Then, When }) {
   When("I start GameClient", async function () {
-    const result = await this.client.loginPage.startClient();
-    this.logger.debug(`Start GameClient result: ${result}`);
+    await this.client.loginPage.startClient();
   });
 
   Then("I should see GameClient app open", async function () {

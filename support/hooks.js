@@ -21,7 +21,7 @@ BeforeAll(async function () {
 Before(async function (scenario) {
   logger.debug(`Before scenario ${scenario.pickle.name}`);
   if (!test_data) {
-    logger.debug(`init test data *${this.parameters.platform}* *${this.parameters.variant}*`)
+    logger.info(`parameters: ${JSON.stringify(this.parameters)}`);
     TestData.load(
       this.parameters.platform,
       this.parameters.variant,
@@ -42,7 +42,6 @@ Before(async function (scenario) {
   this.app = app;
   this.client = client;
   this.logger = logger;
-  this.logger.info(`parameters: ${JSON.stringify(this.parameters)}`);
   this.logger.info(`Start test: ${scenario.pickle.name}`);
 });
 

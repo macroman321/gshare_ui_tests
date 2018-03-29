@@ -10,11 +10,9 @@ defineSupportCode(function ({Given, Then, When}) {
     When('I click on the Remember me checkbox', async function () {
         const isMainOpen = await this.client.mainPage.isOpen();
         if (isMainOpen) {
-            this.logger.debug('**** logout *****');
             await this.client.mainPage.logout();
         }
 
-        this.logger.debug('**** click remmeber me *****');
         await this.client.loginPage.clickRememberMe();
     });
 
