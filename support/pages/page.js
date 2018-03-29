@@ -1,15 +1,22 @@
-function Page(app) {
-  console.log('Page constructor');
+let app = undefined;
+
+function Page(_app) {
+  if (!app) {
+    if (_app) {
+      app = _app;    
+    }
+  }
+
   this.title = 'GShare';
   this.app = app
 }
 
-Page.prototype.startClient = function() {
-  this.app.start();
+Page.prototype.startClient = async function() {
+  await this.app.start();
 }
 
-Page.prototype.stopClient = function() {
-  this.app.stop();
+Page.prototype.stopClient = async function() {
+  await this.app.stop();
 }
 
 module.exports = Page;

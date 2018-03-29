@@ -7,11 +7,8 @@
 #
 
 Feature: Remember Me feature
-
-  Background:
-    Given I start GameClient
-
   Scenario: Remember Me feature test
+    When I start GameClient
     When I click on the Remember me checkbox
     And I enter credentials for the user "qa_user_5"
     Then I should see the user is logged in

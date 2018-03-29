@@ -13,7 +13,16 @@ function LoginPage(app) {
 // inherit everything from Page
 LoginPage.prototype = Object.create(Page.prototype);
 
-// Logon the given user
+LoginPage.prototype.isOpen = async function() {
+  try {
+    await this.app.client.waitForExist(this.emailInput);
+    return true;
+  } catch(_) {
+    return false;
+  }
+}
+
+// Login the given user
 LoginPage.prototype.login = async function(user) {
   await this.enterEmail(user.email);
   await this.enterPassword(user.password);
@@ -35,9 +44,11 @@ LoginPage.prototype.enterPassword = async function(password) {
 }
 
 LoginPage.prototype.clickLogin = async function() {
-  const client = this.app.client;
+  await this.app.client.click(this.loginButton);
+}
 
-  await client.click(this.loginButton);
+LoginPage.prototype.clickRememberMe = async function() {
+  await this.app.client.click(this.rememberMeCheckbox);
 }
 
 module.exports = LoginPage;
