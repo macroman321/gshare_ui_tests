@@ -21,7 +21,7 @@ MainPage.prototype.isOpen = async function() {
   } catch(_) {
     return false;
   }
-}
+};
 
 MainPage.prototype.logout = async function() {
   const client = this.app.client;
@@ -29,11 +29,11 @@ MainPage.prototype.logout = async function() {
   await client.waitForVisible(this.accountMenu);
   await client.click(this.accountMenu);
   await this.clickLogoutButton();
-}
+};
 
 MainPage.prototype.close = async function() {
   await this.app.client.click(this.closeButton);
-}
+};
 
 // Logout button click is unreliable, therefore this function
 MainPage.prototype.clickLogoutButton = async function() {
@@ -52,6 +52,6 @@ MainPage.prototype.clickLogoutButton = async function() {
       break;
     }
   }
-}
+};
 
-module.exports = MainPage
+module.exports = MainPage;
