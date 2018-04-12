@@ -13,10 +13,10 @@ function Page(_app) {
 
 Page.prototype.startClient = async function() {
   await this.app.start();
-}
+};
 
 Page.prototype.stopClient = async function() {
   await this.app.stop();
-}
+};
 
 module.exports = Page;
