@@ -3,7 +3,7 @@ const defineSupportCode = require('cucumber').defineSupportCode;
 const assert = require('assert');
 const TestData = require('../support/util/test_data');
 
-defineSupportCode(function ({ Given, Then, When }) {
+defineSupportCode(function ({Given, Then, When}) {
   When("I start GameClient", async function () {
     await this.client.loginPage.startClient();
   });
@@ -17,6 +17,12 @@ defineSupportCode(function ({ Given, Then, When }) {
     const user = TestData.get_user(user_id);
     this.logger.debug(`user = ${JSON.stringify(user)}`);
     await this.client.loginPage.login(user);
+  });
+
+  When('I enter credentials for the user {string} without Remember Me', async function (user_id) {
+    const user = TestData.get_user(user_id);
+    this.logger.debug(`user = ${JSON.stringify(user)}`);
+    await this.client.loginPage.loginWithoutRememberMe(user);
   });
 
   Then("I should see the user is logged in", async function () {
