@@ -9,6 +9,12 @@ function MainPage(app) {
   this.accountMenu = '[class="gc-avatar"]';
   this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
   this.closeButton = 'button[id="window-close"]';
+  this.gameIcon = '[class="gc-game-card"]';
+  this.clickGame = 'button[class="gc-button gc-button--primary"]';
+  this.buyGameButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]', 30000;
+  this.buyButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
+  this.buttonGoToMyGames = 'button[class="gc-button gc-button--secondary gc-button--full"]';
+  this.pane2 = '[id=portalTabs-pane-2]';
 }
 
 // inherit everything from Page
@@ -52,6 +58,43 @@ MainPage.prototype.clickLogoutButton = async function() {
       break;
     }
   }
+};
+
+MainPage.prototype.clickMyGames = async function() {
+  await this.app.client.click(this.myGamesTab);
+  await this.app.client.waitForExist(this.gameIcon);
+};
+
+MainPage.prototype.clickOnStore = async function() {
+  await this.app.client.click(this.storeTab);
+  await this.app.client.waitForExist(this.gameIcon);
+};
+
+MainPage.prototype.showBuyedGames = async function() {
+  await this.app.client.waitForVisible(this.pane2, 10000);
+};
+
+MainPage.prototype.clickForBuy = async function() {
+  await this.app.client.waitForExist(this.clickGame);
+  await this.app.client.moveToObject(this.clickGame);
+  await this.app.client.waitForExist(this.clickGame);
+  await this.app.client.click(this.clickGame);
+  await this.app.client.waitForExist(this.buyGameButton);
+}
+
+MainPage.prototype.clickOnBuyButton = async function() {
+  await this.app.client.click(this.buyGameButton);
+  try {
+    await this.app.client.waitForExist(this.goToMyGames);
+    return true;
+  } catch(_) {
+    return false;
+  }
+};
+
+MainPage.prototype.clickGoToMyGames = async function() {
+  await this.app.client.waitForVisible(this.buttonGoToMyGames, 15000);
+  await this.app.client.click(this.buttonGoToMyGames);
 };
 
 module.exports = MainPage;
