@@ -15,6 +15,7 @@ function MainPage(app) {
   this.buyButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
   this.buttonGoToMyGames = 'button[class="gc-button gc-button--secondary gc-button--full"]';
   this.pane2 = '[id=portalTabs-pane-2]';
+  this.msgPurchaseFailed = '[class="gc-game-card__cover-overlay__insufficient-funds"]';
 }
 
 // inherit everything from Page
@@ -95,6 +96,11 @@ MainPage.prototype.clickOnBuyButton = async function() {
 MainPage.prototype.clickGoToMyGames = async function() {
   await this.app.client.waitForVisible(this.buttonGoToMyGames, 15000);
   await this.app.client.click(this.buttonGoToMyGames);
+};
+
+MainPage.prototype.purchaseFailed = async function() {
+  await this.app.client.moveToObject(this.gameIcon, 5000);
+  await this.app.client.waitForExist(this.msgPurchaseFailed, 5000);
 };
 
 module.exports = MainPage;

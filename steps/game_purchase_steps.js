@@ -49,4 +49,9 @@ When('I click on My Games', async function() {
       return false;
     }
   });
+
+  Then('I should see message that I can not purchase a Game', async function() {
+    await this.client.mainPage.purchaseFailed();
+  });
+
 }); 
