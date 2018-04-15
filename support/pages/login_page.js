@@ -30,10 +30,8 @@ LoginPage.prototype.login = async function (user) {
 };
 
 LoginPage.prototype.loginWithoutRememberMe = async function (user) {
-  await this.enterEmail(user.email);
-  await this.enterPassword(user.password);
   await this.uncheckRememberMe();
-  await this.clickLogin();
+  await this.login(user);
 };
 
 LoginPage.prototype.enterEmail = async function (email) {

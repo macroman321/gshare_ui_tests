@@ -19,10 +19,12 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.client.loginPage.login(user);
   });
 
-  When('I enter credentials for the user {string} without Remember Me', async function (user_id) {
+  When('I log in as user {string}', async function (user_id) {
+    await this.client.loginPage.startClient();
     const user = TestData.get_user(user_id);
     this.logger.debug(`user = ${JSON.stringify(user)}`);
     await this.client.loginPage.loginWithoutRememberMe(user);
+    await this.client.mainPage.isOpen();
   });
 
   Then("I should see the user is logged in", async function () {

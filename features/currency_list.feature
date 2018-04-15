@@ -9,10 +9,16 @@
 Feature: Verify Currency list
 
   Background:
-    Given I start GameClient
-    And I enter credentials for the user "qa_user_5" without Remember Me
-    Then I should see the user is logged in
+    Given I log in as user "qa_user_5"
 
-  Scenario: Remember Me feature test
+  Scenario: Currency List feature test
     When I click on my profile
-    Then I should see my balance displayed in other currencies
+    Then I should see the appropriate amount displayed for the selected currency
+
+   @manual
+   Scenario: Verify GAME value via CoinMarketCap
+     When I click on my profile
+     Then I should see my balance displayed in other currencies
+     When I get the current GAME value from CoinMarketCap
+     And I multiply my balance with current GAME value
+     Then I should see my calculation number match the number in my currency list
