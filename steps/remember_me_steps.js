@@ -13,11 +13,6 @@ defineSupportCode(function ({Given, Then, When}) {
     if (isMainOpen) {
       await this.client.mainPage.logout();
     }
-
-    // When you start the application, by default,
-    // the remember me checkbox is already enabled
-    // making this line unnecessary
-    // await this.client.loginPage.clickRememberMe();
   });
 
   When('I press the Quit button', async function () {

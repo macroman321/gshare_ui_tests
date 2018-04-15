@@ -6,6 +6,7 @@
 // CREATED: 10-Apr-18
 // NOTES:
 //
+
 const defineSupportCode = require('cucumber').defineSupportCode;
 const Application = require('spectron').Application;
 const assert = require('assert');
