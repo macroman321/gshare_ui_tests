@@ -57,6 +57,7 @@ LoginPage.prototype.clickRememberMe = async function () {
 };
 
 LoginPage.prototype.isRememberMeChecked = async function () {
+  await this.app.client.waitForExist(this.rememberMeCheckbox);
   return this.app.client.isSelected(this.rememberMeCheckbox);
 };
 
