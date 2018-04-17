@@ -23,4 +23,29 @@ Scenario: Buy Games Test
 Scenario: Test Insufficient funds
     When I enter credentials for the user "qa_user_4"
     Then I should see the user is logged in
-    Then I should see message that I can not purchase a Game    
+    Then I should see message that I can not purchase a Game
+
+Scenario: Test Cancel purchase
+    When I enter credentials for the user "qa_user_5"
+    Then I should see the user is logged in
+    And I click on a game that I want to buy
+    Then I should click on Cancel button
+
+Scenario: Test Cancel button after the game is purchased
+    When I enter credentials for the user "qa_user_2"
+    Then I should see the user is logged in
+    And I click on a game that I want to buy
+    And I click on Buy button
+    Then I should avoid Go To My Games button, and click on Cancel button
+
+@manual
+  Scenario: Test valid Login with 2FA code
+    When I enter a valid credentials
+    And I enter a valid 2FA code
+    Then I should be loged in succesfully in application   
+
+  @manual
+  Scenario: Test invalid verification code
+    When I enter a valid credentials
+    And I enter a wrong 2FA code
+    Then I should see notification that 2FA code is wrong    

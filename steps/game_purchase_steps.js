@@ -54,4 +54,12 @@ When('I click on My Games', async function() {
     await this.client.mainPage.purchaseFailed();
   });
 
+  Then('I should click on Cancel button', async function() {
+    await this.client.mainPage.clickCancelButton();
+  });
+
+  Then('I should avoid Go To My Games button, and click on Cancel button', async function() {
+    await this.client.mainPage.avoidGoToMyGamesButton();
+  });
+
 }); 

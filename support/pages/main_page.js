@@ -16,6 +16,8 @@ function MainPage(app) {
   this.buttonGoToMyGames = 'button[class="gc-button gc-button--secondary gc-button--full"]';
   this.pane2 = '[id=portalTabs-pane-2]';
   this.msgPurchaseFailed = '[class="gc-game-card__cover-overlay__insufficient-funds"]';
+  this.cancelPurchase = 'button[class="gc-button gc-button--flat gc-button--large gc-buy-game-card__cancel-btn"]';
+  this.cancelButtonAfterPurchase = '[class="gc-button gc-button--flat gc-buy-game-card__cancel-btn"]';
 }
 
 // inherit everything from Page
@@ -101,6 +103,16 @@ MainPage.prototype.clickGoToMyGames = async function() {
 MainPage.prototype.purchaseFailed = async function() {
   await this.app.client.moveToObject(this.gameIcon, 5000);
   await this.app.client.waitForExist(this.msgPurchaseFailed, 5000);
+};
+
+MainPage.prototype.clickCancelButton = async function() {
+  await this.app.client.click(this.cancelPurchase);
+  await this.app.client.waitForExist(this.myGamesTab, 30000);
+};
+
+MainPage.prototype.avoidGoToMyGamesButton = async function() {
+  await this.app.client.waitForVisible(this.cancelButtonAfterPurchase, 30000);
+  await this.app.client.click(this.cancelButtonAfterPurchase)
 };
 
 module.exports = MainPage;
