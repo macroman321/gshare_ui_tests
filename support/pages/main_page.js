@@ -9,6 +9,7 @@ function MainPage(app) {
   this.accountMenu = '[class="gc-avatar"]';
   this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
   this.closeButton = 'button[id="window-close"]';
+  this.gamesList = '[class="gc-empty-list"]';
 }
 
 // inherit everything from Page
@@ -21,7 +22,7 @@ MainPage.prototype.isOpen = async function() {
   } catch(_) {
     return false;
   }
-}
+};
 
 MainPage.prototype.logout = async function() {
   const client = this.app.client;
@@ -29,11 +30,11 @@ MainPage.prototype.logout = async function() {
   await client.waitForVisible(this.accountMenu);
   await client.click(this.accountMenu);
   await this.clickLogoutButton();
-}
+};
 
 MainPage.prototype.close = async function() {
   await this.app.client.click(this.closeButton);
-}
+};
 
 // Logout button click is unreliable, therefore this function
 MainPage.prototype.clickLogoutButton = async function() {
@@ -52,6 +53,22 @@ MainPage.prototype.clickLogoutButton = async function() {
       break;
     }
   }
-}
+};
 
-module.exports = MainPage
+//11.04. Mr. Slimy
+MainPage.prototype.clickMyGamesTab = async function() {
+  const client = this.app.client;
+
+    await client.waitForVisible(this.myGamesTab);
+    await client.click(this.myGamesTab);
+
+};
+
+MainPage.prototype.checkTheGamesList = async function() {
+    const client = this.app.client;
+
+    await client.waitForVisible(this.gamesList);
+
+};
+
+module.exports = MainPage;
