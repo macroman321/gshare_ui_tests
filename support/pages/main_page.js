@@ -11,7 +11,7 @@ function MainPage(app) {
   this.closeButton = 'button[id="window-close"]';
   this.gameIcon = '[class="gc-game-card"]';
   this.clickGame = 'button[class="gc-button gc-button--primary"]';
-  this.buyGameButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]', 30000;
+  this.buyGameButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
   this.buyButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
   this.buttonGoToMyGames = 'button[class="gc-button gc-button--secondary gc-button--full"]';
   this.pane2 = '[id=portalTabs-pane-2]';
@@ -23,16 +23,16 @@ function MainPage(app) {
 // inherit everything from Page
 MainPage.prototype = Object.create(Page.prototype);
 
-MainPage.prototype.isOpen = async function() {
+MainPage.prototype.isOpen = async function () {
   try {
     await this.app.client.waitForExist(this.storeTab);
     return true;
-  } catch(_) {
+  } catch (_) {
     return false;
   }
 };
 
-MainPage.prototype.logout = async function() {
+MainPage.prototype.logout = async function () {
   const client = this.app.client;
 
   await client.waitForVisible(this.accountMenu);
@@ -40,12 +40,12 @@ MainPage.prototype.logout = async function() {
   await this.clickLogoutButton();
 };
 
-MainPage.prototype.close = async function() {
+MainPage.prototype.close = async function () {
   await this.app.client.click(this.closeButton);
 };
 
 // Logout button click is unreliable, therefore this function
-MainPage.prototype.clickLogoutButton = async function() {
+MainPage.prototype.clickLogoutButton = async function () {
   const client = this.app.client;
 
   await client.waitForVisible(this.logoutButton);
@@ -75,6 +75,7 @@ MainPage.prototype.clickOnStore = async function() {
 
 MainPage.prototype.showBuyedGames = async function() {
   await this.app.client.waitForVisible(this.pane2, 10000);
+  await this.app.client.waitForVisible(this.gameIcon);
 };
 
 MainPage.prototype.clickForBuy = async function() {
@@ -102,7 +103,7 @@ MainPage.prototype.clickGoToMyGames = async function() {
 
 MainPage.prototype.purchaseFailed = async function() {
   await this.app.client.moveToObject(this.gameIcon, 5000);
-  await this.app.client.waitForExist(this.msgPurchaseFailed, 5000);
+  await this.app.client.waitForVisible(this.msgPurchaseFailed, 5000);
 };
 
 MainPage.prototype.clickCancelButton = async function() {
