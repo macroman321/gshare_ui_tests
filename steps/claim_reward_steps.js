@@ -1,9 +1,7 @@
 const defineSupportCode = require('cucumber').defineSupportCode;
-const Application = require('spectron').Application;
-const assert = require('assert');
 
-const {setDefaultTimeout} = require('cucumber');
-setDefaultTimeout(60 * 1000);
+    const {setDefaultTimeout} = require('cucumber');
+    setDefaultTimeout(500 * 1000);
 
 defineSupportCode(function ({Given, Then, When}) {
 
@@ -12,8 +10,7 @@ defineSupportCode(function ({Given, Then, When}) {
     });
 
     Then('I should see my current balance increase', async function () {
-        await this.client
-
+        await this.client.mainPage.checkBalanceIncrease();
     });
 
 });

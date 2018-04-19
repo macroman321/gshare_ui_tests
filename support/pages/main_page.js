@@ -1,16 +1,19 @@
 // main_page.js
 const Page = require('./page');
+const {setDefaultTimeout} = require('cucumber');
+setDefaultTimeout(5000 * 1000);
+
 
 function MainPage(app) {
     Page.call(this, app);
 
     this.storeTab = '[id="portalTabs-tab-1"]';
-    this.myGamesTab = '[id="portalTabs-tab-2"]';
     this.accountMenu = '[class="gc-avatar"]';
     this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
     this.closeButton = 'button[id="window-close"]';
-    this.startMining = '[class="gc-pill gc-pill--icon"]';
+    this.startMiningButton = '[class="gc-pill gc-pill--icon"]';
     this.claimReward = 'button[class="gc-pill gc-pill--active"]';
+    this.miningBalance = '[class = "gc-balance__amount"]';
 }
 
 // inherit everything from Page
@@ -53,18 +56,27 @@ MainPage.prototype.clickLogoutButton = async function () {
     }
 };
 
+
+//I think this should be executed on stage env only
 MainPage.prototype.claimBalanceCheck = async function () {
     const client = this.app.client;
-    let availabebutton = await client.isEnabled(this.claimReward);
-    if (availabebutton == true) {
+    let availableClaimButton = await client.isEnabled(this.claimReward);
+    if (availableClaimButton === true) {
         await client.element(this.claimReward).click();
     }
-    if (availabebutton == false) {
-        await this.client
-            .waitForEnabled(this.startMining, 400000)
-            .element(this.startMining).click()
-            .waitForEnabled(this.claimReward, 9999999)
-            .element(this.claimReward).click();
+    else {
+        let availableStartMining = await  client.waitForEnabled(this.startMiningButton, 30000);
+        console.log('********', availableStartMining);
+        if (availableStartMining === false) {
+            throw new Error('Start mining button is not available');
+        }
+        else {
+            await client
+                .waitForEnabled(this.startMiningButton, 400000)
+                .element(this.startMiningButton).click()
+                .waitForEnabled(this.claimReward, 9999999)
+                .element(this.claimReward).click();
+        }
     }
 };
 
@@ -74,12 +86,20 @@ MainPage.prototype.startMining = async function () {
 };
 
 
-MainPage.prototype.checkBalanceIncrease = async function (){
+MainPage.prototype.checkBalanceIncrease = async function () {
     const client = this.app.client;
+    let miningBalance = await client.getText(this.miningBalance);
+    let currentBalance = await client.getText(this.miningBalance);
+    console.log(miningBalance);
+    console.log(currentBalance);
+    const total = miningBalance + currentBalance;
 
-
+    if (total > currentBalanceIndex) {
+        console.log('Balance claimed successfully');
+    }
+    else {
+        throw new Error("Balance was not claimed successfully ");
+    }
 };
-
-
 
 module.exports = MainPage;
