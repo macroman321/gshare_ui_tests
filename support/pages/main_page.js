@@ -11,6 +11,7 @@ function MainPage(app) {
     this.closeButton = 'button[id="window-close"]';
     this.currencyList = '[class = "gc-profile-settings__balance"]';
     this.minerWorkingText = '[class="gc-balance__text"]';
+    this.startMiningButton = '[class="gc-pill gc-pill--icon"]';
 }
 
 // inherit everything from Page
@@ -71,7 +72,7 @@ MainPage.prototype.verifyCurrencyList = async function () {
 
 MainPage.prototype.startMining = async function () {
     const client = this.app.client;
-    await client.waitForEnabled(this.startMining, 400000).element(this.startMining).click();
+    await client.waitForEnabled(this.startMiningButton, 400000).element(this.startMiningButton).click();
 };
 
 MainPage.prototype.isMinerWorking = async function () {
