@@ -13,7 +13,8 @@ function MainPage(app) {
     this.closeButton = 'button[id="window-close"]';
     this.startMiningButton = '[class="gc-pill gc-pill--icon"]';
     this.claimReward = 'button[class="gc-pill gc-pill--active"]';
-    this.miningBalance = '[class = "gc-balance__amount"]';
+    this.miningBalance = '[class = "gc-balance gc-balance--active"]';
+    this.currrentBalance = 'label[class="gc-balance"]';
 }
 
 // inherit everything from Page
@@ -60,6 +61,11 @@ MainPage.prototype.clickLogoutButton = async function () {
 //I think this should be executed on stage env only
 MainPage.prototype.claimBalanceCheck = async function () {
     const client = this.app.client;
+    let miningBalance = await client.getText(this.miningBalance);
+    let currentBalance = await client.getText(this.currrentBalance);
+    console.log(currentBalance);
+    console.log(miningBalance);
+
     let availableClaimButton = await client.isEnabled(this.claimReward);
     if (availableClaimButton === true) {
         await client.element(this.claimReward).click();
