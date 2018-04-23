@@ -9,22 +9,26 @@ function MainPage(app) {
   this.accountMenu = '[class="gc-avatar"]';
   this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
   this.closeButton = 'button[id="window-close"]';
+<<<<<<< HEAD
   this.gamesList = '[class="gc-empty-list"]';
+=======
+  this.currencyList = '[class = "gc-profile-settings__balance"]';
+>>>>>>> develop
 }
 
 // inherit everything from Page
 MainPage.prototype = Object.create(Page.prototype);
 
-MainPage.prototype.isOpen = async function() {
+MainPage.prototype.isOpen = async function () {
   try {
     await this.app.client.waitForExist(this.storeTab);
     return true;
-  } catch(_) {
+  } catch (_) {
     return false;
   }
 };
 
-MainPage.prototype.logout = async function() {
+MainPage.prototype.logout = async function () {
   const client = this.app.client;
 
   await client.waitForVisible(this.accountMenu);
@@ -32,12 +36,12 @@ MainPage.prototype.logout = async function() {
   await this.clickLogoutButton();
 };
 
-MainPage.prototype.close = async function() {
+MainPage.prototype.close = async function () {
   await this.app.client.click(this.closeButton);
 };
 
 // Logout button click is unreliable, therefore this function
-MainPage.prototype.clickLogoutButton = async function() {
+MainPage.prototype.clickLogoutButton = async function () {
   const client = this.app.client;
 
   await client.waitForVisible(this.logoutButton);
@@ -55,6 +59,7 @@ MainPage.prototype.clickLogoutButton = async function() {
   }
 };
 
+<<<<<<< HEAD
 //11.04. Mr. Slimy
 MainPage.prototype.clickMyGamesTab = async function() {
   const client = this.app.client;
@@ -69,6 +74,19 @@ MainPage.prototype.checkTheGamesList = async function() {
 
     await client.waitForVisible(this.gamesList);
 
+=======
+MainPage.prototype.clickAccountMenu = async function () {
+  const client = this.app.client;
+
+  await client.waitForVisible(this.accountMenu);
+  await client.click(this.accountMenu);
+};
+
+MainPage.prototype.verifyCurrencyList = async function () {
+  const client = this.app.client;
+
+  await client.waitForVisible(this.currencyList);
+>>>>>>> develop
 };
 
 module.exports = MainPage;
