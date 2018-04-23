@@ -10,8 +10,7 @@
 Feature: Start mining
 
   Background:
-    Given I start GameClient
-    Given I enter credentials for the user "qa_user_5"
+    Given I log in as user "qa_user_5"
 
   Scenario: Machine is connected to the power
 
