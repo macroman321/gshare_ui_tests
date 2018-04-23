@@ -9,12 +9,12 @@ function MainPage(app) {
   this.accountMenu = '[class="gc-avatar"]';
   this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
   this.closeButton = 'button[id="window-close"]';
+  this.pane2 = '[id=portalTabs-pane-2]';
   this.gameIcon = '[class="gc-game-card"]';
   this.clickGame = 'button[class="gc-button gc-button--primary"]';
   this.buyGameButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
   this.buyButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
   this.buttonGoToMyGames = 'button[class="gc-button gc-button--secondary gc-button--full"]';
-  this.pane2 = '[id=portalTabs-pane-2]';
   this.msgPurchaseFailed = '[class="gc-game-card__cover-overlay__insufficient-funds"]';
   this.cancelPurchase = 'button[class="gc-button gc-button--flat gc-button--large gc-buy-game-card__cancel-btn"]';
   this.cancelButtonAfterPurchase = '[class="gc-button gc-button--flat gc-buy-game-card__cancel-btn"]';
@@ -79,8 +79,8 @@ MainPage.prototype.showBuyedGames = async function() {
 };
 
 MainPage.prototype.clickForBuy = async function() {
-  await this.app.client.waitForExist(this.clickGame);
-  await this.app.client.moveToObject(this.clickGame);
+  await this.app.client.moveToObject(this.clickGame);                            //will be depracted soon, check for new function
+  await this.app.client.waitForVisible(this.clickGame);
   await this.app.client.waitForExist(this.clickGame);
   await this.app.client.click(this.clickGame);
   await this.app.client.waitForExist(this.buyGameButton);
