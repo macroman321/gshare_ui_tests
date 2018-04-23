@@ -23,6 +23,9 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.client.loginPage.startClient();
     const user = TestData.get_user(user_id);
     this.logger.debug(`user = ${JSON.stringify(user)}`);
+    if ((await this.client.loginPage.isOpen()) === false){
+     await this.client.mainPage.logout();
+    }
     await this.client.loginPage.loginWithoutRememberMe(user);
     await this.client.mainPage.isOpen();
   });
