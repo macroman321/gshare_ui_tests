@@ -9,11 +9,8 @@ function MainPage(app) {
   this.accountMenu = '[class="gc-avatar"]';
   this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
   this.closeButton = 'button[id="window-close"]';
-<<<<<<< HEAD
   this.gamesList = '[class="gc-empty-list"]';
-=======
   this.currencyList = '[class = "gc-profile-settings__balance"]';
->>>>>>> develop
 }
 
 // inherit everything from Page
@@ -59,7 +56,6 @@ MainPage.prototype.clickLogoutButton = async function () {
   }
 };
 
-<<<<<<< HEAD
 //11.04. Mr. Slimy
 MainPage.prototype.clickMyGamesTab = async function() {
   const client = this.app.client;
@@ -74,7 +70,6 @@ MainPage.prototype.checkTheGamesList = async function() {
 
     await client.waitForVisible(this.gamesList);
 
-=======
 MainPage.prototype.clickAccountMenu = async function () {
   const client = this.app.client;
 
@@ -86,7 +81,6 @@ MainPage.prototype.verifyCurrencyList = async function () {
   const client = this.app.client;
 
   await client.waitForVisible(this.currencyList);
->>>>>>> develop
 };
 
 module.exports = MainPage;
