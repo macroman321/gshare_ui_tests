@@ -3,9 +3,8 @@ const Page = require('./page');
 const {setDefaultTimeout} = require('cucumber');
 setDefaultTimeout(5000 * 1000);
 
-
 function MainPage(app) {
-    Page.call(this, app);
+  Page.call(this, app);
 
     this.storeTab = '[id="portalTabs-tab-1"]';
     this.accountMenu = '[class="gc-avatar"]';
@@ -15,48 +14,50 @@ function MainPage(app) {
     this.claimReward = 'button[class="gc-pill gc-pill--active"]';
     this.miningBalance = '[class = "gc-balance gc-balance--active"]';
     this.currrentBalance = '[class="gc-balance__amount"]';
+    this.myGamesTab = '[id="portalTabs-tab-2"]';
+    this.currencyList = '[class = "gc-profile-settings__balance"]';
 }
 
 // inherit everything from Page
 MainPage.prototype = Object.create(Page.prototype);
 
-MainPage.prototype.isOpen = async function () {
-    try {
-        await this.app.client.waitForExist(this.storeTab);
-        return true;
-    } catch (_) {
-        return false;
-    }
+MainPage.prototype.isOpen = async function() {
+  try {
+    await this.app.client.waitForExist(this.storeTab);
+    return true;
+  } catch(_) {
+    return false;
+  }
 };
 
-MainPage.prototype.logout = async function () {
-    const client = this.app.client;
-    await client.waitForVisible(this.accountMenu);
-    await client.click(this.accountMenu);
-    await this.clickLogoutButton();
+MainPage.prototype.logout = async function() {
+  const client = this.app.client;
+  await client.waitForVisible(this.accountMenu);
+  await client.click(this.accountMenu);
+  await this.clickLogoutButton();
 };
 
-MainPage.prototype.close = async function () {
-    await this.app.client.click(this.closeButton);
+MainPage.prototype.close = async function() {
+  await this.app.client.click(this.closeButton);
 };
 
 // Logout button click is unreliable, therefore this function
-MainPage.prototype.clickLogoutButton = async function () {
-    const client = this.app.client;
-    await client.waitForVisible(this.logoutButton);
+MainPage.prototype.clickLogoutButton = async function() {
+  const client = this.app.client;
+  await client.waitForVisible(this.logoutButton);
+  await client.click(this.logoutButton);
+
+  const t = Date.now();
+  let logoutExists = await client.isExisting(this.logoutButton);
+  while (logoutExists) {
     await client.click(this.logoutButton);
-    const t = Date.now();
-    let logoutExists = await client.isExisting(this.logoutButton);
-    while (logoutExists) {
-        await client.click(this.logoutButton);
-        logoutExists = await client.isExisting(this.logoutButton);
+    logoutExists = await client.isExisting(this.logoutButton);
 
-        if (Date.now() - t > 30) {
-            break;
-        }
+    if (Date.now() - t > 30) {
+      break;
     }
+  }
 };
-
 
 //I think this should be executed on stage env only
 MainPage.prototype.claimBalanceCheck = async function () {
@@ -93,7 +94,6 @@ MainPage.prototype.startMining = async function () {
     await client.waitForEnabled(this.startMining, 400000).element(this.startMining).click();
 };
 
-
 MainPage.prototype.checkBalanceIncrease = async function () {
     const client = this.app.client;
     let miningBalance = await client.getText(this.miningBalance);
@@ -108,6 +108,19 @@ MainPage.prototype.checkBalanceIncrease = async function () {
     else {
         throw new Error("Balance was not claimed successfully ");
     }
+};
+
+MainPage.prototype.clickAccountMenu = async function () {
+  const client = this.app.client;
+
+  await client.waitForVisible(this.accountMenu);
+  await client.click(this.accountMenu);
+};
+
+MainPage.prototype.verifyCurrencyList = async function () {
+  const client = this.app.client;
+
+  await client.waitForVisible(this.currencyList);
 };
 
 module.exports = MainPage;

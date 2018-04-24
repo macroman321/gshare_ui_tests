@@ -3,7 +3,7 @@ const defineSupportCode = require('cucumber').defineSupportCode;
 const assert = require('assert');
 const TestData = require('../support/util/test_data');
 
-defineSupportCode(function ({ Given, Then, When }) {
+defineSupportCode(function ({Given, Then, When}) {
   When("I start GameClient", async function () {
     await this.client.loginPage.startClient();
   });
@@ -17,6 +17,17 @@ defineSupportCode(function ({ Given, Then, When }) {
     const user = TestData.get_user(user_id);
     this.logger.debug(`user = ${JSON.stringify(user)}`);
     await this.client.loginPage.login(user);
+  });
+
+  When('I log in as user {string}', async function (user_id) {
+    await this.client.loginPage.startClient();
+    const user = TestData.get_user(user_id);
+    this.logger.debug(`user = ${JSON.stringify(user)}`);
+    if ((await this.client.loginPage.isOpen()) === false){
+     await this.client.mainPage.logout();
+    }
+    await this.client.loginPage.loginWithoutRememberMe(user);
+    await this.client.mainPage.isOpen();
   });
 
   Then("I should see the user is logged in", async function () {
