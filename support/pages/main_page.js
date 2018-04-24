@@ -14,7 +14,7 @@ function MainPage(app) {
     this.startMiningButton = '[class="gc-pill gc-pill--icon"]';
     this.claimReward = 'button[class="gc-pill gc-pill--active"]';
     this.miningBalance = '[class = "gc-balance gc-balance--active"]';
-    this.currrentBalance = 'label[class="gc-balance"]';
+    this.currrentBalance = '[class="gc-balance__amount"]';
 }
 
 // inherit everything from Page
@@ -63,7 +63,9 @@ MainPage.prototype.claimBalanceCheck = async function () {
     const client = this.app.client;
     let miningBalance = await client.getText(this.miningBalance);
     let currentBalance = await client.getText(this.currrentBalance);
-    console.log(currentBalance);
+
+    //let currentBalanceIndex = await client.selectByIndex(this.currrentBalance,2);
+    console.log(parseInt(currentBalance)[1]);
     console.log(miningBalance);
 
     let availableClaimButton = await client.isEnabled(this.claimReward);
