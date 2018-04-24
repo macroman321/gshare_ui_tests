@@ -62,13 +62,6 @@ MainPage.prototype.clickLogoutButton = async function() {
 //I think this should be executed on stage env only
 MainPage.prototype.claimBalanceCheck = async function () {
     const client = this.app.client;
-    let miningBalance = await client.getText(this.miningBalance);
-    let currentBalance = await client.getText(this.currrentBalance);
-
-    //let currentBalanceIndex = await client.selectByIndex(this.currrentBalance,2);
-    console.log(parseInt(currentBalance)[1]);
-    console.log(miningBalance);
-
     let availableClaimButton = await client.isEnabled(this.claimReward);
     if (availableClaimButton === true) {
         await client.element(this.claimReward).click();
@@ -97,12 +90,12 @@ MainPage.prototype.startMining = async function () {
 MainPage.prototype.checkBalanceIncrease = async function () {
     const client = this.app.client;
     let miningBalance = await client.getText(this.miningBalance);
-    let currentBalance = await client.getText(this.miningBalance);
-    console.log(miningBalance);
-    console.log(currentBalance);
-    const total = miningBalance + currentBalance;
+    let currentBalance = await client.getText(this.currrentBalance);
+    let currentBalanceIndex = currentBalance[1];
 
-    if (total > currentBalanceIndex) {
+    const total = miningBalance + currentBalanceIndex;
+
+    if (total >= currentBalanceIndex) {
         console.log('Balance claimed successfully');
     }
     else {
