@@ -8,6 +8,9 @@ function LoginPage(app) {
   this.passwordInput = '[name="password"]';
   this.rememberMeCheckbox = '[name="remember_me"]';
   this.loginButton = '[type="submit"]';
+  this.loginErrorNotificationMessage = '[class="gc-notification__message"]';
+  this.loginMinimumEightSymbolsMessage = '[class="gc-input__message"]';
+  this.loginBackground = '[class="gc-authentication"]'
 }
 
 // inherit everything from Page
@@ -65,6 +68,31 @@ LoginPage.prototype.uncheckRememberMe = async function () {
   if ((await this.isRememberMeChecked()) === true) {
     this.clickRememberMe();
   }
+};
+
+LoginPage.prototype.verifyFailedLoginMessage = async function (message) {
+  let errorNotificationMessage;
+
+  try {
+    await this.app.client.waitForExist(this.loginErrorNotificationMessage);
+    errorNotificationMessage = await this.app.client.getText(this.loginErrorNotificationMessage);
+  } catch (error) {
+    await this.app.client.waitForExist(this.loginMinimumEightSymbolsMessage);
+    errorNotificationMessage = await this.app.client.getText(this.loginMinimumEightSymbolsMessage);
+  }
+  if (errorNotificationMessage !== message) {
+    throw new Error("Error messages do not match!");
+  }
+};
+
+LoginPage.prototype.handleError = async function (error) {
+  if (error.message.includes("is not clickable") !== true) {
+    console.log('********************************************');
+
+    console.log(error.message);
+    throw new error;
+  }
+  await this.clickRememberMe();
 };
 
 module.exports = LoginPage;
