@@ -56,7 +56,6 @@ MainPage.prototype.clickLogoutButton = async function () {
     }
 };
 
-//11.04. Mr. Slimy
 MainPage.prototype.clickMyGamesTab = async function () {
     const client = this.app.client;
 
