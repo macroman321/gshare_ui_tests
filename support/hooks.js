@@ -1,7 +1,7 @@
 const Application = require('spectron').Application;
 const {BeforeAll, Before, After} = require('cucumber');
 const Logger = require('logplease');
-const TestData = require('./util/test_data')
+const TestData = require('./util/test_data');
 const LoginPage = require('../support/pages/login_page');
 const MainPage = require('../support/pages/main_page');
 

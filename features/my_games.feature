@@ -8,9 +8,7 @@
 
 Feature: GameClient Login
   Background:
-    Given I start GameClient
-    When I enter credentials for the user "qa_user_5"
-    Then I should see the user is logged in
+    Given I log in as user "qa_user_5"
 
     Scenario: My Games verification
       When I click on the My Games tab
