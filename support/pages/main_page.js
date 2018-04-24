@@ -102,6 +102,7 @@ MainPage.prototype.clickGoToMyGames = async function() {
 };
 
 MainPage.prototype.purchaseFailed = async function() {
+  await this.app.client.waitForExist(this.gameIcon, 1000);
   await this.app.client.moveToObject(this.gameIcon, 5000);
   await this.app.client.waitForVisible(this.msgPurchaseFailed, 5000);
 };
@@ -111,9 +112,13 @@ MainPage.prototype.clickCancelButton = async function() {
   await this.app.client.waitForExist(this.myGamesTab, 30000);
 };
 
-MainPage.prototype.avoidGoToMyGamesButton = async function() {
+MainPage.prototype.cancelButton = async function() {
   await this.app.client.waitForVisible(this.cancelButtonAfterPurchase, 30000);
-  await this.app.client.click(this.cancelButtonAfterPurchase)
-};
+  await this.app.client.click(this.cancelButtonAfterPurchase);
+}
+
+MainPage.prototype.gameList = async function() {
+  await this.app.client.waitForExist(this.gameIcon);
+}
 
 module.exports = MainPage;

@@ -19,21 +19,19 @@ Scenario: Buy Games Test
 
 Scenario: Test Insufficient funds
     When I log in as user "qa_user_4"
-    Then I should see the user is logged in
-    And I should see message that I can not purchase a Game
+    Then I should see message that I can not purchase a Game
 
 Scenario: Test Cancel purchase
     When I log in as user "qa_user_5"
-    Then I should see the user is logged in
-    When I click on a game that I want to buy
+    And I click on a game that I want to buy
     Then I should click on Cancel button
 
 Scenario: Test Cancel button after the game is purchased
     When I log in as user "qa_user_2"    
-    Then I should see the user is logged in
-    When I click on a game that I want to buy
+    And I click on a game that I want to buy
     And I click on Buy button
-    Then I should avoid Go To My Games button, and click on Cancel button
+    And I click on Cancel button
+    Then I should see that button goToMyGames does not exist no more
 
 @manual
   Scenario: Test valid Login with 2FA code
