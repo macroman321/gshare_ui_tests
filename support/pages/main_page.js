@@ -4,7 +4,7 @@ const {setDefaultTimeout} = require('cucumber');
 setDefaultTimeout(5000 * 1000);
 
 function MainPage(app) {
-  Page.call(this, app);
+    Page.call(this, app);
 
     this.storeTab = '[id="portalTabs-tab-1"]';
     this.accountMenu = '[class="gc-avatar"]';
@@ -21,42 +21,42 @@ function MainPage(app) {
 // inherit everything from Page
 MainPage.prototype = Object.create(Page.prototype);
 
-MainPage.prototype.isOpen = async function() {
-  try {
-    await this.app.client.waitForExist(this.storeTab);
-    return true;
-  } catch(_) {
-    return false;
-  }
+MainPage.prototype.isOpen = async function () {
+    try {
+        await this.app.client.waitForExist(this.storeTab);
+        return true;
+    } catch (_) {
+        return false;
+    }
 };
 
-MainPage.prototype.logout = async function() {
-  const client = this.app.client;
-  await client.waitForVisible(this.accountMenu);
-  await client.click(this.accountMenu);
-  await this.clickLogoutButton();
+MainPage.prototype.logout = async function () {
+    const client = this.app.client;
+    await client.waitForVisible(this.accountMenu);
+    await client.click(this.accountMenu);
+    await this.clickLogoutButton();
 };
 
-MainPage.prototype.close = async function() {
-  await this.app.client.click(this.closeButton);
+MainPage.prototype.close = async function () {
+    await this.app.client.click(this.closeButton);
 };
 
 // Logout button click is unreliable, therefore this function
-MainPage.prototype.clickLogoutButton = async function() {
-  const client = this.app.client;
-  await client.waitForVisible(this.logoutButton);
-  await client.click(this.logoutButton);
-
-  const t = Date.now();
-  let logoutExists = await client.isExisting(this.logoutButton);
-  while (logoutExists) {
+MainPage.prototype.clickLogoutButton = async function () {
+    const client = this.app.client;
+    await client.waitForVisible(this.logoutButton);
     await client.click(this.logoutButton);
-    logoutExists = await client.isExisting(this.logoutButton);
 
-    if (Date.now() - t > 30) {
-      break;
+    const t = Date.now();
+    let logoutExists = await client.isExisting(this.logoutButton);
+    while (logoutExists) {
+        await client.click(this.logoutButton);
+        logoutExists = await client.isExisting(this.logoutButton);
+
+        if (Date.now() - t > 30) {
+            break;
+        }
     }
-  }
 };
 
 //I think this should be executed on stage env only
@@ -104,16 +104,14 @@ MainPage.prototype.checkBalanceIncrease = async function () {
 };
 
 MainPage.prototype.clickAccountMenu = async function () {
-  const client = this.app.client;
-
-  await client.waitForVisible(this.accountMenu);
-  await client.click(this.accountMenu);
+    const client = this.app.client;
+    await client.waitForVisible(this.accountMenu);
+    await client.click(this.accountMenu);
 };
 
 MainPage.prototype.verifyCurrencyList = async function () {
-  const client = this.app.client;
-
-  await client.waitForVisible(this.currencyList);
+    const client = this.app.client;
+    await client.waitForVisible(this.currencyList);
 };
 
 module.exports = MainPage;
