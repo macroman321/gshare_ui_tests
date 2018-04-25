@@ -52,12 +52,24 @@ defineSupportCode(function ({ Given, Then, When }) {
     }
   });
 
+  When('I position the mouse over the game I want to buy', async function() {
+    await this.client.mainPage.mouseOverGame();
+  });
+
   Then('I should see message that I can not purchase a Game', async function() {
     await this.client.mainPage.purchaseFailed();
   });
 
-  Then('I should click on Cancel button', async function() {
+  When('I cancel the purchase', async function() {
     await this.client.mainPage.clickCancelButton();
+  });
+
+  Then('Buy a Game dialog should disappear', async function() {
+    await this.client.mainPage.dialogDisapper();
+  });
+
+  When('I should be back to the main page', async function() {
+    await this.client.mainPage.gameList();
   });
 
   When('I click on Cancel button', async function() {

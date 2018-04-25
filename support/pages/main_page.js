@@ -79,6 +79,7 @@ MainPage.prototype.showBuyedGames = async function() {
 };
 
 MainPage.prototype.clickForBuy = async function() {
+  await this.app.client.waitForVisible(this.gameIcon);
   await this.app.client.moveToObject(this.clickGame);                            //will be depracted soon, check for new function
   await this.app.client.waitForVisible(this.clickGame);
   await this.app.client.waitForExist(this.clickGame);
@@ -101,9 +102,12 @@ MainPage.prototype.clickGoToMyGames = async function() {
   await this.app.client.click(this.buttonGoToMyGames);
 };
 
-MainPage.prototype.purchaseFailed = async function() {
+MainPage.prototype.mouseOverGame = async function() {
   await this.app.client.waitForExist(this.gameIcon, 1000);
   await this.app.client.moveToObject(this.gameIcon, 5000);
+}
+
+MainPage.prototype.purchaseFailed = async function() {
   await this.app.client.waitForVisible(this.msgPurchaseFailed, 5000);
 };
 
@@ -115,10 +119,14 @@ MainPage.prototype.clickCancelButton = async function() {
 MainPage.prototype.cancelButton = async function() {
   await this.app.client.waitForVisible(this.cancelButtonAfterPurchase, 30000);
   await this.app.client.click(this.cancelButtonAfterPurchase);
-}
+};
 
 MainPage.prototype.gameList = async function() {
   await this.app.client.waitForExist(this.gameIcon);
-}
+};
+
+MainPage.prototype.dialogDisapper = async function() {
+  await this.app.client.waitForExist(this.buyGameButton, 1000, true);
+};
 
 module.exports = MainPage;

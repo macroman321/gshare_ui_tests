@@ -9,7 +9,7 @@
 Feature: GameClient Login
 
 Scenario: Buy Games Test
-    When I log in as user "qa_user_2"
+    When I log in as user "qa_user_1"
     And I click on My Games
     And I click on Store
     And I click on a game that I want to buy
@@ -19,28 +19,19 @@ Scenario: Buy Games Test
 
 Scenario: Test Insufficient funds
     When I log in as user "qa_user_4"
+    And I position the mouse over the game I want to buy
     Then I should see message that I can not purchase a Game
 
 Scenario: Test Cancel purchase
     When I log in as user "qa_user_5"
     And I click on a game that I want to buy
-    Then I should click on Cancel button
+    And I cancel the purchase
+    Then Buy a Game dialog should disappear
+    And I should be back to the main page
 
 Scenario: Test Cancel button after the game is purchased
     When I log in as user "qa_user_2"    
     And I click on a game that I want to buy
     And I click on Buy button
     And I click on Cancel button
-    Then I should see that button goToMyGames does not exist no more
-
-@manual
-  Scenario: Test valid Login with 2FA code
-    When I enter a valid credentials
-    And I enter a valid 2FA code
-    Then I should be loged in succesfully in application   
-
-  @manual
-  Scenario: Test invalid verification code
-    When I enter a valid credentials
-    And I enter a wrong 2FA code
-    Then I should see notification that 2FA code is wrong    
+    Then I should see that button goToMyGames does not exist no more 
