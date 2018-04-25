@@ -8,10 +8,18 @@ defineSupportCode(function ({Given, Then, When}) {
 
     });
 
-    Then('I should see all my purchased games displayed', async function (){
+    Then('I should see no games displayed', async function (){
+
+        await this.client.mainPage.checkTheEmptyGamesList();
+
+    });
+
+    Then('I should see my games displayed', async function () {
 
         await this.client.mainPage.checkTheGamesList();
 
     });
+
+
 
 });

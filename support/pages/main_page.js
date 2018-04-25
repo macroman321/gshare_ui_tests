@@ -9,8 +9,9 @@ function MainPage(app) {
     this.accountMenu = '[class="gc-avatar"]';
     this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
     this.closeButton = 'button[id="window-close"]';
-    this.gamesList = '[class="gc-empty-list"]';
+    this.emptyGamesList = '[class="gc-empty-list"]';
     this.currencyList = '[class = "gc-profile-settings__balance"]';
+    this.purchasedGame = '[class = "gc-game-card"]';
 }
 
 // inherit everything from Page
@@ -64,24 +65,31 @@ MainPage.prototype.clickMyGamesTab = async function () {
 
 };
 
+MainPage.prototype.checkTheEmptyGamesList = async function () {
+    const client = this.app.client;
+
+    await client.waitForVisible(this.emptyGamesList);
+};
+
 MainPage.prototype.checkTheGamesList = async function () {
     const client = this.app.client;
 
-    await client.waitForVisible(this.gamesList);
+    await client.waitForVisible(this.purchasedGame);
+
 };
 
-    MainPage.prototype.clickAccountMenu = async function () {
-        const client = this.app.client;
+MainPage.prototype.clickAccountMenu = async function () {
+    const client = this.app.client;
 
-        await client.waitForVisible(this.accountMenu);
-        await client.click(this.accountMenu);
-    };
+    await client.waitForVisible(this.accountMenu);
+    await client.click(this.accountMenu);
+};
 
-    MainPage.prototype.verifyCurrencyList = async function () {
-        const client = this.app.client;
+MainPage.prototype.verifyCurrencyList = async function () {
+    const client = this.app.client;
 
-        await client.waitForVisible(this.currencyList);
-    };
+    await client.waitForVisible(this.currencyList);
+};
 
 
 module.exports = MainPage;

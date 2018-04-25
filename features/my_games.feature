@@ -7,9 +7,14 @@
 #
 
 Feature: GameClient Login
+
   Background:
     Given I log in as user "qa_user_5"
 
-    Scenario: My Games verification
-      When I click on the My Games tab
-      Then I should see all my purchased games displayed
+  Scenario: My Games verification when a user has no games
+    When I click on the My Games tab
+    Then I should see no games displayed
+
+  Scenario: My Games verification when a user has games
+    When I click on the My Games tab
+    Then I should see my games displayed
