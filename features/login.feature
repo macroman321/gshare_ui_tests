@@ -23,3 +23,15 @@ Feature: GameClient Login
       | password     | message                                     |
       | QAxxxx1111&& | Cannot login using the supplied credentials |
       | p123         | Minimum 8 symbols                           |
+
+  @manual
+  Scenario: Test valid Login with 2FA code
+    When I enter a valid credentials
+    And I enter a valid 2FA code
+    Then I should be loged in succesfully in application   
+
+  @manual
+    Scenario: Test invalid verification code
+      When I enter a valid credentials
+      And I enter a wrong 2FA code
+      Then I should see notification that 2FA code is wrong       
