@@ -12,4 +12,15 @@ defineSupportCode(function ({Given, Then, When}) {
         await  this.client.mainPage.isMinerWorking();
     });
 
+
+    When('I click on the Stop button',async function () {
+        await this.client.mainPage.startMining();
+    });
+
+    Then('I should see that the application has stopped mining',async function(){
+        await this.client.mainPage.isMinerWorking();
+    })
+
 });
+
+
