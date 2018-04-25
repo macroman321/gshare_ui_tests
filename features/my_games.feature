@@ -6,7 +6,7 @@
 # NOTES:
 #
 
-Feature: GameClient Login
+Feature: My Games
 
   Background:
     Given I log in as user "qa_user_5"
