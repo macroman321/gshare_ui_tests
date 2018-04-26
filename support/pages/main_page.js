@@ -207,7 +207,6 @@ MainPage.prototype.dialogDisapper = async function() {
     await this.app.client.waitForExist(this.buyGameButton, 1000, true);
 };
 
-
 MainPage.prototype.startMining = async function () {
     const client = this.app.client;
     await client.waitForEnabled(this.startMiningButton, 400000).element(this.startMiningButton).click();
@@ -216,7 +215,6 @@ MainPage.prototype.startMining = async function () {
 MainPage.prototype.isMinerWorking = async function () {
     const clinet = this.app.client;
     await clinet.isExisting(this.minerWorkingText);
-
 
 };
 
