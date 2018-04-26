@@ -42,11 +42,11 @@ MainPage.prototype.isOpen = async function () {
 };
 
 MainPage.prototype.logout = async function () {
-    const client = this.app.client;
+  const client = this.app.client;
 
-    await client.waitForVisible(this.accountMenu);
-    await client.click(this.accountMenu);
-    await this.clickLogoutButton();
+  await client.waitForVisible(this.accountMenu);
+  await client.click(this.accountMenu);
+  await this.clickLogoutButton();
 };
 
 MainPage.prototype.close = async function () {
@@ -137,11 +137,9 @@ MainPage.prototype.clickAccountMenu = async function () {
 };
 
 MainPage.prototype.verifyCurrencyList = async function () {
-    const client = this.app.client;
-    await client.waitForVisible(this.currencyList);
-    const client = this.app.client;
+  const client = this.app.client;
 
-    await client.waitForVisible(this.currencyList);
+  await client.waitForVisible(this.currencyList);
 };
 MainPage.prototype.clickMyGames = async function() {
     await this.app.client.click(this.myGamesTab);
@@ -209,5 +207,17 @@ MainPage.prototype.dialogDisapper = async function() {
     await this.app.client.waitForExist(this.buyGameButton, 1000, true);
 };
 
+
+MainPage.prototype.startMining = async function () {
+    const client = this.app.client;
+    await client.waitForEnabled(this.startMiningButton, 400000).element(this.startMiningButton).click();
+};
+
+MainPage.prototype.isMinerWorking = async function () {
+    const clinet = this.app.client;
+    await clinet.isExisting(this.minerWorkingText);
+
+
+};
 
 module.exports = MainPage;
