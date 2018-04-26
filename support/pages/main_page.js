@@ -4,23 +4,25 @@ const Page = require('./page');
 function MainPage(app) {
   Page.call(this, app);
 
-  this.storeTab = '[id="portalTabs-tab-1"]';
-  this.myGamesTab = '[id="portalTabs-tab-2"]';
-  this.accountMenu = '[class="gc-avatar"]';
-  this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
-  this.closeButton = 'button[id="window-close"]';
-  this.pane2 = '[id=portalTabs-pane-2]';
-  this.gameIcon = '[class="gc-game-card"]';
-  this.clickGame = 'button[class="gc-button gc-button--primary"]';
-  this.buyGameButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
-  this.buyButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
-  this.buttonGoToMyGames = 'button[class="gc-button gc-button--secondary gc-button--full"]';
-  this.msgPurchaseFailed = '[class="gc-game-card__cover-overlay__insufficient-funds"]';
-  this.cancelPurchase = 'button[class="gc-button gc-button--flat gc-button--large gc-buy-game-card__cancel-btn"]';
-  this.cancelButtonAfterPurchase = '[class="gc-button gc-button--flat gc-buy-game-card__cancel-btn"]';
-  this.emptyGamesList = '[class="gc-empty-list"]';
-  this.currencyList = '[class = "gc-profile-settings__balance"]';
-  this.purchasedGame = '[class = "gc-game-card"]';
+    this.storeTab = '[id="portalTabs-tab-1"]';
+    this.myGamesTab = '[id="portalTabs-tab-2"]';
+    this.accountMenu = '[class="gc-avatar"]';
+    this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
+    this.closeButton = 'button[id="window-close"]';
+    this.currencyList = '[class = "gc-profile-settings__balance"]';
+    this.minerWorkingText = '[class="gc-balance__text"]';
+    this.startMiningButton = '[class="gc-pill gc-pill--icon"]';
+    this.pane2 = '[id=portalTabs-pane-2]';
+    this.gameIcon = '[class="gc-game-card"]';
+    this.clickGame = 'button[class="gc-button gc-button--primary"]';
+    this.buyGameButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
+    this.buyButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
+    this.buttonGoToMyGames = 'button[class="gc-button gc-button--secondary gc-button--full"]';
+    this.msgPurchaseFailed = '[class="gc-game-card__cover-overlay__insufficient-funds"]';
+    this.cancelPurchase = 'button[class="gc-button gc-button--flat gc-button--large gc-buy-game-card__cancel-btn"]';
+    this.cancelButtonAfterPurchase = '[class="gc-button gc-button--flat gc-buy-game-card__cancel-btn"]';
+    this.emptyGamesList = '[class="gc-empty-list"]';
+    this.purchasedGame = '[class = "gc-game-card"]';
 }
 
 // inherit everything from Page
@@ -36,11 +38,11 @@ MainPage.prototype.isOpen = async function () {
 };
 
 MainPage.prototype.logout = async function () {
-    const client = this.app.client;
+  const client = this.app.client;
 
-    await client.waitForVisible(this.accountMenu);
-    await client.click(this.accountMenu);
-    await this.clickLogoutButton();
+  await client.waitForVisible(this.accountMenu);
+  await client.click(this.accountMenu);
+  await this.clickLogoutButton();
 };
 
 MainPage.prototype.close = async function () {
@@ -82,15 +84,16 @@ MainPage.prototype.checkTheGamesList = async function () {
 };
 
 MainPage.prototype.clickAccountMenu = async function () {
-    const client = this.app.client;
-    await client.waitForVisible(this.accountMenu);
-    await client.click(this.accountMenu);
+  const client = this.app.client;
+
+  await client.waitForVisible(this.accountMenu);
+  await client.click(this.accountMenu);
 };
 
 MainPage.prototype.verifyCurrencyList = async function () {
-    const client = this.app.client;
+  const client = this.app.client;
 
-    await client.waitForVisible(this.currencyList);
+  await client.waitForVisible(this.currencyList);
 };
 MainPage.prototype.clickMyGames = async function() {
     await this.app.client.click(this.myGamesTab);
@@ -158,5 +161,17 @@ MainPage.prototype.dialogDisapper = async function() {
     await this.app.client.waitForExist(this.buyGameButton, 1000, true);
 };
 
+
+MainPage.prototype.startMining = async function () {
+    const client = this.app.client;
+    await client.waitForEnabled(this.startMiningButton, 400000).element(this.startMiningButton).click();
+};
+
+MainPage.prototype.isMinerWorking = async function () {
+    const clinet = this.app.client;
+    await clinet.isExisting(this.minerWorkingText);
+
+
+};
 
 module.exports = MainPage;
