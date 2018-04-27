@@ -1,17 +1,21 @@
 // main_page.js
 const Page = require('./page');
+const {setDefaultTimeout} = require('cucumber');
+setDefaultTimeout(5000 * 1000);
 
 function MainPage(app) {
   Page.call(this, app);
 
     this.storeTab = '[id="portalTabs-tab-1"]';
-    this.myGamesTab = '[id="portalTabs-tab-2"]';
     this.accountMenu = '[class="gc-avatar"]';
     this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
     this.closeButton = 'button[id="window-close"]';
-    this.currencyList = '[class = "gc-profile-settings__balance"]';
-    this.minerWorkingText = '[class="gc-balance__text"]';
     this.startMiningButton = '[class="gc-pill gc-pill--icon"]';
+    this.claimReward = 'button[class="gc-pill gc-pill--active"]';
+    this.miningBalance = '[class = "gc-balance gc-balance--active"]';
+    this.currrentBalance = '[class="gc-balance__amount"]';
+    this.myGamesTab = '[id="portalTabs-tab-2"]';
+    this.currencyList = '[class = "gc-profile-settings__balance"]';
     this.pane2 = '[id=portalTabs-pane-2]';
     this.gameIcon = '[class="gc-game-card"]';
     this.clickGame = 'button[class="gc-button gc-button--primary"]';
@@ -51,21 +55,64 @@ MainPage.prototype.close = async function () {
 
 // Logout button click is unreliable, therefore this function
 MainPage.prototype.clickLogoutButton = async function () {
-  const client = this.app.client;
-
-  await client.waitForVisible(this.logoutButton);
-  await client.click(this.logoutButton);
-
-  const t = Date.now();
-  let logoutExists = await client.isExisting(this.logoutButton);
-  while (logoutExists) {
+    const client = this.app.client;
+    await client.waitForVisible(this.logoutButton);
     await client.click(this.logoutButton);
-    logoutExists = await client.isExisting(this.logoutButton);
 
-    if (Date.now() - t > 30) {
-      break;
+    const t = Date.now();
+    let logoutExists = await client.isExisting(this.logoutButton);
+    while (logoutExists) {
+        await client.click(this.logoutButton);
+        logoutExists = await client.isExisting(this.logoutButton);
+
+        if (Date.now() - t > 30) {
+            break;
+        }
     }
-  }
+};
+
+//I think this should be executed on stage env only
+MainPage.prototype.claimBalanceCheck = async function () {
+    const client = this.app.client;
+    let availableClaimButton = await client.isEnabled(this.claimReward);
+    if (availableClaimButton === true) {
+        await client.element(this.claimReward).click();
+    }
+    else {
+        let availableStartMining = await  client.waitForEnabled(this.startMiningButton, 30000);
+        console.log('********', availableStartMining);
+        if (availableStartMining === false) {
+            throw new Error('Start mining button is not available');
+        }
+        else {
+            await client
+                .waitForEnabled(this.startMiningButton, 400000)
+                .element(this.startMiningButton).click()
+                .waitForEnabled(this.claimReward, 9999999)
+                .element(this.claimReward).click();
+        }
+    }
+};
+
+MainPage.prototype.startMining = async function () {
+    const client = this.app.client;
+    await client.waitForEnabled(this.startMining, 400000).element(this.startMining).click();
+};
+
+MainPage.prototype.checkBalanceIncrease = async function () {
+    const client = this.app.client;
+    let miningBalance = await client.getText(this.miningBalance);
+    let currentBalance = await client.getText(this.currrentBalance);
+    let currentBalanceIndex = currentBalance[1];
+
+    const total = miningBalance + currentBalanceIndex;
+
+    if (total >= currentBalanceIndex) {
+        console.log('Balance claimed successfully');
+    }
+    else {
+        throw new Error("Balance was not claimed successfully ");
+    }
 };
 
 MainPage.prototype.clickMyGamesTab = async function () {
@@ -84,10 +131,9 @@ MainPage.prototype.checkTheGamesList = async function () {
 };
 
 MainPage.prototype.clickAccountMenu = async function () {
-  const client = this.app.client;
-
-  await client.waitForVisible(this.accountMenu);
-  await client.click(this.accountMenu);
+    const client = this.app.client;
+    await client.waitForVisible(this.accountMenu);
+    await client.click(this.accountMenu);
 };
 
 MainPage.prototype.verifyCurrencyList = async function () {
@@ -161,7 +207,6 @@ MainPage.prototype.dialogDisapper = async function() {
     await this.app.client.waitForExist(this.buyGameButton, 1000, true);
 };
 
-
 MainPage.prototype.startMining = async function () {
     const client = this.app.client;
     await client.waitForEnabled(this.startMiningButton, 400000).element(this.startMiningButton).click();
@@ -171,6 +216,23 @@ MainPage.prototype.isMinerWorking = async function () {
     const clinet = this.app.client;
     await clinet.isExisting(this.minerWorkingText);
 
+};
+
+MainPage.prototype.checkForBalanceRequirement = async function() {
+    const client = this.app.client;
+    let requirement = 0.1;
+    let miningBalance = await client.getText(this.miningBalance);
+    if(miningBalance < requirement){
+        console.log('the mining balance is below the required threshold');
+    }
+};
+
+MainPage.prototype.balanceNotClaimable= async function(){
+    const client = this.app.client;
+    let availableClaimButton = await client.isEnabled(this.claimReward);
+    if(availableClaimButton === false){
+        console.log('You cannot claim the balance');
+    }
 
 };
 
