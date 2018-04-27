@@ -13,4 +13,13 @@ defineSupportCode(function ({Given, Then, When}) {
         await this.client.mainPage.checkBalanceIncrease();
     });
 
+
+    When ('the balance is below the required threshold', async function(){
+        await this.client.mainPage.checkForBalanceRequirement();
+    });
+
+    Then('I will not be able to claim it',async function () {
+        await this.client.mainPage.balanceNotClaimable();
+    });
 });
+

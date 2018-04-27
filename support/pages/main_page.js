@@ -218,4 +218,22 @@ MainPage.prototype.isMinerWorking = async function () {
 
 };
 
+MainPage.prototype.checkForBalanceRequirement = async function() {
+    const client = this.app.client;
+    let requirement = 0.1;
+    let miningBalance = await client.getText(this.miningBalance);
+    if(miningBalance < requirement){
+        console.log('the mining balance is below the required threshold');
+    }
+};
+
+MainPage.prototype.balanceNotClaimable= async function(){
+    const client = this.app.client;
+    let availableClaimButton = await client.isEnabled(this.claimReward);
+    if(availableClaimButton === false){
+        console.log('You cannot claim the balance');
+    }
+
+};
+
 module.exports = MainPage;
