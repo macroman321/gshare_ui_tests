@@ -2,6 +2,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 const fs = require('fs');
 const _ = require('lodash');
+const username = require('username');
 
 const config_path = path.join(
   path.dirname(
@@ -48,7 +49,8 @@ class TestData {
 
     try {
       TestData.data = _.merge(config_data, test_data)
-      TestData.clientPathname = TestData.data[`${variant}_client`]
+      TestData.clientPathname = TestData.get_client_pathname(
+        TestData.data[`${variant}_client`]);
     } catch (e) {
       console.log('Unable to load test data!');
       console.log(e);
@@ -57,6 +59,14 @@ class TestData {
 
   static get_user(user_id) {
     return TestData.data.users[user_id];
+  }
+
+  static get_client_pathname(cp_template) {
+    if (cp_template.includes('(username)')) {
+      return cp_template.replace('(username)', username.sync());
+    } else {
+      return TestData.data.users[user_id];
+    }
   }
 }
 
