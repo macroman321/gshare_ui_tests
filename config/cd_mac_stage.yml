@@ -1,0 +1,10 @@
+###
+#
+# cd_mac_prod.yml
+#
+# Config data for mac client connecting to the Production environment
+#
+###
+
+esprit_client: '/Applications/GShareForEspritGames.app/Contents/MacOS/GShareForEspritGames'
+gamecredits_client: '/Applications/GShare.app/Contents/MacOS/GShare'
