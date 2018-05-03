@@ -7,4 +7,4 @@
 ###
 
 esprit_client: '/opt/GShareForEspritGames/gshare-for-esprit'
-gamecredits_client: 'undefined'
+gamecredits_client: '/opt/GShare/gshare-app'
