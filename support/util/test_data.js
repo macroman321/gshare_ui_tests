@@ -48,7 +48,7 @@ class TestData {
     }
 
     try {
-      TestData.data = _.merge(config_data, test_data)
+      TestData.data = _.merge(config_data, test_data);
       TestData.clientPathname = TestData.get_client_pathname(
         TestData.data[`${variant}_client`]);
     } catch (e) {
@@ -65,9 +65,9 @@ class TestData {
     if (cp_template.includes('(username)')) {
       return cp_template.replace('(username)', username.sync());
     } else {
-      return TestData.data.users[user_id];
+      return cp_template;
     }
   }
 }
 
-module.exports = TestData
+module.exports = TestData;
