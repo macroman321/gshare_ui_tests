@@ -28,10 +28,10 @@ Feature: GameClient Login
   Scenario: Test valid Login with 2FA code
     When I enter a valid credentials
     And I enter a valid 2FA code
-    Then I should be loged in succesfully in application   
+    Then I should be loged in succesfully in application
 
   @manual
-    Scenario: Test invalid verification code
-      When I enter a valid credentials
-      And I enter a wrong 2FA code
-      Then I should see notification that 2FA code is wrong       
+  Scenario: Test invalid verification code
+    When I enter a valid credentials
+    And I enter a wrong 2FA code
+    Then I should see notification that 2FA code is wrong

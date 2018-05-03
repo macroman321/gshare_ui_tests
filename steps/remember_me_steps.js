@@ -1,6 +1,5 @@
 // remember_me_steps.js
 const defineSupportCode = require('cucumber').defineSupportCode;
-const Application = require('spectron').Application;
 const assert = require('assert');
 
 // increased timeout

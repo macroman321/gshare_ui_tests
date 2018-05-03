@@ -1,3 +1,11 @@
+#
+# FILE NAME: claim_reward.feature
+# DESCRIPTION: claim_reward FEATURE
+# AUTHOR: Dimitrije Dragasevic (DD)
+# CREATED: 20-Apr-18
+# NOTES:
+#
+
 Feature: Claim Reward
 
   Background:

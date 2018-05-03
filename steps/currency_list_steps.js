@@ -8,8 +8,6 @@
 //
 
 const defineSupportCode = require('cucumber').defineSupportCode;
-const Application = require('spectron').Application;
-const assert = require('assert');
 
 // increased timeout
 const {setDefaultTimeout} = require('cucumber');
