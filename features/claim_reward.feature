@@ -1,10 +1,12 @@
 #
 # FILE NAME: claim_reward.feature
 # DESCRIPTION: claim_reward FEATURE
-# AUTHOR: Dimitrije Dragasevic (DD)
+# AUTHOR: Dimitrije Dragašević (DD)
 # CREATED: 20-Apr-18
 # NOTES:
 #
+
+#TODO: This needs overhauling
 
 Feature: Claim Reward
 
@@ -16,14 +18,14 @@ Feature: Claim Reward
     Then I should see my current balance increase
 
   Scenario: Verify that claim is disabled if reward balance is below the reward threshold
-    When the balance is below the required threshold
+    When The balance is below the required threshold
     Then I will not be able to claim it
 
   @manual
   Scenario: Verify the claim if reward balance is above the reward threshold
-    When the reward balance become bigger then the reward threshold
-    Then the Claim should be enabled
+    When The reward balance become bigger then the reward threshold
+    Then The Claim should be enabled
     When I claim the reward
-    Then I should see the message "your message was successfully claimed ... it takes about 10 min to calculate the reward"
-    And my balance should increase for the reward balance
-    And my reward balance should reset to zero
+    Then I should see the message "Working... It takes about 10 minutes to calculate the reward"
+    And My balance should increase for the reward balance
+    And My reward balance should reset to zero

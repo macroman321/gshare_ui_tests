@@ -87,12 +87,18 @@ LoginPage.prototype.verifyFailedLoginMessage = async function (message) {
 
 LoginPage.prototype.handleError = async function (error) {
   if (error.message.includes("is not clickable") !== true) {
-    console.log('********************************************');
-
     console.log(error.message);
     throw new error;
   }
   await this.clickRememberMe();
+};
+
+LoginPage.prototype.verifyRememberMeIsChecked = async function () {
+  let client = this.app.client;
+  let rememberMeCheckBoxStatus = await client.isSelected(this.rememberMeCheckbox);
+  if (rememberMeCheckBoxStatus !== true) {
+    throw new Error("Remember Me is not selected")
+  }
 };
 
 module.exports = LoginPage;

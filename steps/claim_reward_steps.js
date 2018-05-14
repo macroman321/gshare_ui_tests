@@ -2,7 +2,7 @@
 // FILE NAME: claim_reward_steps.rb
 // DESCRIPTION: claim_reward STEPS
 // Step definitions for claim_reward.feature
-// AUTHOR: Dimitrije Dragasevic (DD)
+// AUTHOR: Dimitrije Dragašević (DD)
 // CREATED: 20-Apr-18
 // NOTES:
 //
@@ -22,7 +22,7 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.client.mainPage.checkBalanceIncrease();
   });
 
-  When('the balance is below the required threshold', async function () {
+  When('The balance is below the required threshold', async function () {
     await this.client.mainPage.checkForBalanceRequirement();
   });
 
@@ -30,4 +30,3 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.client.mainPage.balanceNotClaimable();
   });
 });
-

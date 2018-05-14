@@ -1,3 +1,12 @@
+//
+// FILE NAME: my_games_steps.rb
+// DESCRIPTION: my_games STEPS
+// Step definitions for my_games.feature
+// AUTHOR: Ivan Babić (IB)
+// CREATED: 10-Apr-18
+// NOTES:
+//
+
 const defineSupportCode = require('cucumber').defineSupportCode;
 
 defineSupportCode(function ({Given, Then, When}) {

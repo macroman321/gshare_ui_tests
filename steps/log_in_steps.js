@@ -1,4 +1,12 @@
-// login_steps.js
+//
+// FILE NAME: log_in_steps.rb
+// DESCRIPTION: log_in STEPS
+// Step definitions for log_in.feature
+// AUTHOR: Dragan Nikolić (DN)
+// CREATED: 20-Apr-18
+// NOTES:
+//
+
 const defineSupportCode = require('cucumber').defineSupportCode;
 const assert = require('assert');
 const TestData = require('../support/util/test_data');
@@ -35,7 +43,8 @@ defineSupportCode(function ({Given, Then, When}) {
     if ((await this.client.loginPage.isOpen()) === false) {
       await this.client.mainPage.logout();
     }
-    await this.client.loginPage.loginWithoutRememberMe(user);
+    await this.client.loginPage.enterEmail(user.email);
+    await this.client.loginPage.enterPassword(user.password);
   });
 
   When('I log in as user {string}', async function (user_id) {
@@ -55,5 +64,10 @@ defineSupportCode(function ({Given, Then, When}) {
 
   Then("I should see login has failed with {string}", async function (message) {
     await this.client.loginPage.verifyFailedLoginMessage(message);
-  })
+  });
+
+  When("I click the Login button", async function () {
+    await this.client.loginPage.clickLogin();
+  });
+
 });

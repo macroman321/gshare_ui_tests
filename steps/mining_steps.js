@@ -1,3 +1,12 @@
+//
+// FILE NAME: claim_reward_steps.rb
+// DESCRIPTION: claim_reward STEPS
+// Step definitions for claim_reward.feature
+// AUTHOR: Dimitrije Dragasevic (DD)
+// CREATED: 20-Apr-18
+// NOTES:
+//
+
 const defineSupportCode = require('cucumber').defineSupportCode;
 
 defineSupportCode(function ({Given, Then, When}) {
@@ -17,5 +26,3 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.client.mainPage.isMinerWorking();
   })
 });
-
-

@@ -3,7 +3,7 @@ let app = undefined;
 function Page(_app) {
   if (!app) {
     if (_app) {
-      app = _app;    
+      app = _app;
     }
   }
 
@@ -11,11 +11,11 @@ function Page(_app) {
   this.app = app
 }
 
-Page.prototype.startClient = async function() {
+Page.prototype.startClient = async function () {
   await this.app.start();
 };
 
-Page.prototype.stopClient = async function() {
+Page.prototype.stopClient = async function () {
   await this.app.stop();
 };
 

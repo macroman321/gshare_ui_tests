@@ -1,8 +1,17 @@
+//
+// FILE NAME: store_steps.rb
+// DESCRIPTION: store STEPS
+// Step definitions for store.feature
+// AUTHOR: Danilo Čupić (DČ)
+// CREATED: 13-Apr-18
+// NOTES:
+//
+
 const defineSupportCode = require('cucumber').defineSupportCode;
 
 defineSupportCode(function ({Given, Then, When}) {
-
   let countOne = 0;
+
   When('I click on My Games', async function () {
     await this.client.mainPage.clickMyGames();
     await this.app.client.waitForExist('#portalTabs-pane-2 .gc-game-card');
@@ -77,4 +86,4 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.app.client.waitForExist('button[class="gc-button gc-button--secondary gc-button--full"]', 1000, true);
     await this.client.mainPage.gameList();
   });
-}); 
+});

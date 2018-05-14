@@ -10,8 +10,8 @@ let app = undefined;
 let client = {};
 
 const logger = Logger.create(
-  'cmatest',  
-  { filename: 'cmatest.log', appendFile: true }
+    'cmatest',
+    {filename: 'cmatest.log', appendFile: true}
 );
 
 BeforeAll(async function () {
@@ -23,9 +23,9 @@ Before(async function (scenario) {
   if (!test_data) {
     logger.info(`parameters: ${JSON.stringify(this.parameters)}`);
     TestData.load(
-      this.parameters.platform,
-      this.parameters.variant,
-      this.parameters.environment);
+        this.parameters.platform,
+        this.parameters.variant,
+        this.parameters.environment);
     test_data = TestData.data;
 
     // Start the client
@@ -35,7 +35,7 @@ Before(async function (scenario) {
     client.loginPage = new LoginPage(app);
     client.mainPage = new MainPage(app);
   } else {
-    logger.debug('test data already initialized!')
+    logger.debug('Test data already initialized!')
   }
 
   this.test_data = test_data;
@@ -47,5 +47,8 @@ Before(async function (scenario) {
 
 After(async function (scenario) {
   this.logger.info(`Scenario '${scenario.pickle.name}' ${scenario.result.status}!`);
+
+  //TODO: Add an if to check if miner is running and incorporate it into mining feature test
+
   await this.app.stop();
 });

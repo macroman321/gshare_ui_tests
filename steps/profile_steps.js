@@ -1,7 +1,7 @@
 //
-// FILE NAME: currency_list_steps.rb
-// DESCRIPTION: currency_list STEPS
-// Step definitions for currency_list.feature
+// FILE NAME: profile_steps.rb
+// DESCRIPTION: profile STEPS
+// Step definitions for profile.feature
 // AUTHOR: Milan Šubarević (MŠ)
 // CREATED: 10-Apr-18
 // NOTES:

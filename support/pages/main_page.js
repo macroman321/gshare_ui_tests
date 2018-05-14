@@ -4,54 +4,54 @@ const {setDefaultTimeout} = require('cucumber');
 setDefaultTimeout(5000 * 1000);
 
 function MainPage(app) {
-    Page.call(this, app);
+  Page.call(this, app);
 
-    this.storeTab = '[id="portalTabs-tab-1"]';
-    this.accountMenu = '[class="gc-avatar"]';
-    this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
-    this.closeButton = 'button[id="window-close"]';
-    this.startMiningButton = '[class="gc-pill gc-pill--icon"]';
-    this.claimReward = 'button[class="gc-pill gc-pill--active"]';
-    this.miningBalance = '[class = "gc-balance gc-balance--active"]';
-    this.currrentBalance = '[class="gc-balance__amount"]';
-    this.myGamesTab = '[id="portalTabs-tab-2"]';
-    this.currencyList = '[class = "gc-profile-settings__balance"]';
-    this.pane2 = '[id=portalTabs-pane-2]';
-    this.gameIcon = '[class="gc-game-card"]';
-    this.clickGame = 'button[class="gc-button gc-button--primary"]';
-    this.buyGameButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
-    this.buyButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
-    this.buttonGoToMyGames = 'button[class="gc-button gc-button--secondary gc-button--full"]';
-    this.msgPurchaseFailed = '[class="gc-game-card__cover-overlay__insufficient-funds"]';
-    this.cancelPurchase = 'button[class="gc-button gc-button--flat gc-button--large gc-buy-game-card__cancel-btn"]';
-    this.cancelButtonAfterPurchase = '[class="gc-button gc-button--flat gc-buy-game-card__cancel-btn"]';
-    this.emptyGamesList = '[class="gc-empty-list"]';
-    this.purchasedGame = '[class="gc-game-card"]';
-    this.minerWorkingText = '[class="gc-balance__text"]'
+  this.storeTab = '[id="portalTabs-tab-1"]';
+  this.accountMenu = '[class="gc-avatar"]';
+  this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]';
+  this.closeButton = 'button[id="window-close"]';
+  this.startMiningButton = '[class="gc-pill gc-pill--icon"]';
+  this.claimReward = 'button[class="gc-pill gc-pill--active"]';
+  this.miningBalance = '[class = "gc-balance gc-balance--active"]';
+  this.currrentBalance = '[class="gc-balance__amount"]';
+  this.myGamesTab = '[id="portalTabs-tab-2"]';
+  this.currencyList = '[class = "gc-profile-settings__balance"]';
+  this.pane2 = '[id=portalTabs-pane-2]';
+  this.gameIcon = '[class="gc-game-card"]';
+  this.clickGame = 'button[class="gc-button gc-button--primary"]';
+  this.buyGameButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
+  this.buyButton = 'button[class="gc-button gc-button--primary gc-button--full gc-button--large"]';
+  this.buttonGoToMyGames = 'button[class="gc-button gc-button--secondary gc-button--full"]';
+  this.msgPurchaseFailed = '[class="gc-game-card__cover-overlay__insufficient-funds"]';
+  this.cancelPurchase = 'button[class="gc-button gc-button--flat gc-button--large gc-buy-game-card__cancel-btn"]';
+  this.cancelButtonAfterPurchase = '[class="gc-button gc-button--flat gc-buy-game-card__cancel-btn"]';
+  this.emptyGamesList = '[class="gc-empty-list"]';
+  this.purchasedGame = '[class="gc-game-card"]';
+  this.minerWorkingText = '[class="gc-balance__text"]';
 }
 
-// inherit everything from Page
+// Inherit everything from Page
 MainPage.prototype = Object.create(Page.prototype);
 
 MainPage.prototype.isOpen = async function () {
-    try {
-        await this.app.client.waitForExist(this.storeTab);
-        return true;
-    } catch (_) {
-        return false;
-    }
+  try {
+    await this.app.client.waitForExist(this.storeTab);
+    return true;
+  } catch (_) {
+    return false;
+  }
 };
 
 MainPage.prototype.logout = async function () {
-    const client = this.app.client;
+  const client = this.app.client;
 
-    await client.waitForVisible(this.accountMenu);
-    await client.click(this.accountMenu);
-    await this.clickLogoutButton();
+  await client.waitForVisible(this.accountMenu);
+  await client.click(this.accountMenu);
+  await this.clickLogoutButton();
 };
 
 MainPage.prototype.close = async function () {
-    await this.app.client.click(this.closeButton);
+  await this.app.stop();
 };
 
 // Logout button click is unreliable, therefore this function
@@ -133,8 +133,9 @@ MainPage.prototype.clickAccountMenu = async function () {
 };
 
 MainPage.prototype.verifyCurrencyList = async function () {
-    const client = this.app.client;
-    await client.waitForVisible(this.currencyList);
+  const client = this.app.client;
+
+  await client.waitForVisible(this.currencyList);
 };
 MainPage.prototype.clickMyGames = async function () {
     await this.app.client.click(this.myGamesTab);
@@ -153,8 +154,9 @@ MainPage.prototype.showBuyedGames = async function () {
 };
 
 MainPage.prototype.clickForBuy = async function () {
-    await this.app.client.waitForVisible(this.gameIcon)
-        .moveToObject(this.clickGame)                            //will be depracted soon, check for new function
+    await this.app.client
+        .waitForVisible(this.gameIcon)
+        .moveToObject(this.clickGame) // moveToObject will be deprecated soon, check for new function
         .waitForVisible(this.clickGame)
         .waitForExist(this.clickGame)
         .click(this.clickGame)
@@ -213,17 +215,19 @@ MainPage.prototype.startMining = async function () {
 };
 
 MainPage.prototype.isMinerWorking = async function () {
-    const clinet = this.app.client;
-    await clinet.isExisting(this.minerWorkingText);
+  const client = this.app.client;
+  await client.waitForExist(this.minerWorkingText);
+  const startedMiner = await client.getText(this.minerWorkingText);
+  console.log(startedMiner);
 };
 
 MainPage.prototype.checkForBalanceRequirement = async function () {
-    const client = this.app.client;
-    let requirement = 0.1;
-    let miningBalance = await client.getText(this.miningBalance);
-    if (miningBalance < requirement) {
-        console.log('the mining balance is below the required threshold');
-    }
+  const client = this.app.client;
+  let requirement = 0.1;
+  let miningBalance = await client.getText(this.miningBalance);
+  if (miningBalance < requirement) {
+    console.log('The mining balance is below the required threshold');
+  }
 };
 
 MainPage.prototype.balanceNotClaimable = async function () {
