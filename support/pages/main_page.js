@@ -56,80 +56,80 @@ MainPage.prototype.close = async function () {
 
 // Logout button click is unreliable, therefore this function
 MainPage.prototype.clickLogoutButton = async function () {
-    const client = this.app.client;
-    await client.waitForVisible(this.logoutButton);
+  const client = this.app.client;
+  await client.waitForVisible(this.logoutButton);
+  await client.click(this.logoutButton);
+
+  const t = Date.now();
+  let logoutExists = await client.isExisting(this.logoutButton);
+  while (logoutExists) {
     await client.click(this.logoutButton);
+    logoutExists = await client.isExisting(this.logoutButton);
 
-    const t = Date.now();
-    let logoutExists = await client.isExisting(this.logoutButton);
-    while (logoutExists) {
-        await client.click(this.logoutButton);
-        logoutExists = await client.isExisting(this.logoutButton);
-
-        if (Date.now() - t > 30) {
-            break;
-        }
+    if (Date.now() - t > 30) {
+      break;
     }
+  }
 };
 
 MainPage.prototype.claimBalanceCheck = async function () {
-    const client = this.app.client;
-    let availableClaimButton = await client.isEnabled(this.claimReward);
-    if (availableClaimButton === true) {
-        await client.element(this.claimReward).click();
+  const client = this.app.client;
+  let availableClaimButton = await client.isEnabled(this.claimReward);
+  if (availableClaimButton === true) {
+    await client.element(this.claimReward).click();
+  }
+  else {
+    let availableStartMining = await  client.waitForEnabled(this.startMiningButton, 30000);
+    console.log('********', availableStartMining);
+    if (availableStartMining === false) {
+      throw new Error('Start mining button is not available');
     }
     else {
-        let availableStartMining = await  client.waitForEnabled(this.startMiningButton, 30000);
-        console.log('********', availableStartMining);
-        if (availableStartMining === false) {
-            throw new Error('Start mining button is not available');
-        }
-        else {
-            await client
-                .waitForEnabled(this.startMiningButton, 400000)
-                .element(this.startMiningButton).click()
-                .waitForEnabled(this.claimReward, 9999999)
-                .element(this.claimReward).click();
-        }
+      await client
+          .waitForEnabled(this.startMiningButton, 400000)
+          .element(this.startMiningButton).click()
+          .waitForEnabled(this.claimReward, 9999999)
+          .element(this.claimReward).click();
     }
+  }
 };
 
 MainPage.prototype.checkBalanceIncrease = async function () {
-    const client = this.app.client;
-    let miningBalance = await client.getText(this.miningBalance);
-    let currentBalance = await client.getText(this.currrentBalance);
-    let currentBalanceIndex = currentBalance[1];
+  const client = this.app.client;
+  let miningBalance = await client.getText(this.miningBalance);
+  let currentBalance = await client.getText(this.currrentBalance);
+  let currentBalanceIndex = currentBalance[1];
 
-    const total = miningBalance + currentBalanceIndex;
+  const total = miningBalance + currentBalanceIndex;
 
-    if (total >= currentBalanceIndex) {
-        console.log('Balance claimed successfully');
-    }
-    else {
-        throw new Error("Balance was not claimed successfully ");
-    }
+  if (total >= currentBalanceIndex) {
+    console.log('Balance claimed successfully');
+  }
+  else {
+    throw new Error("Balance was not claimed successfully ");
+  }
 };
 
 MainPage.prototype.clickMyGamesTab = async function () {
-    const client = this.app.client;
-    await client.waitForVisible(this.myGamesTab);
-    await client.click(this.myGamesTab);
+  const client = this.app.client;
+  await client.waitForVisible(this.myGamesTab);
+  await client.click(this.myGamesTab);
 };
 
 MainPage.prototype.checkTheEmptyGamesList = async function () {
-    const client = this.app.client;
-    await client.waitForVisible(this.emptyGamesList);
+  const client = this.app.client;
+  await client.waitForVisible(this.emptyGamesList);
 };
 MainPage.prototype.checkTheGamesList = async function () {
-    const client = this.app.client;
-    await client.waitForVisible(this.purchasedGame);
+  const client = this.app.client;
+  await client.waitForVisible(this.purchasedGame);
 };
 
 MainPage.prototype.clickAccountMenu = async function () {
-    const client = this.app.client;
-    await client
-        .waitForVisible(this.accountMenu)
-        .click(this.accountMenu);
+  const client = this.app.client;
+  await client
+      .waitForVisible(this.accountMenu)
+      .click(this.accountMenu);
 };
 
 MainPage.prototype.verifyCurrencyList = async function () {
@@ -138,80 +138,80 @@ MainPage.prototype.verifyCurrencyList = async function () {
   await client.waitForVisible(this.currencyList);
 };
 MainPage.prototype.clickMyGames = async function () {
-    await this.app.client.click(this.myGamesTab);
-    await this.app.client.waitForExist(this.gameIcon);
+  await this.app.client.click(this.myGamesTab);
+  await this.app.client.waitForExist(this.gameIcon);
 };
 
 MainPage.prototype.clickOnStore = async function () {
-    await this.app.client.click(this.storeTab);
-    await this.app.client.waitForExist(this.gameIcon);
+  await this.app.client.click(this.storeTab);
+  await this.app.client.waitForExist(this.gameIcon);
 };
 
 MainPage.prototype.showBuyedGames = async function () {
-    await this.app.client
-        .waitForVisible(this.pane2, 10000)
-        .waitForVisible(this.gameIcon);
+  await this.app.client
+      .waitForVisible(this.pane2, 10000)
+      .waitForVisible(this.gameIcon);
 };
 
 MainPage.prototype.clickForBuy = async function () {
-    await this.app.client
-        .waitForVisible(this.gameIcon)
-        .moveToObject(this.clickGame) // moveToObject will be deprecated soon, check for new function
-        .waitForVisible(this.clickGame)
-        .waitForExist(this.clickGame)
-        .click(this.clickGame)
-        .waitForExist(this.buyGameButton);
+  await this.app.client
+      .waitForVisible(this.gameIcon)
+      .moveToObject(this.clickGame) // moveToObject will be deprecated soon, check for new function
+      .waitForVisible(this.clickGame)
+      .waitForExist(this.clickGame)
+      .click(this.clickGame)
+      .waitForExist(this.buyGameButton);
 };
 
 MainPage.prototype.clickOnBuyButton = async function () {
-    await this.app.client.click(this.buyGameButton);
-    try {
-        await this.app.client.waitForExist(this.goToMyGames);
-        return true;
-    } catch (_) {
-        return false;
-    }
+  await this.app.client.click(this.buyGameButton);
+  try {
+    await this.app.client.waitForExist(this.goToMyGames);
+    return true;
+  } catch (_) {
+    return false;
+  }
 };
 
 MainPage.prototype.clickGoToMyGames = async function () {
-    await this.app.client
-        .waitForVisible(this.buttonGoToMyGames, 15000)
-        .click(this.buttonGoToMyGames);
+  await this.app.client
+      .waitForVisible(this.buttonGoToMyGames, 15000)
+      .click(this.buttonGoToMyGames);
 };
 
 MainPage.prototype.mouseOverGame = async function () {
-    await this.app.client
-        .waitForExist(this.gameIcon, 1000)
-        .moveToObject(this.gameIcon, 5000);
+  await this.app.client
+      .waitForExist(this.gameIcon, 1000)
+      .moveToObject(this.gameIcon, 5000);
 };
 
 MainPage.prototype.purchaseFailed = async function () {
-    await this.app.client.waitForVisible(this.msgPurchaseFailed, 5000);
+  await this.app.client.waitForVisible(this.msgPurchaseFailed, 5000);
 };
 
 MainPage.prototype.clickCancelButton = async function () {
-    await this.app.client
-        .click(this.cancelPurchase)
-        .waitForExist(this.myGamesTab, 30000);
+  await this.app.client
+      .click(this.cancelPurchase)
+      .waitForExist(this.myGamesTab, 30000);
 };
 
 MainPage.prototype.cancelButton = async function () {
-    await this.app.client
-        .waitForVisible(this.cancelButtonAfterPurchase, 30000)
-        .click(this.cancelButtonAfterPurchase);
+  await this.app.client
+      .waitForVisible(this.cancelButtonAfterPurchase, 30000)
+      .click(this.cancelButtonAfterPurchase);
 };
 
 MainPage.prototype.gameList = async function () {
-    await this.app.client.waitForExist(this.gameIcon);
+  await this.app.client.waitForExist(this.gameIcon);
 };
 
 MainPage.prototype.dialogDisapper = async function () {
-    await this.app.client.waitForExist(this.buyGameButton, 1000, true);
+  await this.app.client.waitForExist(this.buyGameButton, 1000, true);
 };
 
 MainPage.prototype.startMining = async function () {
-    const client = this.app.client;
-    await client.waitForEnabled(this.startMiningButton, 400000).element(this.startMiningButton).click();
+  const client = this.app.client;
+  await client.waitForEnabled(this.startMiningButton, 400000).element(this.startMiningButton).click();
 };
 
 MainPage.prototype.isMinerWorking = async function () {
@@ -231,11 +231,11 @@ MainPage.prototype.checkForBalanceRequirement = async function () {
 };
 
 MainPage.prototype.balanceNotClaimable = async function () {
-    const client = this.app.client;
-    let availableClaimButton = await client.isEnabled(this.claimReward);
-    if (availableClaimButton === false) {
-        console.log('You cannot claim the balance');
-    }
+  const client = this.app.client;
+  let availableClaimButton = await client.isEnabled(this.claimReward);
+  if (availableClaimButton === false) {
+    console.log('You cannot claim the balance');
+  }
 };
 
 module.exports = MainPage;
