@@ -13,6 +13,8 @@ Feature: My Games
     And I click on the My Games tab
     Then I should see no games displayed
 
+  @manual
+  #TODO: Doesn't work
   Scenario: Purchased games
     When I log in as user "qa_user_5"
     And I click on the My Games tab

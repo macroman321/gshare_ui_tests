@@ -40,8 +40,8 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.client.mainPage.clickGoToMyGames();
   });
 
-  Then('I should see that My Games has icreased by one game', async function () {
-    await this.client.mainPage.showBuyedGames();
+  Then('I should see that My Games has increased by one game', async function () {
+    await this.client.mainPage.showBoughtGames();
 
     const secondCount = await this.app.client.elements('#portalTabs-pane-2 .gc-game-card');
     let countTwo = 0;

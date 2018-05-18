@@ -6,8 +6,6 @@
 # NOTES:
 #
 
-#TODO: This needs overhauling
-
 Feature: Claim Reward
 
   Background:
@@ -17,7 +15,7 @@ Feature: Claim Reward
     When If there is a claimable balance I should be able to claim it
     Then I should see my current balance increase
 
-  Scenario: Verify that claim is disabled if reward balance is below the reward threshold
+  Scenario: Verify that the Claim button is disabled if the reward balance is below the reward threshold
     When The balance is below the required threshold
     Then I will not be able to claim it
 

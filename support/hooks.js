@@ -47,8 +47,5 @@ Before(async function (scenario) {
 
 After(async function (scenario) {
   this.logger.info(`Scenario '${scenario.pickle.name}' ${scenario.result.status}!`);
-
-  //TODO: Add an if to check if miner is running and incorporate it into mining feature test
-
   await this.app.stop();
 });

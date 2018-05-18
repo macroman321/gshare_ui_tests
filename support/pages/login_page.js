@@ -38,17 +38,15 @@ LoginPage.prototype.loginWithoutRememberMe = async function (user) {
 };
 
 LoginPage.prototype.enterEmail = async function (email) {
-  const client = this.app.client;
-
-  await client.waitForExist(this.emailInput);
-  await client.setValue(this.emailInput, email);
+  await this.app.client
+      .waitForExist(this.emailInput)
+      .setValue(this.emailInput, email)
 };
 
 LoginPage.prototype.enterPassword = async function (password) {
-  const client = this.app.client;
-
-  await client.waitForExist(this.passwordInput);
-  await client.setValue(this.passwordInput, password);
+  await this.app.client
+      .waitForExist(this.passwordInput)
+      .setValue(this.passwordInput, password)
 };
 
 LoginPage.prototype.clickLogin = async function () {
@@ -94,8 +92,7 @@ LoginPage.prototype.handleError = async function (error) {
 };
 
 LoginPage.prototype.verifyRememberMeIsChecked = async function () {
-  let client = this.app.client;
-  let rememberMeCheckBoxStatus = await client.isSelected(this.rememberMeCheckbox);
+  let rememberMeCheckBoxStatus = await this.app.client.isSelected(this.rememberMeCheckbox);
   if (rememberMeCheckBoxStatus !== true) {
     throw new Error("Remember Me is not selected")
   }

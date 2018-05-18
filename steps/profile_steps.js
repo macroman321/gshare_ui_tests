@@ -21,4 +21,8 @@ defineSupportCode(function ({Given, Then, When}) {
   Then('I should see the appropriate amount displayed for the selected currency', async function () {
     await this.client.mainPage.verifyCurrencyList();
   });
+
+  Then('I should see all options I can interact with', async function (){
+    await this.client.mainPage.verifyProfileOptions()
+  })
 });
