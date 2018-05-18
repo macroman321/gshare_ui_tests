@@ -7,22 +7,22 @@
 // NOTES:
 //
 
-const defineSupportCode = require('cucumber').defineSupportCode;
+const defineSupportCode = require('cucumber').defineSupportCode
 
 // increased timeout
-const {setDefaultTimeout} = require('cucumber');
-setDefaultTimeout(60 * 1000);
+const {setDefaultTimeout} = require('cucumber')
+setDefaultTimeout(60 * 1000)
 
 defineSupportCode(function ({Given, Then, When}) {
   When('I click on my profile', async function () {
-    await this.client.mainPage.clickAccountMenu();
-  });
+    await this.client.mainPage.clickAccountMenu()
+  })
 
   Then('I should see the appropriate amount displayed for the selected currency', async function () {
-    await this.client.mainPage.verifyCurrencyList();
-  });
+    await this.client.mainPage.verifyCurrencyList()
+  })
 
-  Then('I should see all options I can interact with', async function (){
+  Then('I should see all options I can interact with', async function () {
     await this.client.mainPage.verifyProfileOptions()
   })
-});
+})
