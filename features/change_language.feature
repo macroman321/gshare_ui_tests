@@ -8,5 +8,8 @@
 
 Feature: Change language
 
+  #Background:
+  #  Given I log in as user "qa_user_5"
+
   @manual
   Scenario: Change language

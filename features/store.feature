@@ -16,7 +16,7 @@ Feature: Store
     And I click on a game that I want to buy
     And I click on Buy button
     And I click on button Go to My Games
-    Then I should see that My Games has icreased by one game
+    Then I should see that My Games has increased by one game
 
   @stage
   Scenario: Insufficient funds to purchase a game

@@ -21,12 +21,12 @@ Feature: Log in
   Scenario: Log in with Email TFA
 
   @manual
-  Scenario: Test invalid verification code
+  Scenario: Try to log in with an incorrect TFA code
     When I enter a valid credentials
-    And I enter a wrong 2FA code
-    Then I should see notification that 2FA code is wrong
+    And I enter a wrong TFA code
+    Then I should see notification that says TFA code is wrong
 
-  Scenario Outline: Incorrect password is not accepted
+  Scenario Outline: Try to log in with an incorrect password
     When I start GameClient
     And I enter email of the user "qa_user_1" and password "<password>"
     Then I should see login has failed with "<message>"

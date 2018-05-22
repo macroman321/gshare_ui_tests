@@ -29,4 +29,4 @@ Feature: Remember me
   Scenario: Log in with Email TFA and Remember me
 
   @manual
-  Scenario: Verify remember me logs you in automatically after application update
+  Scenario: Verify Remember me logs you in automatically after application update
