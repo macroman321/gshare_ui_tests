@@ -11,6 +11,7 @@ Feature: Mining
   Background:
     Given I log in as user "qa_user_5"
 
+  @all_env
   Scenario: Start mining
     When I click on the Start button
     Then I should see the application has started to successfully work

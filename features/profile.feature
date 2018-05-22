@@ -14,6 +14,7 @@ Feature: Profile
   @manual
   Scenario: Verify profile elements
 
+  @all_env
   Scenario: Currency List
     When I click on my profile
     Then I should see the appropriate amount displayed for the selected currency

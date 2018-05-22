@@ -10,7 +10,7 @@ Feature: Log in
 
   Background:
 
-
+  @all_env
   Scenario: Log in
     When I log in as user "qa_user_1"
 
