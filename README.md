@@ -10,13 +10,13 @@ Acceptance tests for the [GShare Application](https://gamecredits.atlassian.net/
 1. Run: ```> npm install```
 2. After the npm completes installation you can run the tests using cucumber:
 
-Running all tests using Linux Gamecredits variant on the Staging environment:
+Run all tests using Linux Gamecredits variant on the Staging environment:
 
-    ```> ./run.sh linux gamecredits stage```
+    > ./run.sh linux gamecredits stage
 
-Running login tests using Windows Gamecredits variant on the Production environment:
+Run login tests using Windows Gamecredits variant on the Production environment:
 
-    ```> ./run.sh windows gamecredits prod features/log_in.feature```
+    > ./run.sh windows gamecredits prod features/log_in.feature
 
 ### Who do I talk to about this framework ###
 
