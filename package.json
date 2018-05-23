@@ -4,14 +4,25 @@
   "description": "Acceptance tests for Client Miner Application - CMAPP",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/cucumber-js"
+    "test": "./node_modules/.bin/cucumber-js",
+    "dev": "npm run standard | npm run testfix",
+    "standard": "standard",
+    "testfix": "standard --fix"
   },
+  "pre-push": [
+    "dev"
+  ],
   "author": "dragan.nikolic@gamecredits.com",
   "license": "ISC",
   "dependencies": {
     "cucumber": "^3.2.1",
-    "spectron": "^3.7.2",
+    "js-yaml": "^3.11.0",
     "logplease": "^1.2.14",
-    "js-yaml": "^3.11.0"
+    "spectron": "^3.7.2",
+    "username": "^3.0.0"
+  },
+  "devDependencies": {
+    "pre-push": "^0.1.1",
+    "standard": "^11.0.1"
   }
 }

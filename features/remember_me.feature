@@ -6,16 +6,27 @@
 # NOTES:
 #
 
-Feature: Remember Me feature
+Feature: Remember me
 
   Background:
     Given I start GameClient
 
-  Scenario: Remember Me feature test
-    When I click on the Remember me checkbox
-    And I enter credentials for the user "qa_user_5"
+  @all_env
+  Scenario: Log in with Remember me
+    When I enter credentials for the user "qa_user_5"
+    And I ensure the Remember me is checked
+    And I click the Login button
     Then I should see the user is logged in
     When I press the Quit button
     And I start GameClient
     Then I should see the user is logged in
     And I log out of the application
+
+  @manual
+  Scenario: Log in with TFA and Remember me
+
+  @manual
+  Scenario: Log in with Email TFA and Remember me
+
+  @manual
+  Scenario: Verify Remember me logs you in automatically after application update
