@@ -1,6 +1,6 @@
 # README #
 
-Acceptance tests for the [Clent Miner Application](https://gamecredits.atlassian.net/wiki/spaces/MIN/overview) (aka GShare).
+Acceptance tests for the [GShare Application](https://gamecredits.atlassian.net/wiki/spaces/MIN/overview).
 
 ### Prerequisites ###
 1. [Node.js](https://nodejs.org/) version 8.9.4 or newer with NPM version 5.6.0 or newer
@@ -10,14 +10,16 @@ Acceptance tests for the [Clent Miner Application](https://gamecredits.atlassian
 1. Run: ```> npm install```
 2. After the npm completes installation you can run the tests using cucumber:
 
-Running tests using Linux Gamecredits variant on the Staging environment:
+Running all tests using Linux Gamecredits variant on the Staging environment:
+    > ./run.sh linux gamecredits stage
 
-    > ./node_modules/.bin/cucumber-js path/to/<test_file>.feature --world-parameters '{"environment": "stage", "variant": "gamecredits", "platform": "linux}'
+Running login tests using Windows Gamecredits variant on the Production environment:
+    > ./run.sh windows gamecredits prod features/log_in.feature
 
 ### Who do I talk to about this framework ###
 
-* Nenad Tanasković (nenad.tanaskovic@gamecredits.com)
-* Dragan Nikolić (dragan.nikolic@gamecredits.com)
+* Dragan Nikolic (dragan.nikolic@gamecredits.com)
+* Anybody else from the GameCredits QA team
 
 ### References ###
 
