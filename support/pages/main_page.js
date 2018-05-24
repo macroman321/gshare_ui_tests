@@ -240,7 +240,7 @@ MainPage.prototype.minerWorking = async function () {
 MainPage.prototype.minerStopped = async function () {
   let minerStatus = await this.app.client.getText(this.minerWorkingText)
   let minerStatusText = minerStatus[0]
-
+//bla
   if (minerStatusText !== 'Reward') {
     throw new Error('Miner is working when it should not')
   }
