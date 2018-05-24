@@ -13,12 +13,12 @@ Feature: Claim Reward
   Background:
     Given I log in as user "qa_user_5"
 
-  @stage
+  @stage_env
   Scenario: Claim reward
     When If there is a claimable balance I should be able to claim it
     Then I should see my current balance increase
 
-  @stage
+  @stage_env
   Scenario: Verify that claim is disabled if reward balance is below the reward threshold
     When The balance is below the required threshold
     Then I will not be able to claim it

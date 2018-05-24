@@ -6,7 +6,7 @@
 
 Feature: My Games
 
-  @all
+  @all_env
   Scenario: No purchased games
     When I log in as user "qa_user_4"
     And I click on the My Games tab
