@@ -11,6 +11,7 @@ Feature: Profile
   Background:
     Given I log in as user "qa_user_5"
 
+  @all_env
   Scenario: Verify profile elements
     When I click on my profile
     Then I should see all options I can interact with
