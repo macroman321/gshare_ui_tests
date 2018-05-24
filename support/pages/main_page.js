@@ -7,7 +7,7 @@ function MainPage (app) {
   Page.call(this, app)
 
   this.storeTab = '[id="portalTabs-tab-1"]'
-  this.accountMenu = '[class="gc-avatar"]'
+  this.accountMenu = '[class="gc-balance"]' //TODO:
   this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]'
   this.startMiningButton = '[class="gc-pill gc-pill--icon"]'
   this.claimReward = 'button[class="gc-pill gc-pill--active"]'
@@ -29,7 +29,6 @@ function MainPage (app) {
   this.profileMyAccountHeading = '[class="gc-profile-settings__title"]'
   this.profileMyAccountSpan = '[class="gc-profile-settings__email"]'
   this.profileMyWalletLink = '[class="gc-profile-settings__link gc-profile-settings__link--wallet"]'
-  this.profileSignOutLink = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]'
   this.profileLanguageButton = '[class="gc-dropdown-toggle btn btn-default"]'
   this.profileLanguageLabel = '[class="gc-label__text"]'
   this.profileDiscordLink = '[class="gc-text--secondary"]'
@@ -50,7 +49,7 @@ MainPage.prototype.isOpen = async function () {
 
 MainPage.prototype.logout = async function () {
   await this.app.client
-    .waitForVisible(this.accountMenu)
+    .waitForVisible(this.accountMenu, 10000)
     .click(this.accountMenu)
 
   await this.clickLogoutButton()
@@ -66,7 +65,7 @@ MainPage.prototype.clickLogoutButton = async function () {
   const t = Date.now()
 
   await client
-    .waitForVisible(this.logoutButton)
+    .waitForVisible(this.logoutButton, 30000)
     .click(this.logoutButton)
 
   let logoutExists = await client.isExisting(this.logoutButton)
@@ -266,7 +265,7 @@ MainPage.prototype.verifyProfileOptions = async function () {
     .waitForExist(this.profileMyAccountHeading)
     .waitForExist(this.profileMyAccountSpan)
     .waitForExist(this.profileMyWalletLink)
-    .waitForExist(this.profileSignOutLink)
+    .waitForExist(this.logoutButton)
     .waitForExist(this.profileLanguageButton)
     .waitForExist(this.profileLanguageLabel)
     .waitForExist(this.profileDiscordLink)
