@@ -3,11 +3,11 @@ const Page = require('./page')
 const {setDefaultTimeout} = require('cucumber')
 setDefaultTimeout(5000 * 1000)
 
-function MainPage (app) {
+function MainPage(app) {
   Page.call(this, app)
 
   this.storeTab = '[id="portalTabs-tab-1"]'
-  this.accountMenu = '[class="gc-balance"]' //TODO:
+  this.accountMenu = '[class="gc-avatar"]'
   this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]'
   this.startMiningButton = '[class="gc-pill gc-pill--icon"]'
   this.claimReward = 'button[class="gc-pill gc-pill--active"]'
@@ -29,10 +29,12 @@ function MainPage (app) {
   this.profileMyAccountHeading = '[class="gc-profile-settings__title"]'
   this.profileMyAccountSpan = '[class="gc-profile-settings__email"]'
   this.profileMyWalletLink = '[class="gc-profile-settings__link gc-profile-settings__link--wallet"]'
-  this.profileLanguageButton = '[class="gc-dropdown-toggle btn btn-default"]'
+  this.profileLanguageButton = '[class="gc-dropdown gc-dropdown--full-toggle btn btn-default"]'
   this.profileLanguageLabel = '[class="gc-label__text"]'
   this.profileDiscordLink = '[class="gc-text--secondary"]'
   this.minerWorkingMessage = '[class="gc-notification__message"]'
+  this.profileAboutLink = '[class="gc-profile-settings__link gc-profile-settings__link--about"]'
+  this.profileFaqLink = '[class="gc-profile-settings__link gc-profile-settings__link--faq"]'
 }
 
 // Inherit everything from Page
@@ -49,8 +51,8 @@ MainPage.prototype.isOpen = async function () {
 
 MainPage.prototype.logout = async function () {
   await this.app.client
-    .waitForVisible(this.accountMenu, 10000)
-    .click(this.accountMenu)
+      .waitForVisible(this.accountMenu, 10000)
+      .click(this.accountMenu)
 
   await this.clickLogoutButton()
 }
@@ -65,8 +67,8 @@ MainPage.prototype.clickLogoutButton = async function () {
   const t = Date.now()
 
   await client
-    .waitForVisible(this.logoutButton, 30000)
-    .click(this.logoutButton)
+      .waitForVisible(this.logoutButton, 30000)
+      .click(this.logoutButton)
 
   let logoutExists = await client.isExisting(this.logoutButton)
   while (logoutExists) {
@@ -92,10 +94,10 @@ MainPage.prototype.claimBalanceCheck = async function () {
       throw new Error('Start mining button is not available')
     } else {
       await client
-        .waitForEnabled(this.startMiningButton, 400000)
-        .element(this.startMiningButton).click()
-        .waitForEnabled(this.claimReward, 9999999)
-        .element(this.claimReward).click()
+          .waitForEnabled(this.startMiningButton, 400000)
+          .element(this.startMiningButton).click()
+          .waitForEnabled(this.claimReward, 9999999)
+          .element(this.claimReward).click()
     }
   }
 }
@@ -115,8 +117,8 @@ MainPage.prototype.checkBalanceIncrease = async function () {
 
 MainPage.prototype.clickMyGamesTab = async function () {
   await this.app.client
-    .waitForVisible(this.myGamesTab)
-    .click(this.myGamesTab)
+      .waitForVisible(this.myGamesTab)
+      .click(this.myGamesTab)
 }
 
 MainPage.prototype.checkTheEmptyGamesList = async function () {
@@ -137,40 +139,40 @@ MainPage.prototype.checkTheGamesList = async function () {
 
 MainPage.prototype.clickAccountMenu = async function () {
   await this.app.client
-    .waitForVisible(this.accountMenu)
-    .click(this.accountMenu)
+      .waitForVisible(this.accountMenu)
+      .click(this.accountMenu)
 }
 
 MainPage.prototype.verifyCurrencyList = async function () {
-  await this.app.client.waitForVisible(this.currencyList)
+  await this.app.client.waitForVisible(this.currencyList, 10000)
 }
 
 MainPage.prototype.clickMyGames = async function () {
   await this.app.client
-    .click(this.myGamesTab)
-    .waitForExist(this.gameIcon)
+      .click(this.myGamesTab)
+      .waitForExist(this.gameIcon)
 }
 
 MainPage.prototype.clickOnStore = async function () {
   await this.app.client
-    .click(this.storeTab)
-    .waitForExist(this.gameIcon)
+      .click(this.storeTab)
+      .waitForExist(this.gameIcon)
 }
 
 MainPage.prototype.showBoughtGames = async function () {
   await this.app.client
-    .waitForVisible(this.pane2, 10000)
-    .waitForVisible(this.gameIcon)
+      .waitForVisible(this.pane2, 10000)
+      .waitForVisible(this.gameIcon)
 }
 
 MainPage.prototype.clickForBuy = async function () {
   await this.app.client
-    .waitForVisible(this.gameIcon)
-    .moveToObject(this.clickGame) // moveToObject will be deprecated soon, check for new function
-    .waitForVisible(this.clickGame)
-    .waitForExist(this.clickGame)
-    .click(this.clickGame)
-    .waitForExist(this.buyGameButton)
+      .waitForVisible(this.gameIcon)
+      .moveToObject(this.clickGame) // moveToObject will be deprecated soon, check for new function
+      .waitForVisible(this.clickGame)
+      .waitForExist(this.clickGame)
+      .click(this.clickGame)
+      .waitForExist(this.buyGameButton)
 }
 
 MainPage.prototype.clickOnBuyButton = async function () {
@@ -185,14 +187,14 @@ MainPage.prototype.clickOnBuyButton = async function () {
 
 MainPage.prototype.clickGoToMyGames = async function () {
   await this.app.client
-    .waitForVisible(this.buttonGoToMyGames, 15000)
-    .click(this.buttonGoToMyGames)
+      .waitForVisible(this.buttonGoToMyGames, 15000)
+      .click(this.buttonGoToMyGames)
 }
 
 MainPage.prototype.mouseOverGame = async function () {
   await this.app.client
-    .waitForExist(this.gameIcon, 1000)
-    .moveToObject(this.gameIcon, 5000)
+      .waitForExist(this.gameIcon, 1000)
+      .moveToObject(this.gameIcon, 5000)
 }
 
 MainPage.prototype.purchaseFailed = async function () {
@@ -201,14 +203,14 @@ MainPage.prototype.purchaseFailed = async function () {
 
 MainPage.prototype.clickCancelButton = async function () {
   await this.app.client
-    .click(this.cancelPurchase)
-    .waitForExist(this.myGamesTab, 30000)
+      .click(this.cancelPurchase)
+      .waitForExist(this.myGamesTab, 30000)
 }
 
 MainPage.prototype.cancelButton = async function () {
   await this.app.client
-    .waitForVisible(this.cancelButtonAfterPurchase, 30000)
-    .click(this.cancelButtonAfterPurchase)
+      .waitForVisible(this.cancelButtonAfterPurchase, 30000)
+      .click(this.cancelButtonAfterPurchase)
 }
 
 MainPage.prototype.gameList = async function () {
@@ -221,8 +223,8 @@ MainPage.prototype.dialogDisapper = async function () {
 
 MainPage.prototype.startMining = async function () {
   await this.app.client
-    .waitForEnabled(this.startMiningButton)
-    .click(this.startMiningButton)
+      .waitForEnabled(this.startMiningButton)
+      .click(this.startMiningButton)
 }
 
 MainPage.prototype.minerWorking = async function () {
@@ -262,13 +264,15 @@ MainPage.prototype.balanceNotClaimable = async function () {
 
 MainPage.prototype.verifyProfileOptions = async function () {
   await this.app.client
-    .waitForExist(this.profileMyAccountHeading)
-    .waitForExist(this.profileMyAccountSpan)
-    .waitForExist(this.profileMyWalletLink)
-    .waitForExist(this.logoutButton)
-    .waitForExist(this.profileLanguageButton)
-    .waitForExist(this.profileLanguageLabel)
-    .waitForExist(this.profileDiscordLink)
+      .waitForVisible(this.profileMyAccountHeading, 5000)
+      .waitForVisible(this.profileMyAccountSpan, 5000)
+      .waitForVisible(this.profileMyWalletLink, 5000)
+      .waitForVisible(this.logoutButton, 5000)
+      .waitForVisible(this.profileLanguageButton, 5000)
+      .waitForVisible(this.profileLanguageLabel, 5000)
+      .waitForVisible(this.profileDiscordLink, 5000)
+      .waitForVisible(this.profileAboutLink, 5000)
+      .waitForVisible(this.profileFaqLink, 5000)
 }
 
 module.exports = MainPage
