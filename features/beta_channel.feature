@@ -13,5 +13,3 @@ Feature: Beta channel
 
   @manual
   Scenario: Beta channel deactivation
-
-    @test
