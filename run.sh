@@ -11,4 +11,5 @@
 # $ ./run.sh linux esprit prod
 ./node_modules/.bin/cucumber-js \
     --world-parameters "{\"platform\": \"$1\", \"variant\": \"$2\", \"environment\": \"$3\"}" \
+    --tags "@all_env or @$3_env" \
     ${@:4}

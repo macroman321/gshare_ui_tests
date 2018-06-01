@@ -29,11 +29,12 @@ function MainPage (app) {
   this.profileMyAccountHeading = '[class="gc-profile-settings__title"]'
   this.profileMyAccountSpan = '[class="gc-profile-settings__email"]'
   this.profileMyWalletLink = '[class="gc-profile-settings__link gc-profile-settings__link--wallet"]'
-  this.profileSignOutLink = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]'
-  this.profileLanguageButton = '[class="gc-dropdown-toggle btn btn-default"]'
+  this.profileLanguageButton = '[class="gc-dropdown gc-dropdown--full-toggle btn btn-default"]'
   this.profileLanguageLabel = '[class="gc-label__text"]'
   this.profileDiscordLink = '[class="gc-text--secondary"]'
   this.minerWorkingMessage = '[class="gc-notification__message"]'
+  this.profileAboutLink = '[class="gc-profile-settings__link gc-profile-settings__link--about"]'
+  this.profileFaqLink = '[class="gc-profile-settings__link gc-profile-settings__link--faq"]'
 }
 
 // Inherit everything from Page
@@ -50,7 +51,7 @@ MainPage.prototype.isOpen = async function () {
 
 MainPage.prototype.logout = async function () {
   await this.app.client
-    .waitForVisible(this.accountMenu)
+    .waitForVisible(this.accountMenu, 10000)
     .click(this.accountMenu)
 
   await this.clickLogoutButton()
@@ -66,7 +67,7 @@ MainPage.prototype.clickLogoutButton = async function () {
   const t = Date.now()
 
   await client
-    .waitForVisible(this.logoutButton)
+    .waitForVisible(this.logoutButton, 30000)
     .click(this.logoutButton)
 
   let logoutExists = await client.isExisting(this.logoutButton)
@@ -143,7 +144,7 @@ MainPage.prototype.clickAccountMenu = async function () {
 }
 
 MainPage.prototype.verifyCurrencyList = async function () {
-  await this.app.client.waitForVisible(this.currencyList)
+  await this.app.client.waitForVisible(this.currencyList, 10000)
 }
 
 MainPage.prototype.clickMyGames = async function () {
@@ -263,13 +264,15 @@ MainPage.prototype.balanceNotClaimable = async function () {
 
 MainPage.prototype.verifyProfileOptions = async function () {
   await this.app.client
-    .waitForExist(this.profileMyAccountHeading)
-    .waitForExist(this.profileMyAccountSpan)
-    .waitForExist(this.profileMyWalletLink)
-    .waitForExist(this.profileSignOutLink)
-    .waitForExist(this.profileLanguageButton)
-    .waitForExist(this.profileLanguageLabel)
-    .waitForExist(this.profileDiscordLink)
+    .waitForVisible(this.profileMyAccountHeading, 5000)
+    .waitForVisible(this.profileMyAccountSpan, 5000)
+    .waitForVisible(this.profileMyWalletLink, 5000)
+    .waitForVisible(this.logoutButton, 5000)
+    .waitForVisible(this.profileLanguageButton, 5000)
+    .waitForVisible(this.profileLanguageLabel, 5000)
+    .waitForVisible(this.profileDiscordLink, 5000)
+    .waitForVisible(this.profileAboutLink, 5000)
+    .waitForVisible(this.profileFaqLink, 5000)
 }
 
 module.exports = MainPage

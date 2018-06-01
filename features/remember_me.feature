@@ -11,6 +11,7 @@ Feature: Remember me
   Background:
     Given I start GameClient
 
+  @all_env
   Scenario: Log in with Remember me
     When I enter credentials for the user "qa_user_5"
     And I ensure the Remember me is checked

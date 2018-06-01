@@ -8,6 +8,9 @@
 
 Feature: Log in
 
+  Background:
+
+  @all_env
   Scenario: Log in
     When I log in as user "qa_user_1"
 
@@ -23,6 +26,7 @@ Feature: Log in
     And I enter a wrong TFA code
     Then I should see notification that says TFA code is wrong
 
+  @all_env
   Scenario Outline: Try to log in with an incorrect password
     When I start GameClient
     And I enter email of the user "qa_user_1" and password "<password>"

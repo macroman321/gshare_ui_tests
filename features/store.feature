@@ -8,6 +8,7 @@
 
 Feature: Store
 
+  @stage_env
   Scenario: Purchase game
     When I log in as user "qa_user_1"
     And I click on My Games
@@ -17,11 +18,13 @@ Feature: Store
     And I click on button Go to My Games
     Then I should see that My Games has increased by one game
 
+  @stage_env
   Scenario: Insufficient funds to purchase a game
     When I log in as user "qa_user_4"
     And I position the mouse over the game I want to buy
     Then I should see message that I can not purchase a Game
 
+  @stage_env
   Scenario: Cancel purchase
     When I log in as user "qa_user_5"
     And I click on a game that I want to buy
@@ -29,6 +32,7 @@ Feature: Store
     Then Buy a Game dialog should disappear
     And I should be back to the main page
 
+  @stage_env
   Scenario: Cancel button after the game is purchased
     When I log in as user "qa_user_2"
     And I click on a game that I want to buy
