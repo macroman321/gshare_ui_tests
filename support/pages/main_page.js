@@ -197,9 +197,10 @@ MainPage.prototype.mouseOverGame = async function () {
     .moveToObject(this.gameIcon, 5000)
 }
 
-MainPage.prototype.purchaseFailed = async function () {
+//TODO: @dxd ask if you can refactor in to arrow functions
+MainPage.prototype.purchaseFailed = async () => (
   await this.app.client.waitForVisible(this.msgPurchaseFailed, 5000)
-}
+)
 
 MainPage.prototype.clickCancelButton = async function () {
   await this.app.client
