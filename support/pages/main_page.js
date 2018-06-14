@@ -54,7 +54,7 @@ MainPage.prototype.isOpen = async function () {
 MainPage.prototype.logout = async function () {
   const client = this.app.client
   let accountMenuStatus = await client.isVisible(this.profileMyAccountHeading)
-  if(accountMenuStatus === false) {
+  if (accountMenuStatus === false) {
     await this.app.client
       .waitForVisible(this.accountMenu, 10000)
       .click(this.accountMenu)
@@ -123,7 +123,7 @@ MainPage.prototype.checkBalanceIncrease = async function () {
 MainPage.prototype.clickMyGamesTab = async function () {
   const client = this.app.client
   let accountMenuStatus = await client.isVisible(this.profileMyAccountHeading)
-  if(accountMenuStatus === true){
+  if (accountMenuStatus === true) {
     await client
       .waitForVisible(this.openedAccount, 10000)
       .click(this.openedAccount)
@@ -131,20 +131,19 @@ MainPage.prototype.clickMyGamesTab = async function () {
     await client.pause(200)
 
     await client
-      // .waitForVisible(this.storePanel, 10000)
+    // .waitForVisible(this.storePanel, 10000)
       .waitForEnabled(this.storePanel, 10000)
       .click(this.storePanel)
 
     await client.pause(200)
   }
   await client
-    // .waitForVisible(this.myGamesTab, 10000)
+  // .waitForVisible(this.myGamesTab, 10000)
     .waitForEnabled(this.myGamesTab, 10000)
     .click(this.myGamesTab)
 }
 
 MainPage.prototype.checkTheEmptyGamesList = async function () {
-
   await this.app.client.waitForVisible(this.emptyGamesList)
 }
 
@@ -163,10 +162,11 @@ MainPage.prototype.checkTheGamesList = async function () {
 MainPage.prototype.clickAccountMenu = async function () {
   const client = this.app.client
   let accountMenuStatus = await client.isVisible(this.profileMyAccountHeading)
-  if(accountMenuStatus === false){
+  if (accountMenuStatus === false) {
     await client
       .waitForVisible(this.accountMenu)
-      .click(this.accountMenu)}
+      .click(this.accountMenu)
+  }
 }
 
 MainPage.prototype.verifyCurrencyList = async function () {
@@ -223,7 +223,7 @@ MainPage.prototype.mouseOverGame = async function () {
     .moveToObject(this.gameIcon, 5000)
 }
 
-MainPage.prototype.purchaseFailed = async function ()  {
+MainPage.prototype.purchaseFailed = async function () {
   await this.app.client.waitForVisible(this.msgPurchaseFailed, 5000)
 }
 
@@ -267,7 +267,7 @@ MainPage.prototype.minerWorking = async function () {
 MainPage.prototype.minerStopped = async function () {
   let minerStatus = await this.app.client.getText(this.minerWorkingText)
   let minerStatusText = minerStatus[0]
-//bla
+  // bla
   if (minerStatusText !== 'Reward') {
     throw new Error('Miner is working when it should not')
   }
