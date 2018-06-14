@@ -8,12 +8,14 @@ function MainPage (app) {
 
   this.storeTab = '[id="portalTabs-tab-1"]'
   this.accountMenu = '[class="gc-avatar"]'
+  this.storePanel = '[class="gc-tabs__list nav"]'
+  this.openedAccount = '[class="gc-section gc-header__profile"]'
   this.logoutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]'
   this.startMiningButton = '[class="gc-pill gc-pill--icon"]'
   this.claimReward = 'button[class="gc-pill gc-pill--active"]'
   this.miningBalance = '[class = "gc-balance gc-balance--active"]'
   this.currrentBalance = '[class="gc-balance__amount"]'
-  this.myGamesTab = '[id="portalTabs-tab-2"]'
+  this.myGamesTab = 'a[id="portalTabs-tab-2"]'
   this.myGames = '[class="gc-game-card-wrapper"]'
   this.currencyList = '[class = "gc-profile-settings__balance"]'
   this.pane2 = '[id=portalTabs-pane-2]'
@@ -50,10 +52,13 @@ MainPage.prototype.isOpen = async function () {
 }
 
 MainPage.prototype.logout = async function () {
-  await this.app.client
-    .waitForVisible(this.accountMenu, 10000)
-    .click(this.accountMenu)
-
+  const client = this.app.client
+  let accountMenuStatus = await client.isVisible(this.profileMyAccountHeading)
+  if(accountMenuStatus === false) {
+    await this.app.client
+      .waitForVisible(this.accountMenu, 10000)
+      .click(this.accountMenu)
+  }
   await this.clickLogoutButton()
 }
 
@@ -116,12 +121,30 @@ MainPage.prototype.checkBalanceIncrease = async function () {
 }
 
 MainPage.prototype.clickMyGamesTab = async function () {
-  await this.app.client
-    .waitForVisible(this.myGamesTab)
+  const client = this.app.client
+  let accountMenuStatus = await client.isVisible(this.profileMyAccountHeading)
+  if(accountMenuStatus === true){
+    await client
+      .waitForVisible(this.openedAccount, 10000)
+      .click(this.openedAccount)
+
+    await client.pause(200)
+
+    await client
+      // .waitForVisible(this.storePanel, 10000)
+      .waitForEnabled(this.storePanel, 10000)
+      .click(this.storePanel)
+
+    await client.pause(200)
+  }
+  await client
+    // .waitForVisible(this.myGamesTab, 10000)
+    .waitForEnabled(this.myGamesTab, 10000)
     .click(this.myGamesTab)
 }
 
 MainPage.prototype.checkTheEmptyGamesList = async function () {
+
   await this.app.client.waitForVisible(this.emptyGamesList)
 }
 
@@ -138,9 +161,12 @@ MainPage.prototype.checkTheGamesList = async function () {
 }
 
 MainPage.prototype.clickAccountMenu = async function () {
-  await this.app.client
-    .waitForVisible(this.accountMenu)
-    .click(this.accountMenu)
+  const client = this.app.client
+  let accountMenuStatus = await client.isVisible(this.profileMyAccountHeading)
+  if(accountMenuStatus === false){
+    await client
+      .waitForVisible(this.accountMenu)
+      .click(this.accountMenu)}
 }
 
 MainPage.prototype.verifyCurrencyList = async function () {
