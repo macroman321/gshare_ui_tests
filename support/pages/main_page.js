@@ -15,6 +15,7 @@ function MainPage (app) {
   this.claimReward = 'button[class="gc-pill gc-pill--active"]'
   this.miningBalance = '[class = "gc-balance gc-balance--active"]'
   this.currrentBalance = '[class="gc-balance__amount"]'
+  this.closeAccount = '[class="gc-balance"]'
   this.myGamesTab = 'a[id="portalTabs-tab-2"]'
   this.myGames = '[class="gc-game-card-wrapper"]'
   this.currencyList = '[class = "gc-profile-settings__balance"]'
@@ -121,25 +122,18 @@ MainPage.prototype.checkBalanceIncrease = async function () {
 }
 
 MainPage.prototype.clickMyGamesTab = async function () {
-  const client = this.app.client
-  let accountMenuStatus = await client.isVisible(this.profileMyAccountHeading)
+  let accountMenuStatus = await this.app.client.isVisible(this.profileMyAccountHeading)
+
   if (accountMenuStatus === true) {
-    await client
-      .waitForVisible(this.openedAccount, 10000)
-      .click(this.openedAccount)
-
-    await client.pause(200)
-
-    await client
-    // .waitForVisible(this.storePanel, 10000)
-      .waitForEnabled(this.storePanel, 10000)
-      .click(this.storePanel)
-
-    await client.pause(200)
+    await this.app.client
+      .waitForVisible(this.closeAccount, 10000)
+      .click(this.closeAccount)
+      .waitForVisible(this.profileMyAccountHeading, 10000, true)
+      .pause(300)
   }
-  await client
-  // .waitForVisible(this.myGamesTab, 10000)
-    .waitForEnabled(this.myGamesTab, 10000)
+
+  await this.app.client
+    .waitForEnabled(this.myGamesTab, 5000)
     .click(this.myGamesTab)
 }
 
