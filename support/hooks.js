@@ -5,7 +5,7 @@ const TestData = require('./util/test_data')
 const LoginPage = require('../support/pages/login_page')
 const MainPage = require('../support/pages/main_page')
 
-let test_data
+let testData
 let app
 let client = {}
 
@@ -20,13 +20,13 @@ BeforeAll(async function () {
 
 Before(async function (scenario) {
   logger.debug(`Before scenario ${scenario.pickle.name}`)
-  if (!test_data) {
+  if (!testData) {
     logger.info(`parameters: ${JSON.stringify(this.parameters)}`)
     TestData.load(
       this.parameters.platform,
       this.parameters.variant,
       this.parameters.environment)
-    test_data = TestData.data
+    testData = TestData.data
 
     // Start the client
     app = new Application({
@@ -38,7 +38,7 @@ Before(async function (scenario) {
     logger.debug('Test data already initialized!')
   }
 
-  this.test_data = test_data
+  this.testData = testData
   this.app = app
   this.client = client
   this.logger = logger

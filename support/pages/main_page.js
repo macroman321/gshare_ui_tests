@@ -143,7 +143,7 @@ MainPage.prototype.clickAccountMenu = async function () {
     .click(this.accountMenu)
 }
 
-MainPage.prototype.verifyCurrencyList = async function () {
+MainPage.prototype.verifyCurrencyList = async () => {
   await this.app.client.waitForVisible(this.currencyList, 10000)
 }
 
@@ -185,7 +185,7 @@ MainPage.prototype.clickOnBuyButton = async function () {
   }
 }
 
-MainPage.prototype.clickGoToMyGames = async function () {
+MainPage.prototype.clickGoToMyGames = async () => {
   await this.app.client
     .waitForVisible(this.buttonGoToMyGames, 15000)
     .click(this.buttonGoToMyGames)
@@ -197,7 +197,7 @@ MainPage.prototype.mouseOverGame = async function () {
     .moveToObject(this.gameIcon, 5000)
 }
 
-MainPage.prototype.purchaseFailed = async function ()  {
+MainPage.prototype.purchaseFailed = async function () {
   await this.app.client.waitForVisible(this.msgPurchaseFailed, 5000)
 }
 
@@ -241,7 +241,7 @@ MainPage.prototype.minerWorking = async function () {
 MainPage.prototype.minerStopped = async function () {
   let minerStatus = await this.app.client.getText(this.minerWorkingText)
   let minerStatusText = minerStatus[0]
-//bla
+  // bla
   if (minerStatusText !== 'Reward') {
     throw new Error('Miner is working when it should not')
   }
