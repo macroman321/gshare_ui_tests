@@ -14,21 +14,46 @@ Feature: Log in
   Scenario: Log in
     When I log in as user "qa_user_1"
 
-  @manual
-  Scenario: Log in with TFA
 
   @manual
-  Scenario: Log in with Email TFA
+    Scenario: Log in with TFA prereq
+      When I open the google play store on my android phone (or app store on my iOS phone)
+      And I enter "G Wallet" into the search bar
+      Then I should see the G Wallet application, and click the download button
+      When I enter incomplete.registration@outlook.com as my email in the application
+      And I enter register123 as the password
+      And I click on log on
+      Then I click on the settings button and enable 2FA for paying and sending
+
 
   @manual
-  Scenario: Try to log in with an incorrect TFA code
-    When I enter a valid credentials
-    And I enter a wrong TFA code
-    Then I should see notification that says TFA code is wrong
+  Scenario Outline: Log in with TFA
+    When I enter the "<email>" and "<password>" into GShare
+    And I click on the login button
+    Then I should see a screen requesting my 2FA code
+    When I open the G Wallet app on my phone
+    And I enter the 6 digit 2FA code received from the app into GShare
+    Then I should see the main page of GShare
+
+    Examples:
+    | email                     | password |
+    | twofa.qa.test@outlook.com | 2fatest1 |
+
+  @manual
+  Scenario Outline: Try to log in with an incorrect TFA code
+    When I enter the "<email>" and "<password>" into GShare
+    And I click on the login button
+    Then I should see a screen requesting my 2FA code
+    When I enter a random 6 digit code into GShare
+    Then I should see the message "Wrong 2FA code"
+
+  Examples:
+  | email                     | password |
+  | twofa.qa.test@outlook.com | 2fatest1 |
 
   @all_env
   Scenario Outline: Try to log in with an incorrect password
-    When I start GameClient
+    When I start GShare
     And I enter email of the user "qa_user_1" and password "<password>"
     Then I should see login has failed with "<message>"
 
