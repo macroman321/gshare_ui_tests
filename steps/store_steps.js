@@ -17,10 +17,10 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.app.client.waitForExist('#portalTabs-pane-2 .gc-game-card')
     const firstCount = await this.app.client.elements('#portalTabs-pane-2 .gc-game-card')
 
-    for (let element in firstCount.value) {
+    for (let element in firstCount.value) {   // eslint-disable-line
       countOne += 1
     }
-    this.logger.debug(`first = ${countOne}`)
+    console.log(`first = ${countOne}`)
   })
 
   When('I click on Store', async function () {
@@ -46,10 +46,10 @@ defineSupportCode(function ({Given, Then, When}) {
     const secondCount = await this.app.client.elements('#portalTabs-pane-2 .gc-game-card')
     let countTwo = 0
 
-    for (let element in secondCount.value) {
+    for (let element in secondCount.value) { // eslint-disable-line
       countTwo += 1
     }
-    this.logger.debug(`second = ${countTwo}`)
+    console.log(`second = ${countTwo}`)
 
     if (countTwo > countOne) {
       this.logger.debug('Game purchased successfully.')
