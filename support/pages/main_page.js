@@ -129,6 +129,7 @@ MainPage.prototype.clickMyGamesTab = async function () {
       .waitForVisible(this.closeAccount, 10000)
       .click(this.closeAccount)
       .waitForVisible(this.profileMyAccountHeading, 10000, true)
+    // TODO this should be refactored to not use .pause, task created -> QA-268
       .pause(300)
   }
 
