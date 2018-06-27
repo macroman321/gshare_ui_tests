@@ -17,6 +17,6 @@ Feature: Register
     And I enter a valid password into both the password and repeat password fields
     And I click Register
     Then I Should see a message "Verify Account" and a field for the verification code contained in the email
-    Then I log into my email and copy the verification code
-    When I enter the code into the correct field in GShare
+    When I log into my email and copy the verification code
+    And I enter the code into the correct field in GShare
     Then I should see the main page of GShare
