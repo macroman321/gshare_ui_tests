@@ -6,8 +6,6 @@
 # NOTES:
 #
 
-  Ovde
-
 Feature: Remember me
 
   Background:
