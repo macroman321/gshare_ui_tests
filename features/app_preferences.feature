@@ -9,7 +9,7 @@
 Feature: App preferences
 
   @manual
-  Scenario:Try to start mining without power cable and prevent laptop battery drain is on
+  Scenario:Verify that collecting rewards does not start if prevent laptop battery drain is on and laptop power is disconnected
     When I log into GShare
     And I click on the settings menu
     And I turn on the "Prevent laptop battery drain" option
@@ -18,7 +18,7 @@ Feature: App preferences
     And I am unable to start the miner
 
   @manual
-  Scenario:Try to start mining without power cable and prevent laptop battery drain is off
+  Scenario:Verify that collecting rewards starts if prevent laptop battery drain is off and laptop power is disconnected
     When I log into GShare
     And I click on the settings menu
     And I turn off the "Prevent laptop battery drain" option
@@ -26,7 +26,7 @@ Feature: App preferences
     Then I am able to start the miner
 
   @manual
-  Scenario:Disconnect power cable while mining and prevent laptop battery drain is on
+  Scenario:Verify that collecting rewards stop when laptop power is disconnected and prevent laptop battery drain is on
     When I log into GShare
     And I click on the settings menu
     And I turn on the "Prevent laptop battery drain" option
@@ -36,7 +36,7 @@ Feature: App preferences
     And I see the miner is disabled and cannot be started
 
   @manual
-  Scenario:Disconnect power cable while mining and prevent laptop battery drain is off
+  Scenario:Verify that collecting rewards doesn't stop when laptop power is disconnected and prevent laptop battery drain is off
     When I log into GShare
     And I click on the settings menu
     And I turn off the "Prevent laptop battery drain" option
@@ -45,7 +45,7 @@ Feature: App preferences
     Then I see the miner is still working
 
   @manual
-  Scenario:Turn on prevent laptop battery drain while mining
+  Scenario:Verify that turning on prevent laptop battery drain during collecting rewards does not stop rewards collecting
     When I log into GShare
     And I turn on the miner
     And I click on the settings menu
@@ -53,7 +53,7 @@ Feature: App preferences
     Then I see the miner is still working
 
   @manual
-  Scenario: Auto launch at Startup
+  Scenario: Verify that if Auto Launch is selected in options, the application starts on system startup
     When I log into GShare
     And I click on the settings menu
     And I turn on the "Auto launch at system startup" option
