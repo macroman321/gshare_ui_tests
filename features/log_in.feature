@@ -16,18 +16,22 @@ Feature: Log in
 
 
   @manual
-    Scenario: Log in with TFA prereq
+    Scenario: Enable 2FA for GShare login
       When I open the google play store on my android phone (or app store on my iOS phone)
       And I enter "G Wallet" into the search bar
-      Then I should see the G Wallet application, and click the download button
-      When I enter incomplete.registration@outlook.com as my email in the application
-      And I enter register123 as the password
+      Then I should see the G Wallet application
+      When I click the download button
+      And I enter twofa.qa.test@outlook.com as my email in the application
+      And I enter 2fatest1 as the password
       And I click on log on
-      Then I click on the settings button and enable 2FA for paying and sending
+      And I click on the Two factor authentication option
+      And I click on Activate for 2FA
+      Then I should be required to use 2FA in future logins
 
 
   @manual
-  Scenario Outline: Log in with TFA
+  Scenario Outline: Log in with 2FA
+    Given 2FA is activated
     When I enter the "<email>" and "<password>" into GShare
     And I click on the login button
     Then I should see a screen requesting my 2FA code
@@ -40,7 +44,8 @@ Feature: Log in
     | twofa.qa.test@outlook.com | 2fatest1 |
 
   @manual
-  Scenario Outline: Try to log in with an incorrect TFA code
+  Scenario Outline: Try to log in with an incorrect 2FA code
+    Given 2FA is activated
     When I enter the "<email>" and "<password>" into GShare
     And I click on the login button
     Then I should see a screen requesting my 2FA code
