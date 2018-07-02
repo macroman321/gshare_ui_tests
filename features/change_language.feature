@@ -13,3 +13,9 @@ Feature: Change language
 
   @manual
   Scenario: Change language
+    When I log into GShare
+    And I click on the my profile button
+    And I click on Russian from the language dropdown
+    Then I should see everything translated to Russian
+    When I click on English in the dropdown
+    Then I should see everything translated back to English
