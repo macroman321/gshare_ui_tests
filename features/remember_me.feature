@@ -23,7 +23,7 @@ Feature: Remember me
     And I log out of the application
 
   @manual
-  Scenario Outline: Log in with TFA and Remember me
+  Scenario Outline: Log in with 2FA and Remember me
     When I enter the "<email>" and "<password>" into GShare
     And I check the Remember me checkbox
     And I click on the login button
