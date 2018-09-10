@@ -24,7 +24,6 @@ Before(async function (scenario) {
     logger.info(`parameters: ${JSON.stringify(this.parameters)}`)
     TestData.load(
       this.parameters.platform,
-      this.parameters.variant,
       this.parameters.environment)
     testData = TestData.data
 

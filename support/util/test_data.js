@@ -16,15 +16,12 @@ class TestData {
   //
   // Parameters:
   // platform - windows, linux, osx (default: windows)
-  // variant - gamecredits, esprit, ... (default: gamecredits)
   // environment - stage, prod (default: stage)
   //
   static load (
     platform,
-    variant,
     environment) {
     platform = platform || 'windows'
-    variant = variant || 'gamecredits'
     environment = environment || 'stage'
 
     let configData
@@ -49,7 +46,7 @@ class TestData {
     try {
       TestData.data = _.merge(configData, testData)
       TestData.clientPathname = TestData.getClientPathName(
-        TestData.data[`${variant}_client`])
+        TestData.data[`gshare_client`])
     } catch (e) {
       console.log('Unable to load test data!')
       console.log(e)

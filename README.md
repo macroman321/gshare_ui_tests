@@ -9,13 +9,13 @@ Acceptance tests for the [GShare Application](https://gamecredits.atlassian.net/
 1. Run: ```npm install```
 2. After npm completes the installation, you can run the tests with the following commands for example:
 
-Run all tests on Linux on Staging environment:
+Run all tests on Linux for Staging environment:
 
-    > ./run.sh linux gamecredits stage
+    > ./run.sh linux stage
 
-Run a specific test on Windows on Production environment:
+Run a specific test on Windows for Production environment:
 
-    > ./run.sh windows gamecredits prod features/log_in.feature
+    > ./run.sh windows prod features/log_in.feature
 
 ### Who do I talk to about this framework ###
 
