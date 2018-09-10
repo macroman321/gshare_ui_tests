@@ -10,8 +10,8 @@ let app
 let client = {}
 
 const logger = Logger.create(
-  'cmatest',
-  {filename: 'cmatest.log', appendFile: true}
+  'gsharetest',
+  {filename: 'gsharetest.log', appendFile: true}
 )
 
 BeforeAll(async function () {
