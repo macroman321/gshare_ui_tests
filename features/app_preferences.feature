@@ -9,53 +9,67 @@
 Feature: App preferences
 
   @manual
-  Scenario:Verify that collecting rewards does not start if prevent laptop battery drain is on and laptop power is disconnected
-    When I log into GShare
-    And I click on the settings menu
+  Scenario: Verify miner can't be started if "Prevent laptop battery drain" is on and laptop power is disconnected
+    When I log in to GShare
+    And I open the settings menu
     And I turn on the "Prevent laptop battery drain" option
     And I remove the power cable from the laptop
-    Then I see the message "Battery saver mode enabled. Certain features are disabled until you plug in to a power source."
-    And I am unable to start the miner
+    Then I should see the message "Battery saver mode enabled. Certain features are disabled until you plug in to a power source."
+    And I should see I am unable to start the miner
 
   @manual
-  Scenario:Verify that collecting rewards starts if prevent laptop battery drain is off and laptop power is disconnected
-    When I log into GShare
-    And I click on the settings menu
+  Scenario: Verify miner can be started if "Prevent laptop battery drain" is off and laptop power is disconnected
+    When I log in to GShare
+    And I open the settings menu
     And I turn off the "Prevent laptop battery drain" option
     And I remove the power cable from the laptop
-    Then I am able to start the miner
+    Then I should see I am able to start the miner
 
   @manual
-  Scenario:Verify that collecting rewards stop when laptop power is disconnected and prevent laptop battery drain is on
-    When I log into GShare
-    And I click on the settings menu
+  Scenario: Verify mining stops when laptop power is disconnected and "Prevent laptop battery drain" is on while mining
+    When I log in to GShare
+    And I open the settings menu
     And I turn on the "Prevent laptop battery drain" option
     And I turn on the miner
     And I remove the power cable from the laptop
     Then I see the message "Battery saver mode enabled. Certain features are disabled until you plug in to a power source."
-    And I see the miner is disabled and cannot be started
+    And I should see the miner is disabled and cannot be started
 
   @manual
-  Scenario:Verify that collecting rewards doesn't stop when laptop power is disconnected and prevent laptop battery drain is off
-    When I log into GShare
-    And I click on the settings menu
+  Scenario: Verify mining doesn't stop when laptop power is disconnected and "Prevent laptop battery drain" is off while mining
+    When I log in to GShare
+    And I open the settings menu
     And I turn off the "Prevent laptop battery drain" option
     And I turn on the miner
     And I remove the power cable from the laptop
-    Then I see the miner is still working
+    Then I should see the miner is still working
 
   @manual
-  Scenario:Verify that turning on prevent laptop battery drain during collecting rewards does not stop rewards collecting
-    When I log into GShare
+  Scenario: Verify turning on "Prevent laptop battery drain" while mining does not stop the miner
+    When I log in to GShare
     And I turn on the miner
-    And I click on the settings menu
+    And I open the settings menu
     And I turn on the "Prevent laptop battery drain" option
-    Then I see the miner is still working
+    Then I should see the miner is still working
 
   @manual
-  Scenario: Verify that if Auto Launch is selected in options, the application starts on system startup
-    When I log into GShare
-    And I click on the settings menu
+  Scenario: Verify "Auto launch at system startup" option runs the application on system startup
+    When I log in to GShare
+    And I open the settings menu
     And I turn on the "Auto launch at system startup" option
     And I restart my computer
-    Then I see GShare open at startup
+    Then I should see GShare open at startup
+
+  @manual
+  Scenario: Verify "Auto-download updates" option downloads updates for the application in the background and notifies you
+    When I log in to GShare
+    And I open the settings menu
+    And I turn on the "Auto-download updates" option
+    Then I should see the application download new updates and notifies me that an update is available
+
+  @manual:
+  Scenario: Verify "Beta updates" option downloads beta updates of the application and notifies you
+    When I log in to GShare
+    And I open the settings menu
+    And I turn on the "Beta updates" option
+    Then I should see the application downloads beta updates and notifies me that a beta update is available

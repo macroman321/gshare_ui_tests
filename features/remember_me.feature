@@ -23,27 +23,13 @@ Feature: Remember me
     And I log out of the application
 
   @manual
-  Scenario Outline: Log in with 2FA and Remember me
-    When I enter the "<email>" and "<password>" into GShare
-    And I check the Remember me checkbox
-    And I click on the login button
-    Then I should see a screen requesting my 2FA code
-    When I open the G Wallet app on my phone
-    And I enter the 6 digit 2FA code received from the app into GShare
-    Then I should see the main page of GShare
-
-  Examples:
-  | email                     | password |
-  | twofa.qa.test@outlook.com | 2fatest1 |
+  ### coming in a later update ###
+  Scenario: Log in with 2FA and Remember me
 
   @manual
-  Scenario Outline: Verify Remember me logs you in automatically after application update
-    When I login using "<email>" and "<password>" and i check the Remember me checkbox
-    And I open the settings tab
-    And I click the check for updates button
-    And I accept downloading and updating the application
-    Then I see that after the application has updated I am automatically logged into the app
+  ### coming in a later update ###
+  Scenario: Log in with Email 2FA and Remember me
 
-  Examples:
-   | email                               | password    |
-   | incomplete.registration@outlook.com | register123 |
+  @manual
+  ### coming in a later update ###
+  Scenario: Verify Remember me logs you in automatically after application update

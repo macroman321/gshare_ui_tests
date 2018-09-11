@@ -9,16 +9,13 @@
 Feature: Application installation
 
   @manual
-  Scenario: Fresh installation (on the system that never had GShare installed before)
+  Scenario: Fresh installation (on a system that has never had GShare installed before)
 
   @manual
-  Scenario: Update application using installation file (older GShare version is already on the system)
+  Scenario: Update application using installation file (older version of GShare already installed on the system)
 
   @manual
-  Scenario: Update application using application update
+  Scenario: Update application using application update in the settings menu
 
   @manual
   Scenario: Uninstall application
-
-  @manual
-  Scenario: Uninstall form

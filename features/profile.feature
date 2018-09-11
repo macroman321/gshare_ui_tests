@@ -17,14 +17,28 @@ Feature: Profile
     Then I should see all options I can interact with
 
   @all_env
-  Scenario: Currency List
-    When I click on my profile
-    Then I should see the appropriate amount displayed for the selected currency
+  Scenario: Sign out
 
   @manual
-  Scenario: Verify GAME value via CoinMarketCap
+  Scenario Outline: Verify profile links send you to the intended website (Account settings, FAQ, Discord support) 
     When I click on my profile
-    Then I should see my balance displayed in other currencies
-    When I get the current GAME value from CoinMarketCap
-    And I multiply my balance with current GAME value
-    Then I should see my calculation number match the number in my currency list
+    And I click on a <link> I want to visit
+    Then I should see that I am sent to the appropriate Web page
+
+    Examples:
+      | link             |
+      | Account settings |
+      | FAQ              |
+      | Discord support  |
+
+  @all_env
+  Scenario Outline: Change language
+    When I click on my profile
+    And I click on <language> from the language dropdown menu
+    Then I should see everything translated in to <language>
+    When I click on English in the dropdown menu
+    Then I should see everything translated back to English
+
+    Examples:
+      | language |
+      | Russian  |
