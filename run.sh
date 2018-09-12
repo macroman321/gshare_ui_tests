@@ -11,4 +11,4 @@
 ./node_modules/.bin/cucumber-js \
     --world-parameters "{\"platform\": \"$1\", \"environment\": \"$2\"}" \
     --tags "@all_env or @$3_env" \
-    ${@:4}
+    ${@:3}
