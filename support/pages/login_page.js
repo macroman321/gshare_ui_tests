@@ -83,10 +83,10 @@ LoginPage.prototype.verifyFailedLoginMessage = async function (message) {
   }
 }
 
-LoginPage.prototype.handleError = async function (error) {
-  if (error.message.includes('is not clickable') !== true) {
-    console.log(error.message)
-    throw new error()
+LoginPage.prototype.handleError = async function (Error) {
+  if (Error.message.includes('is not clickable') !== true) {
+    console.log(Error.message)
+    throw new Error()
   }
   await this.clickRememberMe()
 }

@@ -2,9 +2,8 @@
 #
 # cd_linux_prod.yml
 #
-# Config data for linux client connecting to the Production environment
+# Config data for Linux client on Production environment
 #
 ###
 
-esprit_client: '/opt/GShareForEspritGames/gshare-for-esprit'
-gamecredits_client: '/opt/GShare/gshare-app'
+gshare_client: '/opt/GShare/gshare-app'

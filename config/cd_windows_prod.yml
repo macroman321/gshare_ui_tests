@@ -2,9 +2,8 @@
 #
 # cd_windows_prod.yml
 #
-# Config data for windows client connecting to the Production environment
+# Config data for Windows client on Production environment
 #
 ###
 
-esprit_client: 'C:\Program Files\GameCredits\GShareForEspritGames\0.9\GShareForEspritGames.exe'
-gamecredits_client: 'C:\Program Files\GameCredits\GShare\0.9\GShare.exe'
+gshare_client: 'C:\Users\(username)\AppData\Local\Programs\gshare-app\GShare.exe'

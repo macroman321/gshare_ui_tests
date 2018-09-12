@@ -21,8 +21,8 @@ defineSupportCode(function ({Given, Then, When}) {
     assert.notEqual(this.app, undefined, 'app is undefined!')
   })
 
-  When('I enter email of the user {string} and password {string}', async function (user_id, password) {
-    const user = TestData.get_user(user_id)
+  When('I enter email of the user {string} and password {string}', async function (userId, password) {
+    const user = TestData.getUser(userId)
     user.password = password
 
     if ((await this.client.loginPage.isOpen()) === false) {
@@ -37,8 +37,8 @@ defineSupportCode(function ({Given, Then, When}) {
     }
   })
 
-  When('I enter credentials for the user {string}', async function (user_id) {
-    const user = TestData.get_user(user_id)
+  When('I enter credentials for the user {string}', async function (userId) {
+    const user = TestData.getUser(userId)
     this.logger.debug(`user = ${JSON.stringify(user)}`)
     if ((await this.client.loginPage.isOpen()) === false) {
       await this.client.mainPage.logout()
@@ -47,9 +47,9 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.client.loginPage.enterPassword(user.password)
   })
 
-  When('I log in as user {string}', async function (user_id) {
+  When('I log in as user {string}', async function (userId) {
     await this.client.loginPage.startClient()
-    const user = TestData.get_user(user_id)
+    const user = TestData.getUser(userId)
     this.logger.debug(`user = ${JSON.stringify(user)}`)
     if ((await this.client.loginPage.isOpen()) === false) {
       await this.client.mainPage.logout()

@@ -4,28 +4,25 @@ Acceptance tests for the [GShare Application](https://gamecredits.atlassian.net/
 
 ### Prerequisites ###
 1. [Node.js](https://nodejs.org/) version 8.9.4 or newer with NPM version 5.6.0 or newer
-    * Windows: install both using [NVM for Windows](https://github.com/coreybutler/nvm-windows)
-
+    
 ### How to set up and run tests ###
-1. Run: ```> npm install```
-2. After the npm completes installation you can run the tests using cucumber:
+1. Run: ```npm install```
+2. After npm completes the installation, you can run the tests with the following commands for example:
 
-Running all tests using Linux Gamecredits variant on the Staging environment:
+Run all tests on Linux for Staging environment:
 
-    ```> ./run.sh linux gamecredits stage```
+     ./run.sh linux stage
 
-Running login tests using Windows Gamecredits variant on the Production environment:
+Run a specific test on Windows for Production environment:
 
-    ```> ./run.sh windows gamecredits prod features/log_in.feature```
+     ./run.sh windows prod features/log_in.feature
 
 ### Who do I talk to about this framework ###
 
 * Dragan Nikolic (dragan.nikolic@gamecredits.com)
-* Anybody else from the GameCredits QA team
+* Anyone from the GameSoftLab QA team
 
 ### References ###
 
-* [Cucumber JS](https://github.com/cucumber/cucumber-js)
-Cucumber for JavaScript.
-* [Spectron](https://electronjs.org/spectron)
-An Electron Testign Framework.
+* [Cucumber JS](https://github.com/cucumber/cucumber-js) - Cucumber for JavaScript
+* [Spectron](https://electronjs.org/spectron) - An Electron Testing Framework

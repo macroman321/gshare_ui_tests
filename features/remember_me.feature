@@ -9,7 +9,7 @@
 Feature: Remember me
 
   Background:
-    Given I start GameClient
+    Given I start GShare
 
   @all_env
   Scenario: Log in with Remember me
@@ -23,10 +23,13 @@ Feature: Remember me
     And I log out of the application
 
   @manual
-  Scenario: Log in with TFA and Remember me
+  ### coming in a later update ###
+  Scenario: Log in with 2FA and Remember me
 
   @manual
-  Scenario: Log in with Email TFA and Remember me
+  ### coming in a later update ###
+  Scenario: Log in with Email 2FA and Remember me
 
   @manual
+  ### coming in a later update ###
   Scenario: Verify Remember me logs you in automatically after application update

@@ -2,9 +2,8 @@
 #
 # cd_mac_prod.yml
 #
-# Config data for mac client connecting to the Production environment
+# Config data for Mac client on Production environment
 #
 ###
 
-esprit_client: 'undefined'
-gamecredits_client: '/Applications/GShare.app/Contents/MacOS/GShare'
+gshare_client: '/Applications/GShare.app/Contents/MacOS/GShare'

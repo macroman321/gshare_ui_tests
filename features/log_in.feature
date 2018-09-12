@@ -8,26 +8,13 @@
 
 Feature: Log in
 
-  Background:
-
   @all_env
   Scenario: Log in
     When I log in as user "qa_user_1"
 
-  @manual
-  Scenario: Log in with TFA
-
-  @manual
-  Scenario: Log in with Email TFA
-
-  @manual
-  Scenario: Try to log in with an incorrect TFA code
-    When I enter a valid credentials
-    And I enter a wrong TFA code
-    Then I should see notification that says TFA code is wrong
-
+  @all_env
   Scenario Outline: Try to log in with an incorrect password
-    When I start GameClient
+    When I start GShare
     And I enter email of the user "qa_user_1" and password "<password>"
     Then I should see login has failed with "<message>"
 
@@ -35,3 +22,15 @@ Feature: Log in
       | password     | message                                     |
       | QAxxxx1111&& | Cannot login using the supplied credentials |
       | p123         | Minimum 8 symbols                           |
+
+  @manual
+  ### coming in a later update ###
+  Scenario: Log in with 2FA (coming in a later update)
+
+  @manual
+  ### coming in a later update ###
+  Scenario: Try to log in with an incorrect 2FA code
+
+  @manual
+  ### coming in a later update ###
+  Scenario: Log in with Email 2FA
