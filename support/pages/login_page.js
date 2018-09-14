@@ -1,100 +1,78 @@
-// login_page.js
 const Page = require('./page')
+const MainPage = require('./main_page')
+// Increase default test timeout duration for Cucumber
+const {setDefaultTimeout} = require('cucumber')
+setDefaultTimeout(5000 * 1000)
+
+// Custom timeouts
+const shortTimeout = 5000
+const mediumTimeout = 10000
 
 function LoginPage (app) {
   Page.call(this, app)
 
-  this.emailInput = '[name="email"]'
-  this.passwordInput = '[name="password"]'
+  // Please follow this syntax when defining elements:
+  // nameType
+  // Examples:
+  // loginButton, emailTextField etc.
+
+  this.emailTextField = '[name="email"]'
+  this.passwordTextField = '[name="password"]'
   this.rememberMeCheckbox = '[name="remember_me"]'
   this.loginButton = '[type="submit"]'
-  this.loginErrorNotificationMessage = '[class="gc-notification__message"]'
-  this.loginMinimumEightSymbolsMessage = '[class="gc-input__message"]'
-  this.loginBackground = '[class="gc-authentication"]'
 }
 
-// inherit everything from Page
+// Inherit everything from Page
 LoginPage.prototype = Object.create(Page.prototype)
 
-LoginPage.prototype.isOpen = async function () {
-  try {
-    await this.app.client.waitForExist(this.emailInput)
-    return true
-  } catch (_) {
-    return false
-  }
-}
-
-// Login the given user
+// Main functions
 LoginPage.prototype.login = async function (user) {
+  await this.logoutIfLoggedIn()
   await this.enterEmail(user.email)
   await this.enterPassword(user.password)
-  await this.clickLogin()
+  await this.clickLoginButton()
 }
 
 LoginPage.prototype.loginWithoutRememberMe = async function (user) {
+  await this.logoutIfLoggedIn()
   await this.uncheckRememberMe()
-  await this.login(user)
+  await this.enterEmail(user.email)
+  await this.enterPassword(user.password)
+  await this.clickLoginButton()
+}
+
+// Utility functions
+LoginPage.prototype.logoutIfLoggedIn = async function () {
+  let isLoginPageOpened = await this.app.client.isVisible(this.emailTextField)
+  if (isLoginPageOpened === false) {
+    await this.app.client.pause(shortTimeout)
+    await this.call(MainPage.prototype.logout())
+  }
 }
 
 LoginPage.prototype.enterEmail = async function (email) {
   await this.app.client
-    .waitForExist(this.emailInput)
-    .setValue(this.emailInput, email)
+    .waitForVisible(this.emailTextField, mediumTimeout)
+    .setValue(this.emailTextField, email)
 }
 
 LoginPage.prototype.enterPassword = async function (password) {
   await this.app.client
-    .waitForExist(this.passwordInput)
-    .setValue(this.passwordInput, password)
+    .waitForVisible(this.passwordTextField, mediumTimeout)
+    .setValue(this.passwordTextField, password)
 }
 
-LoginPage.prototype.clickLogin = async function () {
-  await this.app.client.click(this.loginButton)
-}
-
-LoginPage.prototype.clickRememberMe = async function () {
-  await this.app.client.click(this.rememberMeCheckbox)
-}
-
-LoginPage.prototype.isRememberMeChecked = async function () {
-  await this.app.client.waitForExist(this.rememberMeCheckbox)
-  return this.app.client.isSelected(this.rememberMeCheckbox)
+LoginPage.prototype.clickLoginButton = async function () {
+  await this.app.client
+    .waitForVisible(this.loginButton, mediumTimeout)
+    .click(this.loginButton)
 }
 
 LoginPage.prototype.uncheckRememberMe = async function () {
-  if ((await this.isRememberMeChecked()) === true) {
-    this.clickRememberMe()
-  }
-}
-
-LoginPage.prototype.verifyFailedLoginMessage = async function (message) {
-  let errorNotificationMessage
-
-  try {
-    await this.app.client.waitForExist(this.loginErrorNotificationMessage)
-    errorNotificationMessage = await this.app.client.getText(this.loginErrorNotificationMessage)
-  } catch (error) {
-    await this.app.client.waitForExist(this.loginMinimumEightSymbolsMessage)
-    errorNotificationMessage = await this.app.client.getText(this.loginMinimumEightSymbolsMessage)
-  }
-  if (errorNotificationMessage !== message) {
-    throw new Error('Error messages do not match!')
-  }
-}
-
-LoginPage.prototype.handleError = async function (Error) {
-  if (Error.message.includes('is not clickable') !== true) {
-    console.log(Error.message)
-    throw new Error()
-  }
-  await this.clickRememberMe()
-}
-
-LoginPage.prototype.verifyRememberMeIsChecked = async function () {
-  let rememberMeCheckBoxStatus = await this.app.client.isSelected(this.rememberMeCheckbox)
-  if (rememberMeCheckBoxStatus !== true) {
-    throw new Error('Remember Me is not selected')
+  await this.app.client.waitForVisible(this.rememberMeCheckbox, mediumTimeout)
+  let isRememberMeChecked = await this.app.client.isSelected(this.rememberMeCheckbox)
+  if (isRememberMeChecked === true) {
+    await this.app.client.click(this.rememberMeCheckbox)
   }
 }
 
