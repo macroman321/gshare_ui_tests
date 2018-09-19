@@ -1,5 +1,4 @@
 const Page = require('./page')
-const MainPage = require('./main_page')
 // Increase default test timeout duration for Cucumber
 const {setDefaultTimeout} = require('cucumber')
 setDefaultTimeout(5000 * 1000)
@@ -8,8 +7,8 @@ setDefaultTimeout(5000 * 1000)
 const shortTimeout = 5000
 const mediumTimeout = 10000
 
-function LoginPage (app) {
-  Page.call(this, app)
+function LoginPage (world) {
+  Page.call(this, world)
 
   // Please follow this syntax when defining elements:
   // nameType
@@ -46,7 +45,7 @@ LoginPage.prototype.logoutIfLoggedIn = async function () {
   let isLoginPageOpened = await this.app.client.isVisible(this.emailTextField)
   if (isLoginPageOpened === false) {
     await this.app.client.pause(shortTimeout)
-    await this.call(MainPage.prototype.logout())
+    await this.page.mainPage.logout()
   }
 }
 

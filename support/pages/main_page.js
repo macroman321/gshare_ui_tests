@@ -7,8 +7,8 @@ setDefaultTimeout(5000 * 1000)
 const shortTimeout = 5000
 const mediumTimeout = 10000
 
-function MainPage (app) {
-  Page.call(this, app)
+function MainPage (world) {
+  Page.call(this, world)
 
   // Please follow this syntax when defining elements:
   // nameType

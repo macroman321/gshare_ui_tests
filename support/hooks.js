@@ -1,46 +1,21 @@
 const Application = require('spectron').Application
 const {BeforeAll, Before, After} = require('cucumber')
-const Logger = require('logplease')
 const TestData = require('./util/test_data')
 const LoginPage = require('../support/pages/login_page')
 const MainPage = require('../support/pages/main_page')
 
-let testData
-let app
-let client = {}
-
-const logger = Logger.create(
-  'gsharetest',
-  {filename: 'gsharetest.log', appendFile: true}
-)
-
-BeforeAll(async function () {
-  logger.info('Initialize test run...')
-})
-
 Before(async function (scenario) {
-  logger.debug(`Before scenario ${scenario.pickle.name}`)
-  if (!testData) {
-    logger.info(`parameters: ${JSON.stringify(this.parameters)}`)
-    TestData.load(
-      this.parameters.platform,
-      this.parameters.environment)
-    testData = TestData.data
+  this.logger.debug(`Before scenario ${scenario.pickle.name}`)
 
-    // Start the client
-    app = new Application({
-      path: TestData.clientPathname
-    })
-    client.loginPage = new LoginPage(app)
-    client.mainPage = new MainPage(app)
-  } else {
-    logger.debug('Test data already initialized!')
-  }
+  this.page = {}
+  this.page.loginPage = new LoginPage(this)
+  this.page.mainPage = new MainPage(this)
 
-  this.testData = testData
-  this.app = app
-  this.client = client
-  this.logger = logger
+  // Start the Electron app
+  this.app = new Application({
+    path: TestData.clientPathname
+  })
+
   this.logger.info(`Start test: ${scenario.pickle.name}`)
 })
 
