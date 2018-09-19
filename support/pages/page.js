@@ -1,23 +1,15 @@
-let world
-
-function Page (_world) {
-  if (!world) {
-    if (_world) {
-      world = _world
-    }
-  }
-
+function Page (world) {
   this.title = 'GShare'
-  this.world = world
-  this.app = this.world.app
+  this.page = world.page
+  this.app = world.app
 }
 
 Page.prototype.startClient = async function () {
-  await this.world.app.start()
+  await this.app.start()
 }
 
 Page.prototype.stopClient = async function () {
-  await this.world.app.stop()
+  await this.app.stop()
 }
 
 module.exports = Page

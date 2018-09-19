@@ -1,8 +1,8 @@
-const { setWorldConstructor } = require('cucumber')
+const {setWorldConstructor} = require('cucumber')
 const Logger = require('logplease')
 const TestData = require('./util/test_data')
 
-function CustomWorld ({ attach, parameters }) {
+function CustomWorld ({attach, parameters}) {
   this.attach = attach
   this.parameters = parameters
 
@@ -10,7 +10,7 @@ function CustomWorld ({ attach, parameters }) {
     'gsharetest',
     {filename: 'gsharetest.log', appendFile: true}
   )
-  
+
   this.logger.info(`parameters: ${JSON.stringify(this.parameters)}`)
 
   TestData.load(

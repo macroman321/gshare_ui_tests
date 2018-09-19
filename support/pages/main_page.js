@@ -26,13 +26,13 @@ MainPage.prototype = Object.create(Page.prototype)
 
 // Main functions
 MainPage.prototype.logout = async function () {
-  console.log('**************************')
   await this.clickProfileButton()
   await this.clickSignOutButton()
 }
 
 // Utility functions
 MainPage.prototype.isMainPageOpened = async function () {
+  // TODO: Wait for visible is not enough, something needs to be done with the value it returns
   await this.app.client.waitForVisible(this.miningButton)
 }
 
