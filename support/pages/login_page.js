@@ -42,11 +42,15 @@ LoginPage.prototype.loginWithoutRememberMe = async function (user) {
 
 // Utility functions
 LoginPage.prototype.logoutIfLoggedIn = async function () {
-  let isLoginPageOpened = await this.app.client.isVisible(this.emailTextField)
-  if (isLoginPageOpened === false) {
+  if ((await this.isLoginPageOpened()) === false) {
+    // TODO: Find a solution for pause here
     await this.app.client.pause(shortTimeout)
     await this.page.mainPage.logout()
   }
+}
+
+LoginPage.prototype.isLoginPageOpened = async function () {
+  return this.app.client.isVisible(this.emailTextField)
 }
 
 LoginPage.prototype.enterEmail = async function (email) {

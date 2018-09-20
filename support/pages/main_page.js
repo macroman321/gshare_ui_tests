@@ -32,7 +32,6 @@ MainPage.prototype.logout = async function () {
 
 // Utility functions
 MainPage.prototype.isMainPageOpened = async function () {
-  // TODO: Wait for visible is not enough, something needs to be done with the value it returns
   await this.app.client.waitForVisible(this.miningButton)
 }
 
