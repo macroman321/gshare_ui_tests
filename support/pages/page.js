@@ -1,14 +1,7 @@
-let app
-
-function Page (_app) {
-  if (!app) {
-    if (_app) {
-      app = _app
-    }
-  }
-
+function Page (world) {
   this.title = 'GShare'
-  this.app = app
+  this.page = world.page
+  this.app = world.app
 }
 
 Page.prototype.startClient = async function () {
