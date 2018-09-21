@@ -10,7 +10,8 @@ Feature: Log in
 
   @all_env
   Scenario: Log in
-    When I log in as user "qa_user_1"
+    When I log in as user "qa_user_1" without Remember me checked
+    Then I should see the user has successfully logged in
 
   @all_env
   Scenario Outline: Try to log in with an incorrect password
@@ -24,13 +25,13 @@ Feature: Log in
       | p123         | Minimum 8 symbols                           |
 
   @manual
-  ### coming in a later update ###
+  ### Coming in a later update ###
   Scenario: Log in with 2FA (coming in a later update)
 
   @manual
-  ### coming in a later update ###
+  ### Coming in a later update ###
   Scenario: Try to log in with an incorrect 2FA code
 
   @manual
-  ### coming in a later update ###
+  ### Coming in a later update ###
   Scenario: Log in with Email 2FA
