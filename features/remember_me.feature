@@ -15,8 +15,6 @@ Feature: Remember me
     When I press the Quit button
     And I start GShare
     Then I should see the user has been successfully logged in
-    And I log out of the application
-    Then I should see the user has been successfully logged out
 
   @manual
   ### Coming in a later update ###
