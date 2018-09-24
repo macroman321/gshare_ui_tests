@@ -4,7 +4,7 @@ const {setDefaultTimeout} = require('cucumber')
 setDefaultTimeout(5000 * 1000)
 
 // Custom timeouts
-const shortTimeout = 5000
+// const shortTimeout = 5000
 const mediumTimeout = 10000
 
 function MainPage (world) {
