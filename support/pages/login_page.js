@@ -41,6 +41,14 @@ LoginPage.prototype.loginWithoutRememberMe = async function (user) {
   await this.clickLoginButton()
 }
 
+LoginPage.prototype.loginWithCustomPassword = async function (user, password) {
+  await this.logoutIfLoggedIn()
+  await this.enterEmail(user.email)
+  await this.enterPassword(password)
+  await this.checkRememberMe()
+  await this.clickLoginButton()
+}
+
 LoginPage.prototype.verifyImOnLoginPage = async function () {
   if ((await this.isLoginPageOpened()) === false) {
     throw new Error('Login page is not opened!')

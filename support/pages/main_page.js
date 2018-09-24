@@ -38,7 +38,7 @@ MainPage.prototype.verifyImOnMainPage = async function () {
 
 // Utility functions
 MainPage.prototype.isMainPageOpened = async function () {
-  await this.app.client.waitForVisible(this.miningButton)
+  return this.app.client.isVisible(this.miningButton)
 }
 
 MainPage.prototype.clickProfileButton = async function () {
