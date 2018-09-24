@@ -15,7 +15,6 @@ Feature: Log in
 
   @all_env
   Scenario Outline: Try to log in with an incorrect password
-    When I start GShare
     And I enter email for the user "qa_user_1" and password "<password>"
     Then I should see login has failed with "<message>"
 

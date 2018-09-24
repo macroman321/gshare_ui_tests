@@ -35,11 +35,11 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.page.mainPage.isMainPageOpened()
   })
 
-  When('I log out of the application', async function () {
-    await this.page.mainPage.logout()
-  })
-
   Then('I should see the user has been successfully logged out', async function () {
     await this.page.loginPage.isLoginPageOpened()
+  })
+
+  When('I log out of the application', async function () {
+    await this.page.mainPage.logout()
   })
 })
