@@ -13,6 +13,6 @@ defineSupportCode(function ({Given, Then, When}) {
   When('I press the Quit button', async function () {
     // With version 0.9.9-4, the Quit button minimizes the application,
     // so as a compromise, we close the application entirely with this function
-    await this.page.stopClient()
+    await this.page.loginPage.stopClient()
   })
 })

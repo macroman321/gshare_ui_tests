@@ -8,16 +8,13 @@
 
 Feature: Remember me
 
-  Background:
-    Given I start GShare
-
   @all_env
   Scenario: Log in with Remember me
     When I log in as user "qa_user_5"
-    Then I should see the user has successfully logged in
+    Then I should see the user has been successfully logged in
     When I press the Quit button
     And I start GShare
-    Then I should see the user has successfully logged in
+    Then I should see the user has been successfully logged in
     And I log out of the application
     Then I should see the user has been successfully logged out
 
