@@ -4,7 +4,7 @@ const {setDefaultTimeout} = require('cucumber')
 setDefaultTimeout(5000 * 1000)
 
 // Custom timeouts
-const shortTimeout = 5000
+// const shortTimeout = 5000
 const mediumTimeout = 10000
 
 function MainPage (world) {
@@ -28,6 +28,12 @@ MainPage.prototype = Object.create(Page.prototype)
 MainPage.prototype.logout = async function () {
   await this.clickProfileButton()
   await this.clickSignOutButton()
+}
+
+MainPage.prototype.verifyImOnMainPage = async function () {
+  if ((await this.isMainPageOpened()) === false) {
+    throw new Error('Main page is not opened!')
+  }
 }
 
 // Utility functions

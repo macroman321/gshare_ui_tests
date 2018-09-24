@@ -14,12 +14,15 @@ Feature: Profile
   @all_env
   Scenario: Verify profile elements
     When I click on my profile
-    Then I should see all options I can interact with
+    Then I should see all the options I can interact with
 
   @all_env
   Scenario: Sign out
+    Then I should see the user has been successfully logged in
+    When I log out of the application
+    Then I should see the user has been successfully logged out
 
-  @manual
+  @all_env
   Scenario Outline: Verify profile links send you to the intended website (Account settings, FAQ, Discord support) 
     When I click on my profile
     And I click on a <link> I want to visit
