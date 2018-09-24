@@ -10,8 +10,15 @@ Feature: Log in
 
   @all_env
   Scenario: Log in
-    When I log in as user "qa_user_1" without Remember me checked
-    Then I should see the user has successfully logged in
+    When I log in as user "qa_user_1" without Remember me
+    Then I should see the user has been successfully logged in
+
+  @all_env
+  Scenario: Log out
+    When I log in as user "qa_user_1" without Remember me
+    Then I should see the user has been successfully logged in
+    When I log out of the application
+    Then I should see the user has been successfully logged out
 
   @all_env
   Scenario Outline: Try to log in with an incorrect password

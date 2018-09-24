@@ -25,7 +25,6 @@ function LoginPage (world) {
 LoginPage.prototype = Object.create(Page.prototype)
 
 // Main functions
-
 LoginPage.prototype.login = async function (user) {
   await this.logoutIfLoggedIn()
   await this.enterEmail(user.email)
@@ -36,10 +35,16 @@ LoginPage.prototype.login = async function (user) {
 
 LoginPage.prototype.loginWithoutRememberMe = async function (user) {
   await this.logoutIfLoggedIn()
-  await this.uncheckRememberMe()
   await this.enterEmail(user.email)
   await this.enterPassword(user.password)
+  await this.uncheckRememberMe()
   await this.clickLoginButton()
+}
+
+LoginPage.prototype.verifyImOnLoginPage = async function () {
+  if ((await this.isLoginPageOpened()) === false) {
+    throw new Error('Login page is not opened!')
+  }
 }
 
 // Utility functions

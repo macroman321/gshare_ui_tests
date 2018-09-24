@@ -23,7 +23,7 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.page.loginPage.login(user)
   })
 
-  When('I log in as user {string} without Remember me checked', async function (userId) {
+  When('I log in as user {string} without Remember me', async function (userId) {
     await this.page.loginPage.startClient()
     const user = TestData.getUser(userId)
     this.logger.debug(`user = ${JSON.stringify(user)}`)
@@ -31,7 +31,15 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.page.loginPage.loginWithoutRememberMe(user)
   })
 
-  Then('I should see the user has successfully logged in', async function () {
+  Then('I should see the user has been successfully logged in', async function () {
     await this.page.mainPage.isMainPageOpened()
+  })
+
+  When('I log out of the application', async function () {
+    await this.page.mainPage.logout()
+  })
+
+  Then('I should see the user has been successfully logged out', async function () {
+    await this.page.loginPage.isLoginPageOpened()
   })
 })
