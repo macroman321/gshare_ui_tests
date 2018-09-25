@@ -51,6 +51,19 @@ LoginPage.prototype.loginWithCustomPassword = async function (user, password) {
   await this.clickLoginButton()
 }
 
+LoginPage.prototype.verifyErrorMessagesMatch = async function (errMessage) {
+  let elementValue
+
+  if ((await this.app.client.waitForVisible(this.incorrectPasswordMsgDiv, mediumTimeout)) === true) {
+    elementValue = await this.app.client(this.incorrectPasswordMsgDiv)
+  } else if ((await this.app.client.waitForVisible(this.minEightSymbolsMsgDiv, mediumTimeout)) === true) {
+    elementValue = await this.app.client(this.minEightSymbolsMsgDiv)
+  }
+  if (errMessage !== elementValue) {
+    throw new Error('Messages do not match!')
+  }
+}
+
 LoginPage.prototype.verifyImOnLoginPage = async function () {
   if ((await this.isLoginPageOpened()) === false) {
     throw new Error('Login page is not opened!')
@@ -104,18 +117,6 @@ LoginPage.prototype.checkRememberMe = async function () {
 
 LoginPage.prototype.isRememberMeChecked = async function () {
   return this.app.client.isSelected(this.rememberMeCheckbox)
-}
-
-LoginPage.prototype.getElementText = async function (selector) {
-  await this.app.client.getValue(selector)
-}
-
-LoginPage.prototype.verifyMessagesMatch = async function (selector, errMessage) {
-  let elementValue = await this.getElementText(this.`${selector}`)
-
-  if (elementValue !== errMessage) {
-    throw new Error('Messages do not match!')
-  }
 }
 
 module.exports = LoginPage

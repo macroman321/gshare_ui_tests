@@ -16,12 +16,12 @@ Feature: Log in
   @all_env
   Scenario Outline: Try to log in with an incorrect password
     When I enter email for the user "qa_user_1" and password "<password>"
-    Then I should see login has failed with "<message>" for the appropriate "<selector>"
+    Then I should see login has failed with "<message>"
 
     Examples:
-      | password     | selector                | message                                     |
-      | QAxxxx1111&& | incorrectPasswordMsgDiv | Cannot login using the supplied credentials
-      | p123         | minEightSymbolsMsgDiv   | Minimum 8 symbols                           |
+      | password     | message                                     |
+      | QAxxxx1111&& | Cannot login using the supplied credentials |
+      | p123         | Minimum 8 symbols                           |
 
   @manual
   ### Coming in a later update ###
