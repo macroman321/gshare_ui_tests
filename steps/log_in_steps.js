@@ -39,8 +39,12 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.page.loginPage.loginWithCustomPassword(user, password)
   })
 
+  Then('I should see login has failed with {string}', async function (errMessage, element) {
+    await this.page.loginPage.verifyMessagesMatch(this.element, errMessage)
+  })
+
   Then('I should see the user has been successfully logged in', async function () {
-    await this.page.mainPage.verifyImOnMainPage()
+    await this.page.mainPage.isMainPageOpened()
   })
 
   Then('I should see the user has been successfully logged out', async function () {

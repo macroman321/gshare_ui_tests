@@ -30,15 +30,9 @@ MainPage.prototype.logout = async function () {
   await this.clickSignOutButton()
 }
 
-MainPage.prototype.verifyImOnMainPage = async function () {
-  if ((await this.isMainPageOpened()) === false) {
-    throw new Error('Main page is not opened!')
-  }
-}
-
 // Utility functions
 MainPage.prototype.isMainPageOpened = async function () {
-  return this.app.client.isVisible(this.miningButton)
+  await this.app.client.waitForVisible(this.miningButton)
 }
 
 MainPage.prototype.clickProfileButton = async function () {

@@ -19,6 +19,8 @@ function LoginPage (world) {
   this.passwordTextField = '[name="password"]'
   this.rememberMeCheckbox = '[name="remember_me"]'
   this.loginButton = '[type="submit"]'
+  this.incorrectPasswordMsgDiv = '[class="gc-notification__message"]'
+  this.minEightSymbolsMsgDiv = '[class="gc-input__message"]'
 }
 
 // Inherit everything from Page
@@ -102,6 +104,18 @@ LoginPage.prototype.checkRememberMe = async function () {
 
 LoginPage.prototype.isRememberMeChecked = async function () {
   return this.app.client.isSelected(this.rememberMeCheckbox)
+}
+
+LoginPage.prototype.getElementText = async function (selector) {
+  await this.app.client.getValue(selector)
+}
+
+LoginPage.prototype.verifyMessagesMatch = async function (selector, errMessage) {
+  let elementValue = await this.getElementText(this.`${selector}`)
+
+  if (elementValue !== errMessage) {
+    throw new Error('Messages do not match!')
+  }
 }
 
 module.exports = LoginPage
