@@ -30,6 +30,22 @@ MainPage.prototype.logout = async function () {
   await this.clickSignOutButton()
 }
 
+MainPage.prototype.startMining = async function () {
+  await this.clickMiningButton()
+}
+
+MainPage.prototype.verifyMinerIsWorking = async function () {
+  if ((await this.minerStatus() === false)) {
+    throw new Error('Miner is not working when it should!')
+  }
+}
+
+MainPage.prototype.verifyMinerIsStopped = async function () {
+  if ((await this.minerStatus() === true)) {
+    throw new Error('Miner is working when it should not!')
+  }
+}
+
 // Utility functions
 MainPage.prototype.isMainPageOpened = async function () {
   await this.app.client.waitForVisible(this.miningButton)
@@ -51,6 +67,16 @@ MainPage.prototype.clickDropdownMenuButton = async function () {
   await this.app.client
     .waitForVisible(this.dropdownMenuButton, mediumTimeout)
     .click(this.dropdownMenuButton)
+}
+
+MainPage.prototype.clickMiningButton = async function () {
+  await this.app.client
+    .waitForVisible(this.miningButton, mediumTimeout)
+    .click(this.miningButton)
+}
+
+MainPage.prototype.minerStatus = async function () {
+  return this.app.client.getAttribute(this.miningButton, 'data-selected')
 }
 
 module.exports = MainPage

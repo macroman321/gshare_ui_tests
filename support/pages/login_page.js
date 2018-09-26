@@ -48,7 +48,7 @@ LoginPage.prototype.loginWithCustomPassword = async function (user, password) {
   await this.enterEmail(user.email)
   await this.enterPassword(password)
   await this.uncheckRememberMe()
-  // await this.clickLoginButton()
+  await this.clickLoginButton()
 }
 
 LoginPage.prototype.verifyErrorMessagesMatch = async function (errMessage) {
@@ -59,7 +59,7 @@ LoginPage.prototype.verifyErrorMessagesMatch = async function (errMessage) {
   } else if ((await this.app.client.waitForVisible(this.minEightSymbolsMsgDiv, mediumTimeout)) === true) {
     elementValue = await this.app.client.getValue(this.minEightSymbolsMsgDiv)
   }
-  console.log('********' + elementValue)
+
   if (errMessage !== elementValue) {
     throw new Error('Messages do not match!')
   }

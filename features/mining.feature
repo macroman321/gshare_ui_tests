@@ -10,11 +10,11 @@ Feature: Mining
 
   @all_env
   Scenario: Mining using an existing user
-    Given I log in as user "qa_user_5"
-    When I click on the Start button
-    Then I should see the miner has started mining
-    When I click on the Pause button
-    Then I should see the application has stopped mining
+    When I log in as user "qa_user_5"
+    And I click on the Start button
+    Then I should see miner has started mining
+    When I click on the Stop button
+    Then I should see miner has stopped mining
 
   @manual
   Scenario: Mining using a new user and fresh app installation
