@@ -131,17 +131,16 @@ MainPage.prototype.enableBothWorkers = async function () {
   // Necessary because there are no unique selectors we can use to scroll
   // to the element so we have get their coordinates via Element ID
   let gpuSliderLocation = await this.app.client.elementIdLocation(gpuSliderElementID)
-  let cpuSliderLocation =  await this.app.client.elementIdLocation(cpuSliderElementID)
+  let cpuSliderLocation = await this.app.client.elementIdLocation(cpuSliderElementID)
   let cpuSliderCoordinates = Object.values(cpuSliderLocation)
   console.log(cpuSliderCoordinates)
 
-
   await this.app.client
-    // .elementIdClick(gpuSwitchElementID)
-    // .elementIdValue(gpuSliderElementID, [gpuSliderRandomSetting]) // value parameter has to be an array
-    // .elementIdClick(cpuSwitchElementID)
-    // .elementIdValue value parameter has to be an array
-    // .elementIdValue(cpuSliderElementID, [cpuSliderRandomSetting]) // value parameter has to be an array
+  // .elementIdClick(gpuSwitchElementID)
+  // .elementIdValue(gpuSliderElementID, [gpuSliderRandomSetting]) // value parameter has to be an array
+  // .elementIdClick(cpuSwitchElementID)
+  // .elementIdValue value parameter has to be an array
+  // .elementIdValue(cpuSliderElementID, [cpuSliderRandomSetting]) // value parameter has to be an array
 }
 
 module.exports = MainPage
