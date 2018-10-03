@@ -11,18 +11,22 @@ const defineSupportCode = require('cucumber').defineSupportCode
 
 defineSupportCode(function ({Given, Then, When}) {
   When('I click on the Start button', async function () {
-    await this.mainPage.startMining()
+    await this.page.mainPage.startMining()
+  })
+
+  When('I enable workers', async function () {
+    await this.page.mainPage.enableWorkers()
   })
 
   Then('I should see miner has started mining', async function () {
-    await this.mainPage.verifyMinerIsWorking()
+    await this.page.mainPage.verifyMinerIsWorking()
   })
 
   When('I click on the Stop button', async function () {
-    await this.mainPage.startMining()
+    await this.page.mainPage.startMining()
   })
 
   Then('I should see miner has stopped mining', async function () {
-    await this.mainPage.verifyMinerIsStopped()
+    await this.page.mainPage.verifyMinerIsStopped()
   })
 })
