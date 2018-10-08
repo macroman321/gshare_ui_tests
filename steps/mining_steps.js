@@ -14,6 +14,10 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.page.mainPage.startMining()
   })
 
+  When('I enter the settings menu', async function () {
+    await this.page.mainPage.enterSettingsMenu()
+  })
+
   When('I enable workers', async function () {
     await this.page.mainPage.enableWorkers()
   })

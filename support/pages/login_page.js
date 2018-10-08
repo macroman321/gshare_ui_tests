@@ -62,6 +62,7 @@ LoginPage.prototype.loginWithCustomPassword = async function (user, password) {
 LoginPage.prototype.verifyErrorMessagesMatch = async function (errMessage) {
   let elementValue
 
+  // TODO: Continue here when CMA-968 gets fixed
   if ((await this.app.client.waitForVisible(this.incorrectPasswordMsgDiv, mediumTimeout)) === true) {
     elementValue = await this.app.client.getText(this.incorrectPasswordMsgDiv)
   } else if ((await this.app.client.waitForVisible(this.minEightSymbolsMsgDiv, mediumTimeout)) === true) {
