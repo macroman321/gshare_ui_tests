@@ -27,6 +27,8 @@ function MainPage (world) {
   this.dropdownMenuButton = '[class="gc-dropdown gc-dropdown--icon gc-dropdown--right btn-group"]'
   this.cpuGpuSettingsSwitch = '[class="gc-form__group gc-form__group--inline gc-form__group--switch"]'
   this.cpuGpuSettingsSlider = '[class="gc-slider__body"]'
+  this.checkForUpdatesButton = '[class="gc-button gc-button--full gc-button--large"]'
+  this.checkForUpdatesMessageNoUpdateParagraph = '[class="gc-settings-section__about--message"]'
 }
 
 // Inherit everything from Page
@@ -38,10 +40,48 @@ MainPage.prototype.logout = async function () {
   await this.clickSignOutButton()
 }
 
-MainPage.prototype.enableWorkers = async function () {
+MainPage.prototype.enterSettingsMenu = async function () {
   await this.clickDropdownMenuButton()
   await this.clickOnSettingsInDropdownMenu()
-  await this.enableBothWorkers()
+}
+
+MainPage.prototype.verifyAppUpToDateMessage = async function (message) {
+  let client = this.app.client
+  await client.waitForExist(this.checkForUpdatesMessageNoUpdateParagraph, 2000)
+  let getTextFromElement = await client.getText(this.checkForUpdatesMessageNoUpdateParagraph)
+  console.log(getTextFromElement)
+
+  if (getTextFromElement !== message) {
+    throw new Error('Provided messages do no match!')
+  }
+}
+
+MainPage.prototype.enableWorkers = async function () {
+  // Element IDs for turning on/off CPU and GPU mining
+  let gpuSwitchElementID = await this.findElementID(this.cpuGpuSettingsSwitch, 0)
+  let cpuSwitchElementID = await this.findElementID(this.cpuGpuSettingsSwitch, 1)
+
+  // Element IDs for setting CPU and GPU load and setting random values
+  let gpuSliderElementID = await this.findElementID(this.cpuGpuSettingsSlider, 0)
+  let cpuSliderElementID = await this.findElementID(this.cpuGpuSettingsSlider, 1)
+  let gpuSliderRandomSetting = await this.randomNumberGenerator(8, 25)
+  let cpuSliderRandomSetting = await this.randomNumberGenerator(0, 8)
+
+  // Slider location coordinates for CPU and GPU within the application
+  // Necessary because there are no unique selectors we can use to scroll
+  // to the element so we have get their coordinates via Element ID
+  let gpuSliderLocation = await this.app.client.elementIdLocation(gpuSliderElementID)
+  let cpuSliderLocation = await this.app.client.elementIdLocation(cpuSliderElementID)
+  let cpuSliderCoordinates = Object.values(cpuSliderLocation)
+  console.log(cpuSliderCoordinates)
+
+  // TODO: Continue here when you come back to do mining.feature
+  await this.app.client
+  // .elementIdClick(gpuSwitchElementID)
+  // .elementIdValue(gpuSliderElementID, [gpuSliderRandomSetting]) // value parameter has to be an array
+  // .elementIdClick(cpuSwitchElementID)
+  // .elementIdValue value parameter has to be an array
+  // .elementIdValue(cpuSliderElementID, [cpuSliderRandomSetting]) // value parameter has to be an array
 }
 
 MainPage.prototype.startMining = async function () {
@@ -71,6 +111,12 @@ MainPage.prototype.clickProfileButton = async function () {
     .click(this.profileButton)
 }
 
+MainPage.prototype.clickCheckForUpdatesButton = async function () {
+  await this.app.client
+    .waitForVisible(this.checkForUpdatesButton, mediumTimeout)
+    .click(this.checkForUpdatesButton)
+}
+
 MainPage.prototype.verifyProfileElements = async function () {
   await this.app.client
     .waitForVisible(this.profileUsernameLabel, mediumTimeout)
@@ -81,6 +127,7 @@ MainPage.prototype.verifyProfileElements = async function () {
     .waitForVisible(this.profileFAQLink, mediumTimeout)
     .waitForVisible(this.profileDiscordLink, mediumTimeout)
 
+  // TODO: Continue here when CMA-968 gets fixed
   let usernameValue = await this.app.client.getText(this.profileUsernameLabel)
 
   console.log(usernameValue)
@@ -137,33 +184,6 @@ MainPage.prototype.findElementID = async function (selector, positionInArray) {
 // Example: await this.randomNumberGenerator(5, 20)
 MainPage.prototype.randomNumberGenerator = async function (bottom, top) {
   return Math.floor(Math.random() * (1 + top - bottom)) + bottom
-}
-
-MainPage.prototype.enableBothWorkers = async function () {
-  // Element IDs for turning on/off CPU and GPU mining
-  let gpuSwitchElementID = await this.findElementID(this.cpuGpuSettingsSwitch, 0)
-  let cpuSwitchElementID = await this.findElementID(this.cpuGpuSettingsSwitch, 1)
-
-  // Element IDs for setting CPU and GPU load and setting random values
-  let gpuSliderElementID = await this.findElementID(this.cpuGpuSettingsSlider, 0)
-  let cpuSliderElementID = await this.findElementID(this.cpuGpuSettingsSlider, 1)
-  let gpuSliderRandomSetting = await this.randomNumberGenerator(8, 25)
-  let cpuSliderRandomSetting = await this.randomNumberGenerator(0, 8)
-
-  // Slider location coordinates for CPU and GPU within the application
-  // Necessary because there are no unique selectors we can use to scroll
-  // to the element so we have get their coordinates via Element ID
-  let gpuSliderLocation = await this.app.client.elementIdLocation(gpuSliderElementID)
-  let cpuSliderLocation = await this.app.client.elementIdLocation(cpuSliderElementID)
-  let cpuSliderCoordinates = Object.values(cpuSliderLocation)
-  console.log(cpuSliderCoordinates)
-
-  await this.app.client
-  // .elementIdClick(gpuSwitchElementID)
-  // .elementIdValue(gpuSliderElementID, [gpuSliderRandomSetting]) // value parameter has to be an array
-  // .elementIdClick(cpuSwitchElementID)
-  // .elementIdValue value parameter has to be an array
-  // .elementIdValue(cpuSliderElementID, [cpuSliderRandomSetting]) // value parameter has to be an array
 }
 
 module.exports = MainPage
