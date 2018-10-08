@@ -43,6 +43,14 @@ LoginPage.prototype.loginWithoutRememberMe = async function (user) {
   await this.clickLoginButton()
 }
 
+LoginPage.prototype.loginWithUsernameAndWithoutRememberMe = async function (user) {
+  await this.logoutIfLoggedIn()
+  await this.enterEmail(user.username)
+  await this.enterPassword(user.password)
+  await this.uncheckRememberMe()
+  await this.clickLoginButton()
+}
+
 LoginPage.prototype.loginWithCustomPassword = async function (user, password) {
   await this.logoutIfLoggedIn()
   await this.enterEmail(user.email)

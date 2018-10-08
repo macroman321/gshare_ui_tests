@@ -31,6 +31,14 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.page.loginPage.loginWithoutRememberMe(user)
   })
 
+  When('I log in with username as user {string} without Remember me', async function (userId) {
+    await this.page.loginPage.startClient()
+    const user = TestData.getUser(userId)
+    this.logger.debug(`user = ${JSON.stringify(user)}`)
+
+    await this.page.loginPage.loginWithUsernameAndWithoutRememberMe(user)
+  })
+
   When('I enter email for {string} and password {string}', async function (userId, password) {
     await this.page.loginPage.startClient()
     const user = TestData.getUser(userId)

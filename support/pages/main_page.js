@@ -1,4 +1,5 @@
 const Page = require('./page')
+const TestData = require('../util/test_data')
 // Increase default test timeout duration for Cucumber
 const {setDefaultTimeout} = require('cucumber')
 setDefaultTimeout(5000 * 1000)
@@ -17,7 +18,12 @@ function MainPage (world) {
 
   this.miningButton = '[class="gc-button gc-button--full gc-button--large gc-pocket-miner__miner-control"]'
   this.profileButton = '[class="gc-pill gc-pill--icon gc-pill--flat"]'
-  this.signOutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]'
+  this.profileUsernameLabel = '[class="gc-label gc-profile-settings__user-info--username"]'
+  this.profileSignOutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]'
+  this.profileLanguageDropDown = '[class="gc-dropdown-toggle btn btn-default"]'
+  this.profileAccountSettingsLink = '[class="gc-profile-settings__link gc-profile-settings__link--accounts"]'
+  this.profileFAQLink = '[class="gc-profile-settings__link gc-profile-settings__link--faq"]'
+  this.profileDiscordLink = '[class="gc-profile-settings__link gc-profile-settings__link--discord"]'
   this.dropdownMenuButton = '[class="gc-dropdown gc-dropdown--icon gc-dropdown--right btn-group"]'
   this.cpuGpuSettingsSwitch = '[class="gc-form__group gc-form__group--inline gc-form__group--switch"]'
   this.cpuGpuSettingsSlider = '[class="gc-slider__body"]'
@@ -65,10 +71,27 @@ MainPage.prototype.clickProfileButton = async function () {
     .click(this.profileButton)
 }
 
+MainPage.prototype.verifyProfileElements = async function () {
+  await this.app.client
+    .waitForVisible(this.profileUsernameLabel, mediumTimeout)
+    .waitForVisible(this.profileSignOutButton, mediumTimeout)
+    .waitForVisible(this.profileLanguageDropDown, mediumTimeout)
+    .waitForVisible(this.profileUsernameLabel, mediumTimeout)
+    .waitForVisible(this.profileAccountSettingsLink, mediumTimeout)
+    .waitForVisible(this.profileFAQLink, mediumTimeout)
+    .waitForVisible(this.profileDiscordLink, mediumTimeout)
+
+  let usernameValue = await this.app.client.getText(this.profileUsernameLabel)
+
+  console.log(usernameValue)
+
+  // if (usernameValue !== user.username)
+}
+
 MainPage.prototype.clickSignOutButton = async function () {
   await this.app.client
-    .waitForVisible(this.signOutButton, mediumTimeout)
-    .click(this.signOutButton)
+    .waitForVisible(this.profileSignOutButton, mediumTimeout)
+    .click(this.profileSignOutButton)
 }
 
 MainPage.prototype.clickDropdownMenuButton = async function () {
