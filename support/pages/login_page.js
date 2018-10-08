@@ -19,6 +19,8 @@ function LoginPage (world) {
   this.passwordTextField = '[name="password"]'
   this.rememberMeCheckbox = '[name="remember_me"]'
   this.loginButton = '[type="submit"]'
+  this.incorrectPasswordMsgDiv = '[class="gc-notification__message"]'
+  this.minEightSymbolsMsgDiv = '[class="gc-input__message"]'
 }
 
 // Inherit everything from Page
@@ -29,15 +31,52 @@ LoginPage.prototype.login = async function (user) {
   await this.logoutIfLoggedIn()
   await this.enterEmail(user.email)
   await this.enterPassword(user.password)
+  await this.checkRememberMe()
   await this.clickLoginButton()
 }
 
 LoginPage.prototype.loginWithoutRememberMe = async function (user) {
   await this.logoutIfLoggedIn()
-  await this.uncheckRememberMe()
   await this.enterEmail(user.email)
   await this.enterPassword(user.password)
+  await this.uncheckRememberMe()
   await this.clickLoginButton()
+}
+
+LoginPage.prototype.loginWithUsernameAndWithoutRememberMe = async function (user) {
+  await this.logoutIfLoggedIn()
+  await this.enterEmail(user.username)
+  await this.enterPassword(user.password)
+  await this.uncheckRememberMe()
+  await this.clickLoginButton()
+}
+
+LoginPage.prototype.loginWithCustomPassword = async function (user, password) {
+  await this.logoutIfLoggedIn()
+  await this.enterEmail(user.email)
+  await this.enterPassword(password)
+  await this.uncheckRememberMe()
+  await this.clickLoginButton()
+}
+
+LoginPage.prototype.verifyErrorMessagesMatch = async function (errMessage) {
+  let elementValue
+
+  if ((await this.app.client.waitForVisible(this.incorrectPasswordMsgDiv, mediumTimeout)) === true) {
+    elementValue = await this.app.client.getText(this.incorrectPasswordMsgDiv)
+  } else if ((await this.app.client.waitForVisible(this.minEightSymbolsMsgDiv, mediumTimeout)) === true) {
+    elementValue = await this.app.client.getValue(this.minEightSymbolsMsgDiv)
+  }
+
+  if (errMessage !== elementValue) {
+    throw new Error('Messages do not match!')
+  }
+}
+
+LoginPage.prototype.verifyImOnLoginPage = async function () {
+  if ((await this.isLoginPageOpened()) === false) {
+    throw new Error('Login page is not opened!')
+  }
 }
 
 // Utility functions
@@ -73,10 +112,20 @@ LoginPage.prototype.clickLoginButton = async function () {
 
 LoginPage.prototype.uncheckRememberMe = async function () {
   await this.app.client.waitForVisible(this.rememberMeCheckbox, mediumTimeout)
-  let isRememberMeChecked = await this.app.client.isSelected(this.rememberMeCheckbox)
-  if (isRememberMeChecked === true) {
+  if ((await this.isRememberMeChecked() === true)) {
     await this.app.client.click(this.rememberMeCheckbox)
   }
+}
+
+LoginPage.prototype.checkRememberMe = async function () {
+  await this.app.client.waitForVisible(this.rememberMeCheckbox, mediumTimeout)
+  if ((await this.isRememberMeChecked() === false)) {
+    await this.app.client.click(this.rememberMeCheckbox)
+  }
+}
+
+LoginPage.prototype.isRememberMeChecked = async function () {
+  return this.app.client.isSelected(this.rememberMeCheckbox)
 }
 
 module.exports = LoginPage
