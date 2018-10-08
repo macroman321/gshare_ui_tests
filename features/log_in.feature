@@ -9,13 +9,18 @@
 Feature: Log in
 
   @all_env
-  Scenario: Log in
-    When I log in as user "qa_user_1" without Remember me
+  Scenario: Log in with email
+    When I log in as user "qa_user_2" without Remember me
     Then I should see the user has been successfully logged in
 
   @all_env
+  Scenario: Log in with username
+    When I log in with username as user "qa_user_2" without Remember me
+    Then I should see the user has been successfully logged in
+
+  @wip
   Scenario Outline: Try to log in with an incorrect password
-    And I enter email for the user "qa_user_1" and password "<password>"
+    When I enter email for "qa_user_1" and password "<password>"
     Then I should see login has failed with "<message>"
 
     Examples:

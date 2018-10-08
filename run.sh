@@ -10,5 +10,5 @@
 # $ ./run.sh linux prod
 ./node_modules/.bin/cucumber-js \
     --world-parameters "{\"platform\": \"$1\", \"environment\": \"$2\"}" \
-    --tags "@all_env or @$3_env" \
+    --tags "@all_env or @$2_env" \
     ${@:3}

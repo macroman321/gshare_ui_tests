@@ -9,9 +9,9 @@
 Feature: Profile
 
   Background:
-    Given I log in as user "qa_user_5"
+    Given I log in as user "qa_user_3"
 
-  @all_env
+  @wip
   Scenario: Verify profile elements
     When I click on my profile
     Then I should see all the options I can interact with
@@ -22,7 +22,7 @@ Feature: Profile
     When I log out of the application
     Then I should see the user has been successfully logged out
 
-  @all_env
+  @wip
   Scenario Outline: Verify profile links send you to the intended website (Account settings, FAQ, Discord support) 
     When I click on my profile
     And I click on a <link> I want to visit
@@ -34,7 +34,7 @@ Feature: Profile
       | FAQ              |
       | Discord support  |
 
-  @all_env
+  @wip
   Scenario Outline: Change language
     When I click on my profile
     And I click on <language> from the language dropdown menu
@@ -44,4 +44,5 @@ Feature: Profile
 
     Examples:
       | language |
+      | English  |
       | Russian  |
