@@ -33,4 +33,8 @@ defineSupportCode(function ({Given, Then, When}) {
   Then('I should see miner has stopped mining', async function () {
     await this.page.mainPage.verifyMinerIsStopped()
   })
+
+  Then('I should see all the options I can interact with in the Settings menu', async function () {
+    await this.page.mainPage.verifyMinerElements()
+  })
 })

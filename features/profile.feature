@@ -14,7 +14,7 @@ Feature: Profile
   @wip
   Scenario: Verify profile elements
     When I click on my profile
-    Then I should see all the options I can interact with
+    Then I should see all the options I can interact with in the Profile menu
 
   @all_env
   Scenario: Sign out
