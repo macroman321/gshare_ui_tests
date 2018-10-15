@@ -9,20 +9,25 @@
 users:
   qa_user_1:
     email: qa.at_user_100@gamecredits.com
+    username: qa_user_100
     password: QAuser2017&&&
 
   qa_user_2:
     email: qa.at_user_200@gamecredits.com
+    username: qa_user_200
     password: QAuser2017&&&
 
   qa_user_3:
     email: qa.at_user_300@gamecredits.com
+    username: qa_user_300
     password: QAuser2017&&&
 
   qa_user_4:
     email: qa.at_user_400@gamecredits.com
+    username: qa_user_400
     password: QAuser2017&&&
 
   qa_user_5:
     email: gc.qa.cmapp@gmail.com
+    username: qa_user_cmapp
     password: QAuser2017&&&

@@ -17,4 +17,8 @@ defineSupportCode(function ({Given, Then, When}) {
   Then('I should see all the options I can interact with in the Profile menu', async function () {
     await this.page.mainPage.verifyProfileElements()
   })
+
+  When('I should see the username of the user {string} I logged in with match the username in the Profile menu', async function (user) {
+    await this.page.mainPage.verifyUsernamesMatch(user)
+  })
 })
