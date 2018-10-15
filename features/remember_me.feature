@@ -10,7 +10,7 @@ Feature: Remember me
 
   @all_env
   Scenario: Log in with Remember me
-    When I log in as user "qa_user_5"
+    When I log in as user "qa_user_2"
     Then I should see the user has been successfully logged in
     When I press the Quit button
     And I start GShare

@@ -8,7 +8,7 @@
 
 Feature: Mining
 
-  @all_env
+  @wip
   Scenario: Mining using an existing user
     When I log in as user "qa_user_2"
     And I enter the settings menu
