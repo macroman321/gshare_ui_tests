@@ -1,4 +1,5 @@
 const Page = require('./page')
+const TestData = require('../util/test_data')
 // Increase default test timeout duration for Cucumber
 const {setDefaultTimeout} = require('cucumber')
 setDefaultTimeout(5000 * 1000)
@@ -148,17 +149,19 @@ MainPage.prototype.verifyProfileElements = async function () {
     .waitForVisible(this.profileUsernameLabel, mediumTimeout)
     .waitForVisible(this.profileSignOutButton, mediumTimeout)
     .waitForVisible(this.profileLanguageDropDown, mediumTimeout)
-    .waitForVisible(this.profileUsernameLabel, mediumTimeout)
     .waitForVisible(this.profileAccountSettingsLink, mediumTimeout)
     .waitForVisible(this.profileFAQLink, mediumTimeout)
     .waitForVisible(this.profileDiscordLink, mediumTimeout)
+}
 
-  // TODO: Continue here when CMA-968 gets fixed
+MainPage.prototype.verifyUsernamesMatch = async function (user) {
   let usernameValue = await this.app.client.getText(this.profileUsernameLabel)
+  let loggedInUser = TestData.getUser(user)
+  let loggedInUserValue = loggedInUser.username
 
-  console.log(usernameValue)
-
-  // if (usernameValue !== user.username)
+  if (usernameValue !== loggedInUserValue) {
+    throw new Error('Username displayed does not match username of logged in user')
+  }
 }
 
 MainPage.prototype.clickSignOutButton = async function () {
