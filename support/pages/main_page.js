@@ -1,5 +1,4 @@
 const Page = require('./page')
-const TestData = require('../util/test_data')
 // Increase default test timeout duration for Cucumber
 const {setDefaultTimeout} = require('cucumber')
 setDefaultTimeout(5000 * 1000)
@@ -29,6 +28,8 @@ function MainPage (world) {
   this.cpuGpuSettingsSlider = '[class="gc-slider__body"]'
   this.checkForUpdatesButton = '[class="gc-button gc-button--full gc-button--large"]'
   this.checkForUpdatesMessageNoUpdateParagraph = '[class="gc-settings-section__about--message"]'
+  this.preventBatteryDrainCheckBox = '[name="batterySaver"]'
+  this.settingsMenuApplicationOptions = '[class="gc-form__group gc-form__group--switch"]'
 }
 
 // Inherit everything from Page
@@ -57,31 +58,42 @@ MainPage.prototype.verifyAppUpToDateMessage = async function (message) {
 }
 
 MainPage.prototype.enableWorkers = async function () {
+  if ((await this.preventBatteryDrainStatus() === 'true')) {
+    await this.clickPreventBatteryDrainCheckBox()
+  }
+
   // Element IDs for turning on/off CPU and GPU mining
-  let gpuSwitchElementID = await this.findElementID(this.cpuGpuSettingsSwitch, 0)
-  let cpuSwitchElementID = await this.findElementID(this.cpuGpuSettingsSwitch, 1)
+
+  let element = await this.app.client.elements(this.cpuGpuSettingsSwitch)
+  console.log(element)
+
+  let gpuSwitchElementID = await this.findElementID('gc-form__group gc-form__group--inline gc-form__group--switch', 0)
+  console.log(gpuSwitchElementID)
+  let cpuSwitchElementID = await this.findElementID('gc-form__group gc-form__group--inline gc-form__group--switch', 1)
+  console.log(cpuSwitchElementID)
 
   // Element IDs for setting CPU and GPU load and setting random values
-  let gpuSliderElementID = await this.findElementID(this.cpuGpuSettingsSlider, 0)
-  let cpuSliderElementID = await this.findElementID(this.cpuGpuSettingsSlider, 1)
-  let gpuSliderRandomSetting = await this.randomNumberGenerator(8, 25)
-  let cpuSliderRandomSetting = await this.randomNumberGenerator(0, 8)
+  // let gpuSliderElementID = await this.findElementID(this.cpuGpuSettingsSlider, 0)
+  // let cpuSliderElementID = await this.findElementID(this.cpuGpuSettingsSlider, 1)
+  // let gpuSliderRandomValueSetting = await this.randomNumberGenerator(8, 25)
+  // let cpuSliderRandomValueSetting = await this.randomNumberGenerator(0, 8)
 
   // Slider location coordinates for CPU and GPU within the application
   // Necessary because there are no unique selectors we can use to scroll
   // to the element so we have get their coordinates via Element ID
-  let gpuSliderLocation = await this.app.client.elementIdLocation(gpuSliderElementID)
-  let cpuSliderLocation = await this.app.client.elementIdLocation(cpuSliderElementID)
-  let cpuSliderCoordinates = Object.values(cpuSliderLocation)
-  console.log(cpuSliderCoordinates)
+  // let gpuSliderLocation = await this.app.client.elementIdLocation(gpuSliderElementID)
+  // let cpuSliderLocation = await this.app.client.elementIdLocation(cpuSliderElementID)
+  // let cpuSliderCoordinates = Object.values(cpuSliderLocation)
+  // console.log(cpuSliderCoordinates)
 
   // TODO: Continue here when you come back to do mining.feature
-  await this.app.client
-  // .elementIdClick(gpuSwitchElementID)
-  // .elementIdValue(gpuSliderElementID, [gpuSliderRandomSetting]) // value parameter has to be an array
-  // .elementIdClick(cpuSwitchElementID)
-  // .elementIdValue value parameter has to be an array
-  // .elementIdValue(cpuSliderElementID, [cpuSliderRandomSetting]) // value parameter has to be an array
+  // await this.app.client
+  //   .elementIdClick(gpuSwitchElementID)
+  //   .scroll(gpuSliderLocation)
+  //   .elementIdValue(gpuSliderElementID, [gpuSliderRandomValueSetting]) // value parameter has to be an array
+  //   .elementIdClick(cpuSwitchElementID)
+  //   .scroll(cpuSliderLocation)
+  //   .elementIdValue(cpuSliderElementID, [cpuSliderRandomValueSetting]) // value parameter has to be an array
 }
 
 MainPage.prototype.startMining = async function () {
@@ -89,14 +101,28 @@ MainPage.prototype.startMining = async function () {
 }
 
 MainPage.prototype.verifyMinerIsWorking = async function () {
-  if ((await this.minerStatus() === false)) {
+  if ((await this.minerStatus() === 'false')) {
     throw new Error('Miner is not working when it should!')
   }
 }
 
 MainPage.prototype.verifyMinerIsStopped = async function () {
-  if ((await this.minerStatus() === true)) {
+  if ((await this.minerStatus() === 'true')) {
     throw new Error('Miner is working when it should not!')
+  }
+}
+
+MainPage.prototype.verifyMinerElements = async function () {
+  await this.app.client
+    .waitForVisible(this.settingsMenuApplicationOptions, mediumTimeout)
+    .waitForVisible(this.checkForUpdatesButton, mediumTimeout)
+    .waitForVisible(this.cpuGpuSettingsSwitch, mediumTimeout)
+
+  let settingsMenuApplicationsOptionsElements = await this.app.client.elements(this.settingsMenuApplicationOptions)
+  let settingsMenuApplicationsOptionsCount = settingsMenuApplicationsOptionsElements.value.length
+
+  if (settingsMenuApplicationsOptionsCount !== 4) {
+    throw new Error('Not all elements are present and visible!')
   }
 }
 
@@ -164,11 +190,20 @@ MainPage.prototype.minerStatus = async function () {
   return this.app.client.getAttribute(this.miningButton, 'data-selected')
 }
 
+MainPage.prototype.preventBatteryDrainStatus = async function () {
+  return this.app.client.getAttribute(this.preventBatteryDrainCheckBox, 'aria-checked')
+}
+
+MainPage.prototype.clickPreventBatteryDrainCheckBox = async function () {
+  await this.app.client
+    .waitForVisible(this.preventBatteryDrainCheckBox, mediumTimeout)
+    .click(this.preventBatteryDrainCheckBox)
+}
+
 // selector - str, selector that contains multiple elements with the same class
 // positionInArray - int, which position your element is in inside the object from the .elements function
 MainPage.prototype.findElementID = async function (selector, positionInArray) {
   // Returns an object with all elements for the given selector
-  await this.app.client.pause(shortTimeout)
   let element = await this.app.client.elements(selector)
 
   // Lists the specific element with the provided "positionInArray" parameter

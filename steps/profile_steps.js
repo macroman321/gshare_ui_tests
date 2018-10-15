@@ -14,7 +14,7 @@ defineSupportCode(function ({Given, Then, When}) {
     await this.page.mainPage.clickProfileButton()
   })
 
-  Then('I should see all the options I can interact with', async function () {
+  Then('I should see all the options I can interact with in the Profile menu', async function () {
     await this.page.mainPage.verifyProfileElements()
   })
 })
