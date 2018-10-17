@@ -8,7 +8,7 @@
 
 Feature: Profile
 
-  @all_env
+  @wip
   Scenario: Verify profile elements
     Given I log in as user "qa_user_3"
     When I click on my profile
