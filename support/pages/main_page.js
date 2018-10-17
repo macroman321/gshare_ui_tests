@@ -17,7 +17,7 @@ function MainPage (world) {
   // loginButton, emailTextField etc.
 
   this.miningButton = '[class="gc-button gc-button--full gc-button--large gc-pocket-miner__miner-control"]'
-  this.profileButton = '[class="gc-pill gc-pill--icon gc-pill--flat"]'
+  // this.profileButton = '[class="gc-pill gc-pill--icon gc-pill--flat"]'
   this.profileUsernameLabel = '[class="gc-label gc-profile-settings__user-info--username"]'
   this.profileSignOutButton = '[class="gc-profile-settings__link gc-profile-settings__link--signout"]'
   this.profileLanguageDropDown = '[class="gc-dropdown-toggle btn btn-default"]'
@@ -31,6 +31,11 @@ function MainPage (world) {
   this.checkForUpdatesMessageNoUpdateParagraph = '[class="gc-settings-section__about--message"]'
   this.preventBatteryDrainCheckBox = '[name="batterySaver"]'
   this.settingsMenuApplicationOptions = '[class="gc-form__group gc-form__group--switch"]'
+
+  // TODO: These selectors are temporary until I figure out how to pass the name selector (regular way doesn't work)
+  this.signOutMenuButton = '=Sign out'
+  this.settingsMenuButton = '=Settings'
+  this.quitMenuButton = '=Quit'
 }
 
 // Inherit everything from Page
@@ -38,8 +43,8 @@ MainPage.prototype = Object.create(Page.prototype)
 
 // Main functions
 MainPage.prototype.logout = async function () {
-  await this.clickProfileButton()
-  await this.clickSignOutButton()
+  await this.clickDropdownMenuButton()
+  await this.clickSignOutButtonInDropdownMenu()
 }
 
 MainPage.prototype.enterSettingsMenu = async function () {
@@ -51,11 +56,15 @@ MainPage.prototype.verifyAppUpToDateMessage = async function (message) {
   let client = this.app.client
   await client.waitForExist(this.checkForUpdatesMessageNoUpdateParagraph, 2000)
   let getTextFromElement = await client.getText(this.checkForUpdatesMessageNoUpdateParagraph)
-  console.log(getTextFromElement)
 
   if (getTextFromElement !== message) {
     throw new Error('Provided messages do no match!')
   }
+}
+
+MainPage.prototype.quitApplication = async function () {
+  await this.clickDropdownMenuButton()
+  await this.clickQuitButton()
 }
 
 MainPage.prototype.enableWorkers = async function () {
@@ -65,13 +74,13 @@ MainPage.prototype.enableWorkers = async function () {
 
   // Element IDs for turning on/off CPU and GPU mining
 
-  let element = await this.app.client.elements(this.cpuGpuSettingsSwitch)
-  console.log(element)
-
-  let gpuSwitchElementID = await this.findElementID('gc-form__group gc-form__group--inline gc-form__group--switch', 0)
-  console.log(gpuSwitchElementID)
-  let cpuSwitchElementID = await this.findElementID('gc-form__group gc-form__group--inline gc-form__group--switch', 1)
-  console.log(cpuSwitchElementID)
+  // let element = await this.app.client.elements(this.cpuGpuSettingsSwitch)
+  // console.log(element)
+  //
+  // let gpuSwitchElementID = await this.findElementID('gc-form__group gc-form__group--inline gc-form__group--switch', 0)
+  // console.log(gpuSwitchElementID)
+  // let cpuSwitchElementID = await this.findElementID('gc-form__group gc-form__group--inline gc-form__group--switch', 1)
+  // console.log(cpuSwitchElementID)
 
   // Element IDs for setting CPU and GPU load and setting random values
   // let gpuSliderElementID = await this.findElementID(this.cpuGpuSettingsSlider, 0)
@@ -123,7 +132,7 @@ MainPage.prototype.verifyMinerElements = async function () {
   let settingsMenuApplicationsOptionsCount = settingsMenuApplicationsOptionsElements.value.length
 
   if (settingsMenuApplicationsOptionsCount !== 4) {
-    throw new Error('Not all elements are present and visible!')
+    throw new Error('Not all options elements are present and visible!')
   }
 }
 
@@ -132,11 +141,11 @@ MainPage.prototype.isMainPageOpened = async function () {
   await this.app.client.waitForVisible(this.miningButton)
 }
 
-MainPage.prototype.clickProfileButton = async function () {
-  await this.app.client
-    .waitForVisible(this.profileButton, mediumTimeout)
-    .click(this.profileButton)
-}
+// MainPage.prototype.clickProfileButton = async function () {
+//   await this.app.client
+//     .waitForVisible(this.profileButton, mediumTimeout)
+//     .click(this.profileButton)
+// }
 
 MainPage.prototype.clickCheckForUpdatesButton = async function () {
   await this.app.client
@@ -164,10 +173,10 @@ MainPage.prototype.verifyUsernamesMatch = async function (user) {
   }
 }
 
-MainPage.prototype.clickSignOutButton = async function () {
+MainPage.prototype.clickSignOutButtonInDropdownMenu = async function () {
   await this.app.client
-    .waitForVisible(this.profileSignOutButton, mediumTimeout)
-    .click(this.profileSignOutButton)
+    .waitForVisible(this.signOutMenuButton, mediumTimeout)
+    .click(this.signOutMenuButton)
 }
 
 MainPage.prototype.clickDropdownMenuButton = async function () {
@@ -178,8 +187,7 @@ MainPage.prototype.clickDropdownMenuButton = async function () {
 }
 
 MainPage.prototype.clickOnSettingsInDropdownMenu = async function () {
-  // TODO: Find a way not to use "=Settings" as a selector here
-  await this.app.client.click('=Settings')
+  await this.app.client.click(this.settingsMenuButton)
 }
 
 MainPage.prototype.clickMiningButton = async function () {
@@ -187,6 +195,12 @@ MainPage.prototype.clickMiningButton = async function () {
     .pause(mediumTimeout)
     .waitForVisible(this.miningButton, mediumTimeout)
     .click(this.miningButton)
+}
+
+MainPage.prototype.clickQuitButton = async function () {
+  await this.app.client
+    .waitForVisible(this.quitMenuButton, mediumTimeout)
+    .click(this.quitMenuButton)
 }
 
 MainPage.prototype.minerStatus = async function () {
