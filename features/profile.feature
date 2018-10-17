@@ -15,7 +15,7 @@ Feature: Profile
     Then I should see all the options I can interact with in the Profile menu
     And I should see the username of the user "qa_user_3" I logged in with match the username in the Profile menu
 
-  @wip
+  @all_env
   Scenario: Sign out
     Given I log in as user "qa_user_3"
     Then I should see the user has been successfully logged in
