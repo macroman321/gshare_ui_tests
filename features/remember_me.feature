@@ -8,7 +8,7 @@
 
 Feature: Remember me
 
-  @all_env
+  @wip
   Scenario: Log in with Remember me
     When I log in as user "qa_user_2"
     Then I should see the user has been successfully logged in

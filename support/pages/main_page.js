@@ -53,9 +53,8 @@ MainPage.prototype.enterSettingsMenu = async function () {
 }
 
 MainPage.prototype.verifyAppUpToDateMessage = async function (message) {
-  let client = this.app.client
-  await client.waitForExist(this.checkForUpdatesMessageNoUpdateParagraph, 2000)
-  let getTextFromElement = await client.getText(this.checkForUpdatesMessageNoUpdateParagraph)
+  await this.app.client.waitForExist(this.checkForUpdatesMessageNoUpdateParagraph, 2000)
+  let getTextFromElement = await this.app.client.getText(this.checkForUpdatesMessageNoUpdateParagraph)
 
   if (getTextFromElement !== message) {
     throw new Error('Provided messages do no match!')
