@@ -17,13 +17,12 @@ Feature: Remember me
     Then I should see the user has been successfully logged in
 
   @manual
+  Scenario: Verify Remember me logs you in automatically after application update
+
+  @manual
   ### Coming in a later update ###
   Scenario: Log in with 2FA and Remember me
 
   @manual
   ### Coming in a later update ###
   Scenario: Log in with Email 2FA and Remember me
-
-  @manual
-  ### Coming in a later update ###
-  Scenario: Verify Remember me logs you in automatically after application update
