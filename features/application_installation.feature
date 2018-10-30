@@ -18,4 +18,7 @@ Feature: Application installation
   Scenario: Update application using application update in the settings menu
 
   @manual
+  Scenario: Verify EULA during application installation (Windows only for now)
+
+  @manual
   Scenario: Uninstall application

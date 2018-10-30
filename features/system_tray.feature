@@ -15,7 +15,7 @@ Feature: System tray
   Scenario: Check for updates when there is a new version
 
   @manual
-  Scenario: Hide
+  Scenario: Hide/Show
 
   @manual
   Scenario: Quit
