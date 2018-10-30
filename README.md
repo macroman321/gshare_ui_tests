@@ -1,6 +1,6 @@
 # README #
 
-Acceptance tests for the [GShare Application](https://gamecredits.atlassian.net/wiki/spaces/MIN/overview).
+Acceptance tests for the [GShare Application](https://gamecredits.atlassian.net/wiki/spaces/GC/overview).
 
 ### Prerequisites ###
 1. [Node.js](https://nodejs.org/) version 8.9.4 or newer with NPM version 5.6.0 or newer
@@ -19,7 +19,7 @@ Run a specific test on Windows for Production environment:
 
 ### Who do I talk to about this framework ###
 
-* Dragan Nikolic (dragan.nikolic@gamecredits.com)
+* Dragan Nikolić (dragan.nikolic@gamecredits.com)
 * Anyone from the GameSoftLab QA team
 
 ### References ###
