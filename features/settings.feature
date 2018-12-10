@@ -14,6 +14,8 @@ Feature: Settings
   @wip
   Scenario: Verify settings links send you to the intended website (Visit store, Do good)
 
+  # Note: This fails on Mac machines when executed as part of the group of tests.
+  # Executing this alone or on other platforms (Windws,Linux) is ok.
   @all_env
   Scenario: Check for updates when application is up to date
     When I enter the settings menu

@@ -24,7 +24,7 @@ function MainPage (world) {
   this.profileAccountSettingsLink = '[class="gc-profile-settings__link gc-profile-settings__link--accounts"]'
   this.profileFAQLink = '[class="gc-profile-settings__link gc-profile-settings__link--faq"]'
   this.profileDiscordLink = '[class="gc-profile-settings__link gc-profile-settings__link--discord"]'
-  this.dropdownMenuButton = '[class="gc-dropdown gc-dropdown--icon gc-dropdown--right btn-group"]'
+  this.dropdownMenuButton = '[class="gc-dropdown gc-dropdown--icon gc-dropdown--right-toggle btn btn-default"]'
   this.cpuGpuSettingsSwitch = '[class="gc-form__group gc-form__group--inline gc-form__group--switch"]'
   this.cpuGpuSettingsSlider = '[class="gc-slider__body"]'
   this.checkForUpdatesButton = '[class="gc-button gc-button--full gc-button--large"]'
@@ -123,7 +123,7 @@ MainPage.prototype.verifyMinerIsStopped = async function () {
 
 MainPage.prototype.verifyMinerElements = async function () {
   await this.app.client
-    .waitForVisible(this.settingsMenuApplicationOptions, mediumTimeout)
+    // .waitForVisible(this.settingsMenuApplicationOptions, mediumTimeout)
     .waitForVisible(this.checkForUpdatesButton, mediumTimeout)
     .waitForVisible(this.cpuGpuSettingsSwitch, mediumTimeout)
 

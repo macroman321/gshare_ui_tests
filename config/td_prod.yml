@@ -14,7 +14,7 @@ users:
 
   qa_user_2:
     email: qa.at_user_200@gamecredits.com
-    username: qa_user_200
+    username: qauser200
     password: QAuser2017&&&
 
   qa_user_3:

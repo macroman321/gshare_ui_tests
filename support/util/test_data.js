@@ -15,7 +15,7 @@ class TestData {
   //   td_<environment>.yml
   //
   // Parameters:
-  // platform - windows, linux, osx (default: windows)
+  // platform - windows, linux, mac (default: windows)
   // environment - stage, prod (default: stage)
   //
   static load (
