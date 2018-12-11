@@ -130,8 +130,8 @@ MainPage.prototype.verifyMinerElements = async function () {
   let settingsMenuApplicationsOptionsElements = await this.app.client.elements(this.settingsMenuApplicationOptions)
   let settingsMenuApplicationsOptionsCount = settingsMenuApplicationsOptionsElements.value.length
 
-  if (settingsMenuApplicationsOptionsCount !== 4) {
-    throw new Error('Not all options elements are present and visible!')
+  if (settingsMenuApplicationsOptionsCount < 3 || settingsMenuApplicationsOptionsCount > 4) {
+    throw new Error('Not all option elements are present and visible!')
   }
 }
 
