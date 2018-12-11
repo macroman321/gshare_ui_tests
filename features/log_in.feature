@@ -18,15 +18,15 @@ Feature: Log in
     When I log in with username as user "qa_user_2" without Remember me
     Then I should see the user has been successfully logged in
 
-  @wip
+  @all_env
   Scenario Outline: Try to log in with an incorrect password
     When I enter email for "qa_user_1" and password "<password>"
     Then I should see login has failed with "<message>"
 
     Examples:
-      | password     | message                                     |
-      | QAxxxx1111&& | Cannot login using the supplied credentials |
-      | p123         | Minimum 8 symbols                           |
+      | password     | message           |
+      | QAxxxx1111&& | Bad credentials   |
+      | p123         | Minimum 8 symbols |
 
   @manual
   ### Coming in a later update ###

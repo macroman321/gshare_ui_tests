@@ -21,6 +21,7 @@ function LoginPage (world) {
   this.loginButton = '[type="submit"]'
   this.incorrectPasswordMsgDiv = '[class="gc-notification__message"]'
   this.minEightSymbolsMsgDiv = '[class="gc-input__message"]'
+  this.loginHeader = '[class="gc-heading"]'
 }
 
 // Inherit everything from Page
@@ -51,22 +52,31 @@ LoginPage.prototype.loginWithUsernameAndWithoutRememberMe = async function (user
   await this.clickLoginButton()
 }
 
-LoginPage.prototype.loginWithCustomPassword = async function (user, password) {
+LoginPage.prototype.enterUserInfo = async function (user, password) {
   await this.logoutIfLoggedIn()
   await this.enterEmail(user.email)
   await this.enterPassword(password)
   await this.uncheckRememberMe()
-  await this.clickLoginButton()
 }
 
 LoginPage.prototype.verifyErrorMessagesMatch = async function (errMessage) {
   let elementValue
+  // if ((await this.app.client.waitForVisible(this.incorrectPasswordMsgDiv, mediumTimeout)) === true) {
+  //   elementValue = await this.app.client.getText(this.incorrectPasswordMsgDiv)
+  // } else if ((await this.app.client.isVisible(this.minEightSymbolsMsgDiv, mediumTimeout)) === true) {
+  //   elementValue = await this.app.client.getValue(this.minEightSymbolsMsgDiv)
+  // }
 
-  // TODO: Continue here when CMA-968 gets fixed
-  if ((await this.app.client.waitForVisible(this.incorrectPasswordMsgDiv, mediumTimeout)) === true) {
+  // console.log(elementValue)
+  //
+  try {
+    await this.clickLoginButton()
+    await this.app.client.waitForVisible(this.incorrectPasswordMsgDiv, mediumTimeout)
     elementValue = await this.app.client.getText(this.incorrectPasswordMsgDiv)
-  } else if ((await this.app.client.waitForVisible(this.minEightSymbolsMsgDiv, mediumTimeout)) === true) {
-    elementValue = await this.app.client.getValue(this.minEightSymbolsMsgDiv)
+  } catch (e) {
+    await this.app.client.click(this.loginHeader)
+    await this.app.client.waitForVisible(this.minEightSymbolsMsgDiv, mediumTimeout)
+    elementValue = await this.app.client.getText(this.minEightSymbolsMsgDiv)
   }
 
   if (errMessage !== elementValue) {

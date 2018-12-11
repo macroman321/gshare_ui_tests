@@ -43,7 +43,7 @@ When('I enter email for {string} and password {string}', async function (userId,
   const user = TestData.getUser(userId)
   this.logger.debug(`user = ${JSON.stringify(user)}`)
 
-  await this.page.loginPage.loginWithCustomPassword(user, password)
+  await this.page.loginPage.enterUserInfo(user, password)
 })
 
 Then('I should see login has failed with {string}', async function (errMessage) {
