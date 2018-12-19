@@ -6,4 +6,4 @@
 #
 ###
 
-gshare_client: '/opt/GShare/gshare-app'
+gshare_client: '/usr/local/bin/gshare-util'
