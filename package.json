@@ -18,6 +18,7 @@
     "cucumber": "^3.2.1",
     "js-yaml": "^3.11.0",
     "logplease": "^1.2.14",
+    "node-cmd": "^3.0.0",
     "spectron": "^3.7.2",
     "username": "^3.0.0"
   },
